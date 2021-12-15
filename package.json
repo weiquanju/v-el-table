@@ -1,6 +1,13 @@
 {
-  "name": "vue-project",
-  "version": "0.0.0",
+  "name": "v-el-table",
+  "version": "1.0.0",
+  "description": "Official router for Vue.js 2",
+  "author": "weiquanju",
+  "license": "MIT",
+  "module": "src/components/install.ts",
+  "files": [
+    "src/components"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -10,13 +17,11 @@
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.vue",
     "prepare": "husky install"
   },
-  "dependencies": {
-    "vue": "^3.2.14"
-  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.1.1",
     "husky": "^7.0.4",
@@ -25,6 +30,7 @@
     "stylelint-config-recommended-vue": "^1.0.0",
     "typescript": "~4.3.5",
     "vite": "^2.6.3",
+    "vue": "^3.2.24",
     "vue-tsc": "^0.3.0"
   }
 }
