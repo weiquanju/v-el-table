@@ -26,7 +26,7 @@ export type ElFormItemProps<M = Model> = {
   labelWidth?: string | number
   prop?: string & keyof M
   required?: boolean
-  rules?: PropType<FormItemRule | FormItemRule[]>
+  rules?: FormItemRule | FormItemRule[]
   error?: string
   validateStatus?: string
   for?: string
@@ -37,12 +37,14 @@ export type ElFormItemProps<M = Model> = {
 
 export type EventsHandlers = Record<string, (...args: any[]) => void>
 
+export type Component = string | VNode | DefineComponent
+
 export type FormItemProps = {
   itemProps?: ElFormItemProps
   inputProps?: Record<string, any>
-  inputComponent: string | VNode
+  inputComponent: Component
   inputEvents?: EventsHandlers
-  children?: VNode | VNode[] | string | Record<string, (...args: any[]) => VNode>
+  children?: string | VNode | VNode[] | Record<string, (...args: any[]) => VNode>
   visible?: boolean
   remoteHandler?: <Return = Promise<any>>(itemContext: FormItemProps) => Return
   remoteParams?: object

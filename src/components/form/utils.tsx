@@ -12,6 +12,7 @@ import {
   ElColorPicker,
   ElCalendar,
 } from 'element-plus'
+import { DefineComponent } from 'vue'
 import { FormProps, FormItemProps, ComponentName, EventsHandlers } from './interfaces'
 
 export const toPascalNameStyle = (str: string) =>
@@ -32,111 +33,59 @@ export const eventsTransform = (handlers?: EventsHandlers) => {
   return Object.fromEntries(map)
 }
 
-export const isComponentName = (name: string): name is ComponentName =>
-  [
-    'ElCalendar',
-    'ElSelect',
-    'ElInput',
-    'ElSwitch',
-    'ElCheckboxGroup',
-    'ElCheckbox',
-    'ElTimeSelect',
-    'ElTimePicker',
-    'ElDatePicker',
-    'ElRadioGroup',
-    'ElSlider',
-    'ElColorPicker',
-  ].includes(name)
+const mapComponents = {
+  ElSelect,
+  ElInput,
+  ElSwitch,
+  ElCheckboxGroup,
+  ElCheckbox,
+  ElTimeSelect,
+  ElTimePicker,
+  ElDatePicker,
+  ElRadioGroup,
+  ElSlider,
+  ElColorPicker,
+  ElCalendar,
+}
+
+export const isComponentName = (name: string): name is ComponentName => Object.keys(mapComponents).includes(name)
 
 export const inputRender = (field: FormItemProps, formProps: FormProps) => {
-  if (typeof field.inputComponent !== 'string') {
-    return <component is={field.inputComponent} />
-  }
   const { prop, label = '' } = field?.itemProps || {}
   if (!prop) {
     throw new Error(`${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`)
   }
   const { model } = formProps.form
-  const name = toPascalNameStyle(field.inputComponent)
-  if (!isComponentName(name)) {
-    throw new Error(`Error component name: ${name} .`)
-  }
   const { inputProps = {}, remoteHandler, children = '' } = field
+
   if (remoteHandler) {
     remoteHandler(field)
   }
-  switch (name) {
-    case 'ElInput':
-      return (
-        <ElInput {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElInput>
-      )
-    case 'ElCalendar':
-      return (
-        <ElCalendar {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElCalendar>
-      )
-    case 'ElSwitch':
-      return (
-        <ElSwitch {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElSwitch>
-      )
-    case 'ElCheckboxGroup':
-      return (
-        <ElCheckboxGroup {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElCheckboxGroup>
-      )
-    case 'ElCheckbox':
-      return (
-        <ElCheckbox {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElCheckbox>
-      )
-    case 'ElSelect':
-      return (
-        <ElSelect {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElSelect>
-      )
-    case 'ElTimePicker':
-      return (
-        <ElTimePicker {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElTimePicker>
-      )
-    case 'ElTimeSelect':
-      return (
-        <ElTimeSelect {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElTimeSelect>
-      )
-    case 'ElDatePicker':
-      return (
-        <ElDatePicker {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElDatePicker>
-      )
-    case 'ElRadioGroup':
-      return (
-        <ElRadioGroup {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElRadioGroup>
-      )
-    case 'ElSlider':
-      return (
-        <ElSlider {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElSlider>
-      )
-    case 'ElColorPicker':
-      return (
-        <ElColorPicker {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-          {children}
-        </ElColorPicker>
-      )
+
+  // 如果是字符串类型
+  if (typeof field.inputComponent === 'string') {
+    const name = toPascalNameStyle(field.inputComponent)
+    if (!isComponentName(name)) {
+      throw new Error(`Error component name: ${name} .`)
+    }
+    const Component = mapComponents[name]
+    return (
+      <Component {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
+        {children}
+      </Component>
+    )
   }
+
+  // 如果是组件类型
+  if (isComponentName((field.inputComponent as DefineComponent).name)) {
+    const Component = field.inputComponent as DefineComponent
+    return (
+      <Component {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
+        {children}
+      </Component>
+    )
+  }
+
+  // 是VNode类型
+  return field.inputComponent
 }
