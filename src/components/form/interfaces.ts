@@ -1,7 +1,7 @@
-import { Component, DefineComponent, VNode } from 'vue'
+import { DefineComponent, VNode } from 'vue'
 import { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import { ComponentSize } from 'element-plus/lib/utils/types'
-import { EventsHandlers, ObjectType } from '../interfaces'
+import { EventsHandlers, ObjectType, ComponentType } from '../interfaces'
 
 export type ElFormProps<M = ObjectType> = {
   model: M
@@ -37,7 +37,7 @@ export type ElFormItemProps<M = ObjectType> = {
 export type FormItemProps = {
   itemProps?: ElFormItemProps
   inputProps?: Record<string, any>
-  inputComponent: Component
+  inputComponent: ComponentType
   inputEvents?: EventsHandlers
   children?: string | VNode | VNode[] | Record<string, (...args: any[]) => VNode>
   visible?: boolean
