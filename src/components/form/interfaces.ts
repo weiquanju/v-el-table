@@ -1,10 +1,9 @@
-import { DefineComponent, VNode } from 'vue'
+import { Component, DefineComponent, VNode } from 'vue'
 import { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import { ComponentSize } from 'element-plus/lib/utils/types'
+import { EventsHandlers, ObjectType } from '../interfaces'
 
-type Model = Record<string, any> | any
-
-export type ElFormProps<M = Model> = {
+export type ElFormProps<M = ObjectType> = {
   model: M
   rules?: Partial<Record<string, FormItemRule | FormItemRule[]>>
   labelPosition?: string
@@ -21,7 +20,7 @@ export type ElFormProps<M = Model> = {
   scrollToError?: boolean
 }
 
-export type ElFormItemProps<M = Model> = {
+export type ElFormItemProps<M = ObjectType> = {
   label?: string
   labelWidth?: string | number
   prop?: string & keyof M
@@ -34,10 +33,6 @@ export type ElFormItemProps<M = Model> = {
   showMessage?: boolean
   size?: ComponentSize
 }
-
-export type EventsHandlers = Record<string, (...args: any[]) => void>
-
-export type Component = string | VNode | DefineComponent
 
 export type FormItemProps = {
   itemProps?: ElFormItemProps
