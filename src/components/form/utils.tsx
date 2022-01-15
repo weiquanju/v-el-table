@@ -12,8 +12,9 @@ import {
   ElColorPicker,
   ElCalendar,
 } from 'element-plus'
-import { DefineComponent } from 'vue'
-import { FormProps, FormItemProps, ComponentName, EventsHandlers } from './interfaces'
+import { DefineComponent, h, FunctionalComponent, defineAsyncComponent } from 'vue'
+import { EventsHandlers, Setup } from '../interfaces'
+import { FormProps, FormItemProps, ComponentName } from './interfaces'
 
 export const toPascalNameStyle = (str: string) =>
   str.replace(/[-_ ](\w)|(^\w)/g, (all, one) => {
@@ -48,6 +49,11 @@ const mapComponents = {
   ElCalendar,
 }
 
+export const isComponent = (componentLike: unknown): componentLike is DefineComponent =>
+  typeof (componentLike as { setup: Setup }).setup === 'function'
+export const isFunctionComponent = (componentLike: unknown): componentLike is FunctionalComponent | typeof defineAsyncComponent =>
+  typeof componentLike === 'function'
+
 export const isComponentName = (name: string): name is ComponentName => Object.keys(mapComponents).includes(name)
 
 export const inputRender = (field: FormItemProps, formProps: FormProps) => {
@@ -77,8 +83,8 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
   }
 
   // 如果是组件类型
-  if (isComponentName((field.inputComponent as DefineComponent).name)) {
-    const Component = field.inputComponent as DefineComponent
+  if (isFunctionComponent(field.inputComponent) || isComponent(field.inputComponent)) {
+    const Component = field.inputComponent as DefineComponent | FunctionalComponent | typeof defineAsyncComponent
     return (
       <Component {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
         {children}
@@ -86,6 +92,10 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     )
   }
 
-  // 是VNode类型
-  return field.inputComponent
+  // JSX 或 VNode
+  return h(
+    field.inputComponent as DefineComponent | JSX.Element,
+    { ...inputProps, ...eventsTransform(field.inputEvents), modelValue: model[prop] },
+    children,
+  )
 }
