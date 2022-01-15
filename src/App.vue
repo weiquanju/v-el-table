@@ -1,10 +1,14 @@
 <script setup lang="tsx">
 import Form from './components/form'
 import { FormProps } from './components/form/interfaces'
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { ElInput } from 'element-plus';
-const config: FormProps = reactive({
-  form: { model: { name: 'zhangsan', num: 1 } },
+
+const model = ref({ name: 'zhangsan', num: 1 })
+const config = reactive({
+  form: {
+    model: model
+  },
   fields: [
     {
       itemProps: { prop: 'name', label: '姓名' },
@@ -21,9 +25,17 @@ const config: FormProps = reactive({
       inputEvents: {
         change: (...args: any) => console.log(...args)
       }
+    },
+    {
+      itemProps: { prop: 'name', label: '姓名' },
+      inputComponent: <ElInput type="input" modelValue={model.value.name}></ElInput>,
+      inputProps: { type: 'text', placeholder: 'Please input' },
+      inputEvents: {
+        change: (...args: any) => console.log(...args)
+      }
     }
   ]
-})
+} as FormProps)
 </script>
 
 <template>
