@@ -1,6 +1,7 @@
 import { FormProps } from './interfaces'
 import { ElForm, ElFormItem } from 'element-plus'
-import { eventsTransform, inputRender } from './utils'
+import { inputRender } from './utils'
+import { eventsTransform } from '../utils'
 
 export default function Form(props: FormProps) {
   const children = props.fields
