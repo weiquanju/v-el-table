@@ -15,6 +15,7 @@ dist-ssr
 
 /cypress/videos/
 /cypress/screenshots/
+table-origin
 
 # Editor directories and files
 .vscode
