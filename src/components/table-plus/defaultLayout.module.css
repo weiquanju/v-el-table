@@ -1,0 +1,23 @@
+.tp{
+    display: flex;
+    flex-direction: column;
+}
+
+.tpHeader{
+    display: flex;
+    justify-content: space-between;
+}
+.tpTitle{
+    font-weight: bold;
+}
+.tpBtn{
+    display: flex;
+}
+
+.tpTable{
+    width: 100%;
+}
+.tpPagination{
+    display: flex;
+    justify-content: flex-end;
+}
