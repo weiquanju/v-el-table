@@ -46,6 +46,8 @@ export type FormItemProps = {
 } & Record<string, any>
 
 export type FormProps = {
+  class?: string | CSSModuleClasses
+  style?: string | CSSModuleClasses
   form: ElFormProps
   events?: EventsHandlers
   fields: FormItemProps[]
