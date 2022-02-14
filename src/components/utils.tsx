@@ -55,7 +55,7 @@ export const resetValue = (formData: any) => {
  * onst obj = { a: { b: { c: 1 } } }
  * console.log(at(path, obj))
  */
-export const at = (path: string, obj: any, onError: (msg: string) => void) => {
+export const at = (path: string, obj: any) => {
   const parts = path.split('.')
   let result = obj
   try {
@@ -63,7 +63,7 @@ export const at = (path: string, obj: any, onError: (msg: string) => void) => {
       result = result[parts[i]]
     }
     return result
-  } catch {
-    onError('获取数据失败')
+  } catch (error) {
+    console.error(error)
   }
 }
