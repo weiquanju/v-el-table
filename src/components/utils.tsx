@@ -49,3 +49,21 @@ export const resetValue = (formData: any) => {
   }
   return formData
 }
+/**
+ * @example
+ * const path = 'a.b.c'
+ * onst obj = { a: { b: { c: 1 } } }
+ * console.log(at(path, obj))
+ */
+export const at = (path: string, obj: any, onError: (msg: string) => void) => {
+  const parts = path.split('.')
+  let result = obj
+  try {
+    for (let i = 0; i < parts.length; i++) {
+      result = result[parts[i]]
+    }
+    return result
+  } catch {
+    onError('获取数据失败')
+  }
+}
