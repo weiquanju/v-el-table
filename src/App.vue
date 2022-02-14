@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import Form from './components/form'
 import Table from './components/table'
-import TablePlus from './components/table-plus'
+import TablePlus from './components/tablePlus'
 import { FormProps } from './components/form/interfaces'
 import { reactive, ref, SetupContext } from 'vue';
 import { ElInput } from 'element-plus';
