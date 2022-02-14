@@ -28,11 +28,8 @@ export default (props: TablePlusProps, ctx: SetupContext) => {
 
   const query = async () => {
     const data = await props.query(queryParams)
-    if (props.responsePath) {
-      props.tableProps.table.data = at(props.responsePath, data, (msg: string) => console.log(msg))
-    } else {
-      props.tableProps.table.data = data
-    }
+    const res = (props.responsePath && at(props.responsePath, data, (msg: string) => console.error(msg))) || data
+    res && (props.tableProps.table.data = res)
   }
 
   const slots = {
