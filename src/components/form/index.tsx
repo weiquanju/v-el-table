@@ -35,7 +35,7 @@ export default function Form(props: FormProps) {
       inline={props.form.inline}
       inlineMessage={props.form.inlineMessage}
       statusIcon={props.form.statusIcon}
-      v-model={props.form.model}
+      v-model:model={props.form.model}
       {
         /**
          * @link https://github.com/vuejs/jsx-next/issues/217#issuecomment-743046201 How to use v-bind without arguments in jsx?
