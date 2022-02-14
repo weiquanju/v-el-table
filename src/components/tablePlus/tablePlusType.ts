@@ -10,6 +10,12 @@ export interface PaginationProps {
   total: number
 }
 
+export interface DataPath {
+  data: string
+  currentPage: string
+  total: string
+}
+
 export type QueryFnType<T = any> = (formAndPage: any & { currentPage: number; pageSize: number }) => Promise<T>
 
 export interface TablePlusProps {
@@ -19,7 +25,7 @@ export interface TablePlusProps {
   formProps: FormProps
   tableProps: TableBasicProps
   query: QueryFnType
-  responsePath?: string
+  responsePath?: DataPath
   extraQueryParams?: any
   buttons?: {
     query?: string

@@ -77,7 +77,9 @@ const tablePlusConfig = reactive({
   query: (data: any) => {
     console.log('query', data)
     return Promise.resolve({
-      data: [{ id: 1, value: 'Hello list item!' }]
+      data: [{ id: 1, value: 'Hello list item!' }],
+      total: 40,
+      page: data.currentPage,
     })
   },
   responsePath: 'data',

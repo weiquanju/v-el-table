@@ -1,10 +1,10 @@
-import { h, SetupContext } from 'vue'
+import { h, reactive, SetupContext } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
 import { TablePlusProps } from './tablePlusType'
-import { at, toCamelCaseProp } from '../utils'
-import { paginationDefault } from './config'
+import { at, eventsTransform, toCamelCaseProp } from '../utils'
+import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './defaultLayout'
 import { getDefaultButtons } from './defaultButton'
 
@@ -17,19 +17,31 @@ import { getDefaultButtons } from './defaultButton'
 export default (props: TablePlusProps, ctx: SetupContext) => {
   const propsCamelCase = toCamelCaseProp(props) as TablePlusProps
 
-  const pagination = Object.assign(paginationDefault, props.pagination)
+  const pagination = reactive(Object.assign(paginationDefault, props.pagination))
 
-  const queryParams = {
+  const getQueryParams = () => ({
     pageSize: pagination.pageSize,
     currentPage: pagination.currentPage,
     ...propsCamelCase.formProps.form.model,
     ...(propsCamelCase.extraQueryParams || {}),
-  }
+  })
 
   const query = async () => {
-    const data = await props.query(queryParams)
-    const res = (props.responsePath && at(props.responsePath, data, (msg: string) => console.error(msg))) || data
+    // 文件路径配置
+    const path = Object.assign({}, dataPath, propsCamelCase.responsePath)
+
+    const data = await props.query(getQueryParams())
+    const res = (props.responsePath && at(path.data, data)) || data
     res && (props.tableProps.table.data = res)
+    const total = at(path.total, data) || 0
+    const currentPage = at(path.currentPage, data) || 1
+    pagination.total = total
+    pagination.currentPage = currentPage
+  }
+
+  const paginationEvents = {
+    sizeChange: query,
+    currentChange: query,
   }
 
   const slots = {
@@ -44,6 +56,7 @@ export default (props: TablePlusProps, ctx: SetupContext) => {
         pageSizes={pagination.pageSizes}
         layout={pagination.layout}
         total={pagination.total}
+        {...eventsTransform(paginationEvents)}
       />
     ),
   }
