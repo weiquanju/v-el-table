@@ -9,7 +9,7 @@ export type ColumnSlots = {
   [name: string]: Slots
 }
 
-export interface TableBasicProp<T = any> {
+export interface TableBasicProps<T = any> {
   tableEvents?: EventsHandlers
   columns: Partial<TableColumnCtx<T>>[]
   columnSlots?: ColumnSlots
