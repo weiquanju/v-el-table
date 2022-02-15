@@ -1,13 +1,28 @@
 {
   "name": "v-el-table",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha.0",
   "description": "Official router for Vue.js 2",
-  "author": "weiquanju",
-  "license": "MIT",
-  "module": "src/components/install.ts",
-  "files": [
-    "src/components"
+  "author": "anbine@qq.com",
+  "homepage": "https://element-plus.org/",
+  "keywords": [
+    "v-el-table",
+    "table",
+    "form",
+    "element-plus",
+    "ui",
+    "vue"
   ],
+  "license": "MIT",
+  "files": ["dist","src/index.d.ts"],
+  "main": "./dist/v-el-table.umd.js",
+  "module": "./dist/v-el-table.es.js",
+  "style": "dist/style.css",
+  "exports": {
+    ".": {
+      "import": "./dist/v-el-table.es.js",
+      "require": "./dist/v-el-table.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -17,12 +32,25 @@
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.vue",
     "prepare": "husky install"
   },
+  "types": "src/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+github.com:weiquanju/v-el-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/weiquanju/v-el-table/issues"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.0.2",
+    "vue": "^3.2.31"
+  },
+  "dependencies":{
+    "@element-plus/icons-vue": "^0.2.7"
+  },
   "devDependencies": {
-    "@element-plus/icons-vue": "^0.2.7",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vitejs/plugin-vue-jsx": "^1.3.3",
-    "element-plus": "^2.0.2",
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -33,7 +61,6 @@
     "stylelint-config-recommended-vue": "^1.0.0",
     "typescript": "~4.3.5",
     "vite": "^2.6.3",
-    "vue": "^3.2.31",
     "vue-tsc": "^0.3.0"
   }
 }
