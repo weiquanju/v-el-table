@@ -52,7 +52,7 @@ export const resetValue = (formData: any) => {
 /**
  * @example
  * const path = 'a.b.c'
- * onst obj = { a: { b: { c: 1 } } }
+ * const obj = { a: { b: { c: 1 } } }
  * console.log(at(path, obj))
  */
 export const at = (path: string, obj: any) => {
