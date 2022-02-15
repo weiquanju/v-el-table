@@ -1,7 +1,8 @@
 import { DefineComponent, VNode } from 'vue'
 import { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
-import { ComponentSize } from 'element-plus/lib/utils/types'
 import { EventsHandlers, ObjectType, ComponentType } from '../interfaces'
+
+export type ComponentSize = 'default' | 'small' | 'large'
 
 export type ElFormProps<M = ObjectType> = {
   model: M
