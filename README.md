@@ -4,22 +4,6 @@ vue element table component
 ## Install 
 
 ```sh
-npm i a-table
-```
-## Development
-
-```sh
-npm install
+npm i v-el-table
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```

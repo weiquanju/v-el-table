@@ -1,9 +1,9 @@
 {
   "name": "v-el-table",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Official router for Vue.js 2",
   "author": "anbine@qq.com",
-  "homepage": "https://element-plus.org/",
+  "homepage": "https://github.com/weiquanju/v-el-table",
   "keywords": [
     "v-el-table",
     "table",
