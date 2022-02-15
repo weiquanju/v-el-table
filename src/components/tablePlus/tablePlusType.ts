@@ -36,3 +36,7 @@ export interface TablePlusProps {
     delete?: string
   }
 }
+
+type TablePlus = DefineComponent<TablePlusProps>
+
+export default TablePlus
