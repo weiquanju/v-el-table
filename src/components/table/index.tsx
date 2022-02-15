@@ -4,7 +4,7 @@ import { eventsTransform } from '../utils'
 import columnRender from './columnRender'
 import { TableBasicProps } from './TableType'
 
-export default ({ tableEvents = {}, table, columns, columnSlots = {} }: TableBasicProps, { slots: { append } }: SetupContext) => {
+export default function Table({ tableEvents = {}, table, columns, columnSlots = {} }: TableBasicProps, { slots: { append } }: SetupContext) {
   const slots = {
     default: (scope: any) => columnRender({ columns: columns as any, slots: columnSlots }),
     append: append,
