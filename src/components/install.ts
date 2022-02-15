@@ -1,15 +1,17 @@
 import { App, FunctionalComponent } from 'vue'
 import HelloWorld from './HelloWorld.vue'
-import Form from './form'
-import Table from './table'
-import TablePlus from './tablePlus'
+import VElForm from './form'
+import VElTable from './table'
+import VElTablePlus from './tablePlus'
+
+export { VElForm, VElTable, VElTablePlus }
 
 export default {
   install: (app: App<Element>, options: any) => {
     app.provide('HelloWorld', options)
     app.component('HelloWorld', HelloWorld)
-    app.component('VElForm', Form)
-    app.component('VElTable', Table as FunctionalComponent)
-    app.component('VElTablePlus', TablePlus as FunctionalComponent)
+    app.component('VElForm', VElForm)
+    app.component('VElTable', VElTable as FunctionalComponent)
+    app.component('VElTablePlus', VElTablePlus as FunctionalComponent)
   },
 }

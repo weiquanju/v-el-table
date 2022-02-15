@@ -1,6 +1,7 @@
-import VElFrom, { ElFormProps, ElFormItemProps, FormProps, ComponentName } from './components/form/interfaces.ts'
-import TableBasic, { FormatterArgArray, FormatterArgObject, TableBasicProps, ColumnSlots, Slots, Slot } from './components/table/TableType.ts'
-import TablePlus, { TablePlusProps, QueryFnType, DataPath, PaginationProps } from './components/tablePlus/tablePlusType.ts'
+import { App } from 'vue'
+import VElFrom, { ElFormProps, ElFormItemProps, FormProps, ComponentName } from './components/form/interfaces'
+import TableBasic, { FormatterArgArray, FormatterArgObject, TableBasicProps, ColumnSlots, Slots, Slot } from './components/table/TableType'
+import TablePlus, { TablePlusProps, QueryFnType, DataPath, PaginationProps } from './components/tablePlus/tablePlusType'
 export declare namespace VElTable {
   export default TableBasic
   export { FormatterArgArray, FormatterArgObject, TableBasicProps, ColumnSlots, Slots, Slot }
@@ -16,4 +17,6 @@ export declare namespace VElTablePlus {
   export { TablePlusProps, QueryFnType, DataPath, PaginationProps }
 }
 
-export default { VElTable, VElFrom, VElTablePlus }
+export { VElTable, VElFrom, VElTablePlus }
+
+export default (app: App<Element>, options: any) => void 0
