@@ -3,7 +3,7 @@ import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
 
-export default function Form(props: FormProps) {
+export default function VElForm(props: FormProps) {
   const children = props.fields
     .filter(({ visible = true }) => visible)
     .map((field) => {

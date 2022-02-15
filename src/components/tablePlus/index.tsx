@@ -14,7 +14,7 @@ import { getDefaultButtons } from './defaultButton'
  * 支持CURD
  * 组件插槽支持
  */
-export default (props: TablePlusProps, ctx: SetupContext) => {
+export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
   const propsCamelCase = toCamelCaseProp(props) as TablePlusProps
 
   const pagination = reactive(Object.assign(paginationDefault, props.pagination))
