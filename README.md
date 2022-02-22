@@ -1,12 +1,14 @@
-<p algin="center">
+<p>
     <img src="./public/zip.png" height="48px" width="auto" />
 </p>
-<p algin="center">
-    V-El-Table - vue element table component  
-    <a href="https://www.npmjs.com/package/v-el-table">
-        <img src="https://img.shields.io/badge/npm-0.1.0--alpha.6-brightgreen">
-    </a>
-</p>
+
+# V-El-Table
+    
+vue element table component 
+
+<a href="https://www.npmjs.com/package/v-el-table">
+    <img src="https://img.shields.io/badge/npm-0.1.0--alpha.6-brightgreen">
+</a>
 
 
 ## Getting Started
