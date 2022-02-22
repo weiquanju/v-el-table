@@ -1,10 +1,8 @@
-<p>
-    <img src="./public/zip.png" height="48px" width="auto" />
-</p>
-
 # V-El-Table
+
+<img src="./public/zip.png" height="48px" width="auto" />
     
-vue element table component 
+A easy and rich table plugin of Vue extends from Element Plus.
 
 <a href="https://www.npmjs.com/package/v-el-table">
     <img src="https://img.shields.io/badge/npm-0.1.0--alpha.6-brightgreen">
