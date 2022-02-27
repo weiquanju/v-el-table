@@ -1,6 +1,6 @@
 import { ElButton } from 'element-plus'
 import { Search, CircleClose, SetUp, CirclePlus /**, Delete, Edit */ } from '@element-plus/icons-vue'
-import { TablePlusProps } from './tablePlusType'
+import { TablePlusProps } from '.'
 import { resetValue, eventsTransform, at } from '../utils'
 
 export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; query: () => void }) => {

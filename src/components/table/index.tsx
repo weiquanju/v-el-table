@@ -2,7 +2,7 @@ import { ElTable } from 'element-plus'
 import { SetupContext } from 'vue'
 import { eventsTransform } from '../utils'
 import columnRender from './columnRender'
-import { TableBasicProps } from './TableType'
+import { TableBasicProps } from '../table/index.d'
 
 export default function VElTable({ tableEvents = {}, table, columns, columnSlots = {} }: TableBasicProps, { slots: { append } }: SetupContext) {
   const slots = {

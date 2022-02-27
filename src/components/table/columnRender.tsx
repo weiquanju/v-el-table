@@ -1,6 +1,6 @@
 import { ElTableColumn } from 'element-plus'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
-import { ColumnSlots } from './TableType'
+import { ColumnSlots } from '../table/index.d'
 
 function columnRender<T = any>({ columns, slots }: { columns: TableColumnCtx<T>[]; slots?: ColumnSlots }) {
   return columns.map((column) => {

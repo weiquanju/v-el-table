@@ -1,6 +1,6 @@
 import { DefineComponent, FunctionalComponent } from 'vue'
 import { FormProps } from '../form/interfaces'
-import { TableBasicProps } from '../table/TableType'
+import { TableBasicProps } from '../table/index.d'
 
 export interface PaginationProps {
   currentPage: number
