@@ -3,8 +3,10 @@ import VElFrom from './form/interfaces'
 import VElTable from './table/TableType'
 import VElTablePlus from './tablePlus/tablePlusType'
 
-function install(app: App<Element>, options: any): void
+interface VElTablePlugin {
+  install: (app: App<Element>, options: any) => void
+}
 
-export default { install }
+export default VElTablePlugin
 
 export { VElTable, VElFrom, VElTablePlus }
