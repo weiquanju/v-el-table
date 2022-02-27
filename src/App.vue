@@ -1,10 +1,12 @@
 <script setup lang="tsx">
 import Form from './components/form'
-import Table from './components/table'
+import TableBasic from './components/table'
 import TablePlus from './components/tablePlus'
 import { FormProps } from './components/form/interfaces'
 import { reactive, ref, SetupContext } from 'vue';
 import { ElInput } from 'element-plus';
+
+
 
 const model = ref({ name: 'zhangsan', num: 1 })
 const config = reactive({
@@ -39,8 +41,10 @@ const config = reactive({
   ]
 } as FormProps)
 
+
+type DataType = { id: number; value: string }
 const tableProps = reactive({
-  table: { data: [{ id: 1, value: 'Hello table!' }] },
+  table: { data: [{ id: 1, value: 'Hello table!' } as DataType], tableLayout: 'fixed' as 'fixed' | 'auto' },
   columns: [
     { prop: 'id', label: 'id' },
     { prop: 'value', label: '值' },
@@ -131,7 +135,8 @@ const tablePlusConfig = reactive({
   <hr />
   <TablePlus :layout="Layout" v-bind="tablePlusConfig">Hello</TablePlus>
   <hr />
-  <Table v-bind="tableProps"></Table>
+  <!-- <TableBasic :columns="tableProps.columns" :column-slots="tableProps.columnSlots" :table="tableProps.table"></TableBasic> -->
+    <TableBasic v-bind="tableProps"></TableBasic>
   <hr />
   <Form v-bind="config"></Form>
 </template>
