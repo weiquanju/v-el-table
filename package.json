@@ -45,12 +45,11 @@
     "url": "https://github.com/weiquanju/v-el-table/issues"
   },
   "peerDependencies": {
+    "@element-plus/icons-vue": "^0.2.7",
     "element-plus": "^2.0.2",
     "vue": "^3.2.31"
   },
-  "dependencies": {
-    "@element-plus/icons-vue": "^0.2.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^17.0.18",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
