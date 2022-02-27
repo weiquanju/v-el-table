@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, 'src/components/install.ts'),
+      entry: path.resolve(__dirname, 'src/components/index.ts'),
       name: 'v-el-table',
       fileName: (format) => `v-el-table.${format}.js`,
     },
@@ -18,8 +18,6 @@ export default defineConfig({
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
           vue: 'Vue',
-          'element-plus': 'ElementPlus',
-          '@element-plus/icons-vue': 'ElementPlusIcon',
         },
       },
     },
