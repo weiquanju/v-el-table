@@ -30,7 +30,7 @@ const config = reactive({
     },
     {
       itemProps: { prop: 'name', label: '姓名' },
-      inputComponent: <ElInput type="input" modelValue={model.value.name}></ElInput>,
+      inputComponent: () => <ElInput type="input" modelValue={model.value.name}></ElInput>,
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
         change: (...args: any) => console.log(...args)
@@ -104,7 +104,7 @@ const tablePlusConfig = reactive({
   formProps: {
     form: {
       model: {
-        id:'1',
+        id: '1',
         value: ''
       }
     },
@@ -128,10 +128,10 @@ const tablePlusConfig = reactive({
 <template>
   <TablePlus v-bind="tablePlusConfig">Hello</TablePlus>
   <!--@todo markdown文档方式展示说明示例。目前使用 hr 进行特性示例分割 -->
-  <hr/>
+  <hr />
   <TablePlus :layout="Layout" v-bind="tablePlusConfig">Hello</TablePlus>
-  <hr/>
+  <hr />
   <Table v-bind="tableProps"></Table>
-  <hr/>
+  <hr />
   <Form v-bind="config"></Form>
 </template>
