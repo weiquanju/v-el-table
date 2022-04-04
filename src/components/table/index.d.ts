@@ -1,9 +1,7 @@
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 import { TableProps } from 'element-plus/lib/components/table/src/table/defaults'
 import { EventsHandlers } from '../interfaces'
-import { DefineComponent, VNode } from 'vue'
-
-export type Slot = (...args: any[]) => VNode[] | JSX.Element | VNode
+import { DefineComponent, Slot } from 'vue'
 
 export type Slots = Readonly<{ default?: Slot; header?: Slot }>
 
