@@ -1,10 +1,11 @@
 <script setup lang="tsx">
 import Form from './components/form'
-import TableBasic from './components/table'
+import Table from './components/table'
 import TablePlus from './components/tablePlus'
 import { FormProps } from './components/form/interfaces'
 import { reactive, ref, SetupContext } from 'vue';
 import { ElInput } from 'element-plus';
+import { TableColumn } from './components/table/index.d';
 
 
 
@@ -48,13 +49,15 @@ const tableProps = reactive({
   columns: [
     { prop: 'id', label: 'id' },
     { prop: 'value', label: '值' },
-    { prop: 'end', label: '操作' }
-  ],
-  columnSlots: {
-    end: {
-      default: (scope: { row: any, column: any, $index: number }) => {
+    {
+      prop: 'end', label: '操作', default: (scope: { row: DataType, column: TableColumn<DataType>, $index: number }) => {
         return <button onClick={() => console.log(scope)}>click</button>
       }
+    }
+  ] as TableColumn<DataType>[],
+  events: {
+    cellClick(...args: any[]) {
+      console.log('cellClick', ...args)
     }
   }
 })
@@ -95,13 +98,15 @@ const tablePlusConfig = reactive({
     columns: [
       { prop: 'id', label: 'id' },
       { prop: 'value', label: '值' },
-      { prop: 'end', label: '操作' }
-    ],
-    columnSlots: {
-      end: {
-        default: (scope: { row: any, column: any, $index: number }) => {
+      {
+        prop: 'end', label: '操作', default: (scope: { row: any, column: any, $index: number }) => {
           return <button onClick={() => console.log(scope)}>click</button>
         }
+      }
+    ],
+    events: {
+      'cell-click'(...args: any[]) {
+        console.log('cellClick', ...args)
       }
     }
   },
@@ -130,13 +135,12 @@ const tablePlusConfig = reactive({
 </script>
 
 <template>
-  <TablePlus v-bind="tablePlusConfig">Hello</TablePlus>
-  <!--@todo markdown文档方式展示说明示例。目前使用 hr 进行特性示例分割 -->
-  <hr />
-  <TablePlus :layout="Layout" v-bind="tablePlusConfig">Hello</TablePlus>
-  <hr />
-  <!-- <TableBasic :columns="tableProps.columns" :column-slots="tableProps.columnSlots" :table="tableProps.table"></TableBasic> -->
-    <TableBasic v-bind="tableProps"></TableBasic>
-  <hr />
-  <Form v-bind="config"></Form>
+  <!-- <h2>TablePlus</h2>
+  <TablePlus v-bind="tablePlusConfig"></TablePlus>
+  <h2>TablePlus - 自定义布局</h2>
+  <TablePlus :layout="Layout" v-bind="tablePlusConfig"></TablePlus>-->
+  <h2>Table</h2>
+  <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
+  <!-- <h2>Form</h2>
+  <Form v-bind="config"></Form>-->
 </template>
