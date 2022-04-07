@@ -3,16 +3,12 @@ import { TableProps } from 'element-plus/lib/components/table/src/table/defaults
 import { EventsHandlers } from '../interfaces'
 import { DefineComponent, Slot } from 'vue'
 
-export type Slots = Readonly<{ default?: Slot; header?: Slot }>
+export type TableColumnSlots = { default?: Slot; header?: Slot }
 
-export type ColumnSlots = {
-  [name: string]: Slots
-}
-
+export type TableColumn<T = any> = Partial<TableColumnCtx<T> & TableColumnSlots>
 export interface TableBasicProps<T = any> {
-  tableEvents?: EventsHandlers
-  columns: Partial<TableColumnCtx<T>>[]
-  columnSlots?: ColumnSlots
+  events?: EventsHandlers
+  columns: TableColumn<T>[]
   table: TableProps<T>
 }
 
