@@ -3,13 +3,13 @@ import Form from './components/form'
 import Table from './components/table'
 import TablePlus from './components/tablePlus'
 import { FormProps } from './components/form/interfaces'
-import { reactive, ref, SetupContext } from 'vue';
+import { h, reactive, ref, SetupContext } from 'vue';
 import { ElInput } from 'element-plus';
 import { TableColumn } from './components/table/index.d';
 
 
 
-const model = ref({ name: 'zhangsan', num: 1 })
+const model = ref({ name: 'User Name', num: 1 })
 const config = reactive({
   form: {
     model: model
@@ -25,7 +25,7 @@ const config = reactive({
     },
     {
       itemProps: { prop: 'name', label: '姓名' },
-      inputComponent: ElInput,
+      inputComponent: 'ElInput',
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
         change: (...args: any) => console.log(...args)
@@ -52,6 +52,8 @@ const tableProps = reactive({
     {
       prop: 'end', label: '操作', default: (scope: { row: DataType, column: TableColumn<DataType>, $index: number }) => {
         return <button onClick={() => console.log(scope)}>click</button>
+      }, header() {
+        return 'hello'
       }
     }
   ] as TableColumn<DataType>[],
@@ -103,9 +105,9 @@ const tablePlusConfig = reactive({
           return <button onClick={() => console.log(scope)}>click</button>
         }
       }
-    ],
+    ] as TableColumn<DataType>[],
     events: {
-      'cell-click'(...args: any[]) {
+      cellClick(...args: any[]) {
         console.log('cellClick', ...args)
       }
     }
@@ -132,15 +134,27 @@ const tablePlusConfig = reactive({
     ]
   }
 })
+
+function MyInputString(props: { modelValue: string }, ctx: SetupContext) {
+  return h('input', { value: props.modelValue, onInput: (e: any) => ctx.emit('update:modelValue', e.target.value) })
+}
+const name = ref('Han Meimei')
 </script>
 
 <template>
-  <!-- <h2>TablePlus</h2>
+  <h2>MyInputString</h2>
+  <MyInputString v-model="name" />
+  <div>{{ name }}</div>
+
+  <h2>TablePlus</h2>
   <TablePlus v-bind="tablePlusConfig"></TablePlus>
+
   <h2>TablePlus - 自定义布局</h2>
-  <TablePlus :layout="Layout" v-bind="tablePlusConfig"></TablePlus>-->
+  <TablePlus v-bind="tablePlusConfig" :layout="Layout"></TablePlus>
+
   <h2>Table</h2>
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
-  <!-- <h2>Form</h2>
-  <Form v-bind="config"></Form>-->
+
+  <h2>Form</h2>
+  <Form v-bind="config"></Form>
 </template>
