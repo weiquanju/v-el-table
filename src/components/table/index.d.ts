@@ -9,7 +9,7 @@ export type TableColumn<T = any> = Partial<TableColumnCtx<T> & TableColumnSlots>
 export interface TableBasicProps<T = any> {
   events?: EventsHandlers
   columns: TableColumn<T>[]
-  table: TableProps<T>
+  table: Partial<TableProps<T>>
 }
 
 export type FormatterArgObject<T = any, Cell = any> = { row: T; column: TableColumnCtx<T>; cellValue: Cell; index: number }
