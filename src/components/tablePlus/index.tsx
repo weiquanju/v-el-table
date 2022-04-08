@@ -46,11 +46,11 @@ export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
 
   const slots = {
     title: () => props.title,
-    btn: () => h(ElButtonGroup, null, getDefaultButtons({ props: props, query })), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
+    btn: () => h(ElButtonGroup, null, { default: () => getDefaultButtons({ props: props, query }) }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
     filter: () => h(Form, props.formProps),
     table: () => h(Table, props.tableProps),
     pagination: () => h(ElPagination, pagination),
   }
 
-  return h(props.layout || LayoutDefault, null, slots)
+  return h(props.layout || LayoutDefault, props.layoutProps, slots)
 }
