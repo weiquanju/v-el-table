@@ -2,49 +2,16 @@ import { FormProps } from './interfaces'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
+import { DefineComponent, h, SetupContext } from 'vue'
 
-export default function VElForm(props: FormProps) {
+export default function VElForm(props: FormProps, ctx: SetupContext) {
   const children = props.fields
     .filter(({ visible = true }) => visible)
-    .map((field) => {
-      const { itemProps = {} } = field
-      return (
-        <ElFormItem
-          label={itemProps.label}
-          labelWidth={itemProps.labelWidth}
-          required={itemProps.required}
-          rules={itemProps.rules}
-          error={itemProps.error}
-          validateStatus={itemProps.validateStatus}
-          for={itemProps.for}
-          inlineMessage={itemProps.inlineMessage}
-          showMessage={itemProps.showMessage}
-          size={itemProps.size}
-        >
-          {inputRender(field, props)}
-        </ElFormItem>
-      )
-    })
+    .map((field) => h(ElFormItem as any, field.itemProps, { default: () => inputRender(field, props) }))
 
-  return (
-    <ElForm
-      rules={props.form.rules}
-      labelPosition={props.form.labelPosition}
-      labelWidth={props.form.labelWidth}
-      labelSuffix={props.form.labelSuffix}
-      inline={props.form.inline}
-      inlineMessage={props.form.inlineMessage}
-      statusIcon={props.form.statusIcon}
-      v-model:model={props.form.model}
-      {
-        /**
-         * @link https://github.com/vuejs/jsx-next/issues/217#issuecomment-743046201 How to use v-bind without arguments in jsx?
-         * 绑定事件
-         */
-        ...eventsTransform(props.events)
-      }
-    >
-      {children}
-    </ElForm>
-  )
+  const model = (val: any) => {
+    props.form.model = val
+  }
+
+  return h(ElForm, { ...props.form, ...eventsTransform(props.events), 'onUpdate:model': model }, { default: () => children })
 }
