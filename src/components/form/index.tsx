@@ -5,7 +5,8 @@ import { eventsTransform } from '../utils'
 import { FunctionalComponent, h, SetupContext } from 'vue'
 
 const VElForm = function (props: FormProps, ctx: SetupContext) {
-  const children = props.fields
+  const { fields = [] } = props
+  const children = fields
     .filter(({ visible = true }) => visible)
     .map((field) => h(ElFormItem as any, field.itemProps, { default: () => inputRender(field, props) }))
 

@@ -4,7 +4,7 @@ import { eventsTransform } from '../utils'
 import { TableBasicProps, TableColumnSlots } from './index.d'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
 
-const VElTable = function ({ events = {}, table, columns }: TableBasicProps, { slots: { append } }: SetupContext) {
+const VElTable = function ({ events = {}, table = {}, columns = [] }: TableBasicProps, { slots: { append } }: SetupContext) {
   const slots = {
     default: () =>
       columns.map((column) => {
