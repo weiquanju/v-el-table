@@ -12,8 +12,7 @@ import {
   ElColorPicker,
   ElCalendar,
 } from 'element-plus'
-import { DefineComponent, h, FunctionalComponent, defineAsyncComponent } from 'vue'
-import { Setup } from '../interfaces'
+import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
 import { FormProps, FormItemProps, ComponentName } from './interfaces'
 
@@ -32,12 +31,9 @@ const mapComponents = {
   ElCalendar,
 }
 
-export const isComponent = (componentLike: unknown): componentLike is DefineComponent =>
-  typeof (componentLike as { setup: Setup }).setup === 'function'
-export const isFunctionComponent = (componentLike: unknown): componentLike is FunctionalComponent | typeof defineAsyncComponent =>
-  typeof componentLike === 'function'
+const componentKey = Object.keys(mapComponents)
 
-export const isComponentName = (name: string): name is ComponentName => Object.keys(mapComponents).includes(name)
+export const isComponentName = (name: string): name is ComponentName => componentKey.includes(name)
 
 export const inputRender = (field: FormItemProps, formProps: FormProps) => {
   const { prop, label = '' } = field?.itemProps || {}
@@ -45,11 +41,13 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     throw new Error(`${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`)
   }
   const { model } = formProps.form
-  const { inputProps = {}, remoteHandler, children = '' } = field
+  const { inputProps = {}, remoteHandler, children } = field
 
   if (remoteHandler) {
     remoteHandler(field)
   }
+
+  let Component: any = field.inputComponent //DefineComponent | FunctionalComponent | typeof defineAsyncComponent | ElComponent | JSX.Element | VNode
 
   // 如果是字符串类型
   if (typeof field.inputComponent === 'string') {
@@ -57,28 +55,21 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     if (!isComponentName(name)) {
       throw new Error(`Error component name: ${name} .`)
     }
-    const Component = mapComponents[name]
-    return (
-      <Component {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-        {children}
-      </Component>
-    )
+    Component = mapComponents[name]
   }
 
-  // 如果是组件类型
-  if (isFunctionComponent(field.inputComponent) || isComponent(field.inputComponent)) {
-    const Component = field.inputComponent as DefineComponent | FunctionalComponent | typeof defineAsyncComponent
-    return (
-      <Component {...inputProps} {...eventsTransform(field.inputEvents)} v-model={model[prop]}>
-        {children}
-      </Component>
-    )
+  const modelValue = (val: any) => {
+    model[prop] = val
   }
 
-  // JSX 或 VNode
   return h(
-    field.inputComponent as DefineComponent | JSX.Element,
-    { ...inputProps, ...eventsTransform(field.inputEvents), modelValue: model[prop] },
-    children,
+    Component,
+    {
+      ...inputProps,
+      ...eventsTransform(field.inputEvents),
+      modelValue: model[prop],
+      'onUpdate:modelValue': modelValue,
+    },
+    { default: () => children },
   )
 }
