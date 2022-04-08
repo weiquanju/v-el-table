@@ -1,5 +1,5 @@
 import { ElTable, ElTableColumn } from 'element-plus'
-import { h, SetupContext } from 'vue'
+import { FunctionalComponent, h, SetupContext } from 'vue'
 import { eventsTransform } from '../utils'
 import { TableBasicProps, TableColumnSlots } from './index.d'
 import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
@@ -15,5 +15,5 @@ const VElTable = function ({ events = {}, table, columns }: TableBasicProps, { s
     append: append,
   }
   return h(ElTable, { ...eventsTransform(events), ...table }, slots)
-}
+} as FunctionalComponent<TableBasicProps>
 export default VElTable
