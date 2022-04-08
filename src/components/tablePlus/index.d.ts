@@ -26,7 +26,7 @@ export interface TablePlusProps {
   tableProps: TableBasicProps
   query: QueryFnType
   responsePath?: DataPath
-  extraQueryParams?: any
+  queryParams?: any
   buttons?: {
     query?: string
     reset?: string
