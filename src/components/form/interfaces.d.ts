@@ -40,7 +40,7 @@ export type FormItemProps = {
   inputProps?: Record<string, any>
   inputComponent: ComponentType
   inputEvents?: EventsHandlers
-  children?: string | VNode | VNode[] | Record<string, (...args: any[]) => VNode>
+  children?: string | VNode[]
   visible?: boolean
   remoteHandler?: <Return = Promise<any>>(itemContext: FormItemProps) => Return
   remoteParams?: object
