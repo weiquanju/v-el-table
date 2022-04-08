@@ -1,4 +1,4 @@
-import { h, reactive, SetupContext } from 'vue'
+import { DefineComponent, h, reactive, SetupContext } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
@@ -15,20 +15,18 @@ import { getDefaultButtons } from './defaultButton'
  * 组件插槽支持
  */
 export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
-  const propsCamelCase = toCamelCaseProp(props) as TablePlusProps
-
-  const pagination = reactive(Object.assign(paginationDefault, props.pagination))
+  // const props = toCamelCaseProp(props) as TablePlusProps
 
   const getQueryParams = () => ({
     pageSize: pagination.pageSize,
     currentPage: pagination.currentPage,
-    ...propsCamelCase.formProps.form.model,
-    ...(propsCamelCase.extraQueryParams || {}),
+    ...props.formProps.form.model,
+    ...(props.queryParams || {}),
   })
 
   const query = async () => {
     // 文件路径配置
-    const path = Object.assign({}, dataPath, propsCamelCase.responsePath)
+    const path = Object.assign({}, dataPath, props.responsePath)
 
     const data = await props.query(getQueryParams())
     const res = (props.responsePath && at(path.data, data)) || data
@@ -39,26 +37,19 @@ export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
     pagination.currentPage = currentPage
   }
 
-  const paginationEvents = {
-    sizeChange: query,
-    currentChange: query,
-  }
+  const pagination = reactive(
+    Object.assign(paginationDefault, props.pagination, {
+      onSizeChange: query,
+      onCurrentChange: query,
+    }),
+  )
 
   const slots = {
     title: () => props.title,
-    btn: () => <ElButtonGroup>{getDefaultButtons({ props: propsCamelCase, query })}</ElButtonGroup>, //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
-    filter: () => <Form {...propsCamelCase.formProps} />,
-    table: () => <Table {...propsCamelCase.tableProps} />,
-    pagination: () => (
-      <ElPagination
-        v-model:currentPage={pagination.currentPage}
-        v-model:pageSize={pagination.pageSize}
-        pageSizes={pagination.pageSizes}
-        layout={pagination.layout}
-        total={pagination.total}
-        {...eventsTransform(paginationEvents)}
-      />
-    ),
+    btn: () => h(ElButtonGroup, null, getDefaultButtons({ props: props, query })), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
+    filter: () => h(Form, props.formProps),
+    table: () => h(Table, props.tableProps),
+    pagination: () => h(ElPagination, pagination),
   }
 
   return h(props.layout || LayoutDefault, null, slots)
