@@ -14,7 +14,7 @@ export const eventsTransform = (handlers?: EventsHandlers) => {
     return {} as EventsHandlers
   }
   const map = new Map<string, (...args: any[]) => void>()
-  Object.entries(handlers).forEach(([key, handler]) => map.set(`on${key.charAt(0).toUpperCase()}${key.substring(1)}`, handler))
+  Object.entries(handlers).forEach(([key, handler]) => map.set(toCamelCase(`on-${key}`), handler))
   return Object.fromEntries(map)
 }
 
@@ -29,7 +29,7 @@ export const toCamelCaseProp = (props: { [key: string]: any }) => {
   return Object.fromEntries(
     propKeys.map((key: string) => {
       const value = props[key]
-      if (propKeys.find((key) => /-/.test(key))) {
+      if (propKeys.find((key) => /[-_ ]/.test(key))) {
         return [toCamelCase(key), value]
       }
       return [key, value]
