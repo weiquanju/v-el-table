@@ -1,37 +1,9 @@
-import {
-  ElSelect,
-  ElInput,
-  ElSwitch,
-  ElCheckboxGroup,
-  ElCheckbox,
-  ElTimeSelect,
-  ElTimePicker,
-  ElDatePicker,
-  ElRadioGroup,
-  ElSlider,
-  ElColorPicker,
-  ElCalendar,
-} from 'element-plus'
+import * as ElComponents from 'element-plus/es/components'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
 import { FormProps, FormItemProps, ComponentName } from './interfaces'
 
-const mapComponents = {
-  ElSelect,
-  ElInput,
-  ElSwitch,
-  ElCheckboxGroup,
-  ElCheckbox,
-  ElTimeSelect,
-  ElTimePicker,
-  ElDatePicker,
-  ElRadioGroup,
-  ElSlider,
-  ElColorPicker,
-  ElCalendar,
-}
-
-const componentKey = Object.keys(mapComponents)
+const componentKey = Object.keys(ElComponents)
 
 export const isComponentName = (name: string): name is ComponentName => componentKey.includes(name)
 
@@ -55,7 +27,7 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     if (!isComponentName(name)) {
       throw new Error(`Error component name: ${name} .`)
     }
-    Component = mapComponents[name]
+    Component = ElComponents[name]
   }
 
   const modelValue = (val: any) => {
