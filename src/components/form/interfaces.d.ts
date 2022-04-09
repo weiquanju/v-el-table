@@ -1,4 +1,4 @@
-import { DefineComponent, VNode } from 'vue'
+import { DefineComponent, Slot, VNode } from 'vue'
 import { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
 import { EventsHandlers, ObjectType, ComponentType } from '../interfaces'
 
@@ -35,8 +35,13 @@ export type ElFormItemProps<M = ObjectType> = {
   size?: ComponentSize
 }
 
+export type ElFormItemSlots = {
+  label?: Slot
+  error?: Slot
+}
+
 export type FormItemProps = {
-  itemProps?: ElFormItemProps
+  itemProps?: ElFormItemProps & ElFormItemSlots
   inputProps?: Record<string, any>
   inputComponent: ComponentType
   inputEvents?: EventsHandlers
