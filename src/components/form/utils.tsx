@@ -1,4 +1,4 @@
-import * as ElComponents from 'element-plus/es/components'
+import * as ElComponents from 'element-plus/lib/components/index'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
 import { FormProps, FormItemProps, ComponentName } from './interfaces'
