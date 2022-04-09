@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, reactive, ref, SetupContext } from 'vue'
+import { h, onMounted, onUnmounted, reactive, ref, SetupContext } from 'vue'
 import style from './defaultLayout.module.css'
 import './defaultLayout.css'
 export const LayoutDefault = (props: never, { slots }: SetupContext) => {
@@ -13,19 +13,13 @@ export const LayoutDefault = (props: never, { slots }: SetupContext) => {
   onUnmounted(() => {
     window.removeEventListener('resize', resize)
   })
-  return (
-    <>
-      <div class={style.tp}>
-        <div class={style.tpHeader}>
-          <div class={style.tpTitle}>{slots.title && slots.title()}</div>
-          <div class={style.tpBtn}>{slots.btn && slots.btn()}</div>
-        </div>
-        <div class="tp_filter_x001" ref={box}>
-          {slots.filter && slots.filter()}
-        </div>
-        <div class={style.tpTable}>{slots.table && slots.table()}</div>
-        <div class={style.tpPagination}>{slots.pagination && slots.pagination()}</div>
-      </div>
-    </>
-  )
+  return h('div', { class: style.tp }, [
+    h('div', { class: style.tpHeader }, [
+      h('div', { class: style.tpTitle }, [slots.title && slots.title()]),
+      h('div', { class: style.tpBtn }, [slots.btn && slots.btn()]),
+    ]),
+    h('div', { class: 'tp_filter_x001', ref: box }, [slots.filter && slots.filter()]),
+    h('div', { class: style.tpTable }, [slots.table && slots.table()]),
+    h('div', { class: style.tpPagination }, [slots.pagination && slots.pagination()]),
+  ])
 }
