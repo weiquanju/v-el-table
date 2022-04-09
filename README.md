@@ -29,7 +29,7 @@ $ pnpm install v-el-table
 
 ## Usage
 
-Please follow the [documentation](http://v-el-table.anbine.com/)!
+Please follow the [documentation](https://v-el-table.anbine.com/)!
 
 The document is being written and perfected.
 
