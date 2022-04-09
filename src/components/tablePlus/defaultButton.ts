@@ -13,7 +13,6 @@ export type ButtonConfig = {
 export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; query: () => void }) => {
   const iconStyle = { width: '1em', height: '1em', marginRight: '0.3em' }
 
-  const btnSet = Object.keys(props?.buttons || {})
   const buttons: ButtonConfig[] = [
     {
       name: 'query',
