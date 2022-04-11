@@ -1,6 +1,6 @@
 import { configProviderContextKey, useGlobalConfig } from 'element-plus'
 import { Ref, watchEffect, WatchOptionsBase, WatchStopHandle } from 'vue'
-import I18N from '../I18N'
+import I18N from './I18N'
 
 /*使用ElementPlus语言配置*/
 const lang: Ref<string> = useGlobalConfig(configProviderContextKey as any, 'en')
