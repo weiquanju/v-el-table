@@ -1,3 +1,4 @@
+import { isReactive, reactive, toRef } from 'vue'
 import { EventsHandlers } from './interfaces'
 
 export const toPascalNameStyle = (str: string) =>
@@ -26,6 +27,19 @@ export const toCamelCase = (str: string) => {
 
 export const toCamelCaseProp = (props: { [key: string]: any }) => {
   const propKeys = Object.keys(props)
+  if (isReactive(props)) {
+    return reactive(
+      Object.fromEntries(
+        propKeys.map((key: string) => {
+          const value = toRef(props, key)
+          if (propKeys.find((key) => /[-_ ]/.test(key))) {
+            return [toCamelCase(key), value]
+          }
+          return [key, value]
+        }),
+      ),
+    )
+  }
   return Object.fromEntries(
     propKeys.map((key: string) => {
       const value = props[key]
