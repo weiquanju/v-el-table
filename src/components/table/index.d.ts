@@ -5,7 +5,8 @@ import { DefineComponent, Slot } from 'vue'
 
 export type TableColumnSlots = { default?: Slot; header?: Slot }
 
-export type TableColumn<T = any> = Partial<TableColumnCtx<T> & TableColumnSlots>
+export type TableColumn<T = any> = Partial<TableColumnCtx<T>> & TableColumnSlots
+
 export interface TableBasicProps<T = any> {
   events?: EventsHandlers
   columns: TableColumn<T>[]
