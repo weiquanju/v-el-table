@@ -3,7 +3,7 @@ import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
 import { TablePlusProps } from './index.d'
-import { at } from '../utils'
+import { at, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './defaultLayout'
 import { getDefaultButtons } from './defaultButton'
@@ -14,8 +14,9 @@ import { getDefaultButtons } from './defaultButton'
  * 支持CURD
  * 组件插槽支持
  */
-export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
-  // const props = toCamelCaseProp(props) as TablePlusProps
+const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
+  // console.log(Object.keys(props))
+  const props = toCamelCaseProp(p) as TablePlusProps
 
   const getQueryParams = () => ({
     pageSize: pagination.pageSize,
@@ -46,7 +47,7 @@ export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
 
   const slots = {
     title: () => props.title,
-    btn: () => h(ElButtonGroup, null, { default: () => getDefaultButtons({ props: props, query }) }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
+    btn: () => h(ElButtonGroup, null, { default: () => getDefaultButtons({ props, query }) }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
     filter: () => h(Form, props.formProps),
     table: () => h(Table, props.tableProps),
     pagination: () => h(ElPagination, pagination),
@@ -54,3 +55,4 @@ export default function VElTablePlus(props: TablePlusProps, ctx: SetupContext) {
 
   return h(props.layout || LayoutDefault, props.layoutProps, slots)
 }
+export default VElTablePlus
