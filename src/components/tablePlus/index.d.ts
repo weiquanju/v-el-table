@@ -1,6 +1,7 @@
 import { DefineComponent, FunctionalComponent } from 'vue'
 import { FormProps } from '../form/interfaces'
 import { TableBasicProps } from '../table/index.d'
+import { ButtonType, ButtonKey } from '@/components/tablePlus/defaultButton'
 
 export interface PaginationProps {
   currentPage: number
@@ -18,24 +19,18 @@ export interface DataPath {
 
 export type QueryFnType<T = any> = (formAndPage: any & { currentPage: number; pageSize: number }) => Promise<T>
 
-export interface TablePlusProps {
+export interface TablePlusProps<T = any> {
   title?: string
   layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用any兼容😂 */ any
   layoutProps?: any
   pagination?: PaginationProps
   formProps: FormProps
-  tableProps: TableBasicProps
+  tableProps: TableBasicProps<T>
   query: QueryFnType
   responsePath?: string
   queryParams?: any
-  buttons?: {
-    query?: string
-    reset?: string
-    config?: string
-    add?: string
-    edit?: string
-    delete?: string
-  }
+  includeButtons?: ButtonKey[]
+  buttons?: ButtonType[]
 }
 
 type TablePlus = DefineComponent<TablePlusProps>

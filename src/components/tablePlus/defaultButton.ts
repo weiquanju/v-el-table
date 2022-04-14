@@ -1,21 +1,38 @@
 import * as Icons from '@element-plus/icons-vue'
 import { TablePlusProps } from './index.d'
 import { resetValue, eventsTransform } from '../utils'
-import { ElButton } from 'element-plus'
+import { ButtonProps, ElButton } from 'element-plus'
 import { h, isRef, Ref } from 'vue'
 import I18N from '../I18N'
+import { Writable } from '../interfaces'
 
-export type ButtonConfig = {
+export type ButtonKey = 'query' | 'reset' | string
+
+export interface Button {
+  key: ButtonKey
+}
+
+export interface ButtonConfig extends Button {
   name: string | Ref<string>
+  buttonProps?: Partial<Writable<ButtonProps>>
   icon: keyof typeof Icons
   events?: any
 }
+export interface ButtonVNode extends Button {
+  nodeParams: any[]
+}
+
+export type ButtonType = ButtonConfig | ButtonVNode
+
+export const isButtonVNode = (button: Button): button is ButtonVNode => {
+  return 'nodeParams' in button
+}
 
 /**@todo 定义按钮组件 */
-// export type ButtonComponentc  cx               c
 export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; query: () => void }) => {
-  const buttons: ButtonConfig[] = [
+  const defaultButton: ButtonConfig[] = [
     {
+      key: 'query',
       name: I18N.t('query'),
       icon: 'Search',
       events: {
@@ -23,6 +40,7 @@ export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; que
       },
     },
     {
+      key: 'reset',
       name: I18N.t('reset'),
       icon: 'CircleClose',
       events: { click: () => resetValue(props.formProps.form.model) },
@@ -44,10 +62,25 @@ export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; que
     //   icon: 'Delete',
     // },
   ]
-  return buttons.map(({ name, icon, events = {} }) =>
-    h(ElButton, eventsTransform(events), {
-      icon: () => h(Icons[icon]),
-      default: () => (isRef(name) ? name.value : name),
-    }),
-  )
+
+  const buttons: ButtonType[] = [...defaultButton, ...(props.buttons || [])]
+
+  const createButton = ({ name, icon, events = {}, buttonProps = {} }: ButtonConfig) =>
+    h(
+      ElButton,
+      { ...eventsTransform(events), ...buttonProps },
+      {
+        icon: () => h(Icons[icon]),
+        default: () => (isRef(name) ? name.value : name),
+      },
+    )
+  return buttons
+    .filter(({ key }: any) => (props.includeButtons ? props.includeButtons.includes(key) : true))
+    .map((button) => {
+      if (isButtonVNode(button)) {
+        const [component, ...rest] = button.nodeParams
+        return h(component, ...rest)
+      }
+      return createButton(button)
+    })
 }
