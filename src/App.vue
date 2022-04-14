@@ -3,10 +3,10 @@ import Form from './components/form'
 import Table from './components/table'
 import TablePlus from './components/tablePlus'
 import { FormProps } from './components/form/interfaces'
-import { h, reactive, ref, SetupContext } from 'vue';
-import { ElInput } from 'element-plus';
-import { TableColumn } from './components/table/index.d';
-import { TablePlusProps } from './components/tablePlus/index.d';
+import { h, reactive, ref, SetupContext } from 'vue'
+import { ElInput } from 'element-plus'
+import { TableColumn } from './components/table/index.d'
+import { TablePlusProps } from './components/tablePlus/index.d'
 
 
 
