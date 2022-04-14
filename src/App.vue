@@ -6,6 +6,7 @@ import { FormProps } from './components/form/interfaces'
 import { h, reactive, ref, SetupContext } from 'vue';
 import { ElInput } from 'element-plus';
 import { TableColumn } from './components/table/index.d';
+import { TablePlusProps } from './components/tablePlus/index.d';
 
 
 
@@ -40,7 +41,7 @@ const config = reactive({
       }
     }
   ]
-} as FormProps)
+} as unknown as FormProps)
 
 
 type DataType = { id: number; value: string }
@@ -68,6 +69,7 @@ const Layout = (props: never, { slots }: SetupContext) => (
   <>
     <div class="header">{slots.header && slots.header()}</div>
     <div class="title">{slots.title && slots.title()}</div>
+    <div class="filter">{slots.filter && slots.filter()}</div>
     <div class="btn">{slots.btn && slots.btn()}</div>
     <div class="table">{slots.table && slots.table()}</div>
     <div class="pagination">{slots.pagination && slots.pagination()}</div>
@@ -82,7 +84,8 @@ interface TestDataType {
 interface Response<Data> { data: Data[] }
 
 
-const tablePlusConfig = reactive({
+const tablePlusConfig = reactive<TablePlusProps<DataType>>({
+  title: '',
   query: (data: any) => {
     console.log('query', data)
     return Promise.resolve({
@@ -91,27 +94,18 @@ const tablePlusConfig = reactive({
       page: data.currentPage,
     })
   },
+  includeButtons: ['query'],
   responsePath: 'data',
-  buttons: {
-    //query:'查询',reset:'重置'
-  },
-  tableProps: {
-    table: { data: [{ id: 1, value: 'Hello table!' }] } as Response<TestDataType>,
-    columns: [
-      { prop: 'id', label: 'id' },
-      { prop: 'value', label: '值' },
-      {
-        prop: 'end', label: '操作', default: (scope: { row: any, column: any, $index: number }) => {
-          return <button onClick={() => console.log(scope)}>click</button>
-        }
-      }
-    ] as TableColumn<DataType>[],
-    events: {
-      cellClick(...args: any[]) {
-        console.log('cellClick', ...args)
-      }
-    }
-  },
+  buttons: [
+    {
+      key: 'add',
+      name: '新增',
+      icon: 'CircleClose',
+      events: { click: () => console.log('Hello world!') },
+    },
+    { key: 'remove', nodeParams: ['button', { class: 'el-button' }, 'remove'] }
+  ],
+  tableProps,
   formProps: {
     form: {
       model: {
@@ -132,7 +126,7 @@ const tablePlusConfig = reactive({
         inputEvents: {}
       },
     ]
-  }
+  } as FormProps
 })
 
 function MyInputString(props: { modelValue: string }, ctx: SetupContext) {
@@ -147,10 +141,13 @@ const name = ref('Han Meimei')
   <div>{{ name }}</div>
 
   <h2>TablePlus</h2>
-  <TablePlus v-bind="tablePlusConfig"></TablePlus>
+  <TablePlus
+:title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"
+    :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query"
+    :response-path="tablePlusConfig.responsePath" :buttons="tablePlusConfig.buttons"></TablePlus>
 
   <h2>TablePlus - 自定义布局</h2>
-  <TablePlus v-bind="tablePlusConfig" :layout="Layout"></TablePlus>
+  <TablePlus v-bind='tablePlusConfig' :layout="Layout" hidden-default-button></TablePlus>
 
   <h2>Table</h2>
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
