@@ -9,7 +9,7 @@ export default {
     app.component('VElForm', VElForm)
     app.component('VElTable', VElTable as FunctionalComponent)
     app.component('VElTablePlus', VElTablePlus as FunctionalComponent)
-    if (typeof options?.lang === 'string') {
+    if (options && typeof options.lang === 'string') {
       lang.value = options.lang
     }
   },
