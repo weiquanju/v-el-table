@@ -1,6 +1,6 @@
 import { DefineComponent, FunctionalComponent } from 'vue'
-import { FormProps } from '../form/interfaces'
-import { TableBasicProps } from '../table/index.d'
+import { FormProps } from '../form'
+import { TableBasicProps } from '../table'
 import { ButtonType, ButtonKey } from '@/components/tablePlus/defaultButton'
 
 export interface PaginationProps {

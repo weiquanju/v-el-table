@@ -1,7 +1,7 @@
 import { App } from 'vue'
-import VElFrom from './form/interfaces'
-import VElTable from './table/index.d'
-import VElTablePlus from './tablePlus/index'
+import VElForm from './form'
+import VElTable from './table'
+import VElTablePlus from './tablePlus'
 
 interface VElTablePlugin {
   install: (app: App<Element>, options: any) => void
@@ -9,4 +9,9 @@ interface VElTablePlugin {
 
 export default VElTablePlugin
 
-export { VElTable, VElFrom, VElTablePlus }
+export { VElForm, VElTable, VElTablePlus }
+declare module 'v-el-table' {
+  export const VElForm: VElForm
+  export const VElTable: VElTable
+  export const VElTablePlus: VElTablePlus
+}

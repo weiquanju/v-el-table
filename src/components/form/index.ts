@@ -1,4 +1,4 @@
-import { FormProps } from './interfaces'
+import { FormProps } from './index.d'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
