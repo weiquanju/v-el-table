@@ -17,6 +17,6 @@ export type FormatterArgObject<T = any, Cell = any> = { row: T; column: TableCol
 
 export type FormatterArgArray<T = any, Cell = any> = [row: T, column: TableColumnCtx<T>, cellValue: Cell, index: number]
 
-type TableBasic = DefineComponent<TableBasicProps>
+declare type TableBasic = DefineComponent<TableBasicProps>
 
 export default TableBasic

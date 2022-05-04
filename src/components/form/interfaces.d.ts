@@ -73,7 +73,7 @@ export type ComponentName =
   | 'ElSlider'
   | 'ElColorPicker'
 
-type Form = DefineComponent<FormProps>
+declare type Form = DefineComponent<FormProps>
 
 export default Form
 

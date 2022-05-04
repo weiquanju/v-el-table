@@ -33,6 +33,6 @@ export interface TablePlusProps<T = any> {
   buttons?: ButtonType[]
 }
 
-type TablePlus = DefineComponent<TablePlusProps>
+declare type TablePlus = DefineComponent<TablePlusProps>
 
 export default TablePlus
