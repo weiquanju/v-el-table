@@ -1,6 +1,6 @@
 import { DefineComponent, FunctionalComponent } from 'vue'
-import { FormProps } from '../form'
-import { TableBasicProps } from '../table'
+import { FormProps } from '../form/index.d'
+import { TableBasicProps } from '../table/index.d'
 import { ButtonType, ButtonKey } from './defaultButton.d'
 
 export interface PaginationProps {
@@ -19,6 +19,12 @@ export interface DataPath {
 
 export type QueryFnType<T = any> = (formAndPage: any & { currentPage: number; pageSize: number }) => Promise<T>
 
+export type ResponsePathType = {
+  data?: string
+  currentPage?: string
+  total?: string
+}
+
 export interface TablePlusProps<T = any> {
   title?: string
   layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用any兼容😂 */ any
@@ -27,7 +33,7 @@ export interface TablePlusProps<T = any> {
   formProps: FormProps
   tableProps: TableBasicProps<T>
   query: QueryFnType
-  responsePath?: string
+  responsePath?: ResponsePathType
   queryParams?: any
   includeButtons?: ButtonKey[]
   buttons?: ButtonType[]
