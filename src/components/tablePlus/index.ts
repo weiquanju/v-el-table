@@ -30,10 +30,24 @@ const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
     const path = Object.assign({}, dataPath, props.responsePath)
 
     const data = await props.query(getQueryParams())
-    const res = (props.responsePath && at(path.data, data)) || data
-    res && (props.tableProps.table.data = res)
-    const total = at(path.total, data) || 0
-    const currentPage = at(path.currentPage, data) || 1
+    const res = at<any[]>(path.data, data)
+    const total = at<number>(path.total, data)
+    const currentPage = at<number>(path.currentPage, data)
+
+    if (total === undefined || isNaN(total)) {
+      console.warn(`merged path data`, JSON.stringify(path))
+      throw new Error('Get `total` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.')
+    }
+    if (currentPage === undefined || isNaN(currentPage)) {
+      console.warn(`merged path data`, JSON.stringify(path))
+      throw new Error('Get `currentPage` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.')
+    }
+    if (res === undefined) {
+      console.warn(`merged path data`, JSON.stringify(path))
+      throw new Error('Get `data` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.')
+    }
+
+    props.tableProps.table.data = res
     pagination.total = total
     pagination.currentPage = currentPage
   }
