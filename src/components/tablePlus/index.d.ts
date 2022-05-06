@@ -1,7 +1,7 @@
 import { DefineComponent, FunctionalComponent } from 'vue'
 import { FormProps } from '../form'
 import { TableBasicProps } from '../table'
-import { ButtonType, ButtonKey } from '@/components/tablePlus/defaultButton'
+import { ButtonType, ButtonKey } from './defaultButton.d'
 
 export interface PaginationProps {
   currentPage: number

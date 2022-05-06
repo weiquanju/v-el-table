@@ -1,28 +1,10 @@
 import * as Icons from '@element-plus/icons-vue'
 import { TablePlusProps } from './index.d'
 import { resetValue, eventsTransform } from '../utils'
-import { ButtonProps, ElButton } from 'element-plus'
-import { h, isRef, Ref } from 'vue'
+import { ElButton } from 'element-plus'
+import { h, isRef } from 'vue'
 import I18N from '../I18N'
-import { Writable } from '../interfaces'
-
-export type ButtonKey = 'query' | 'reset' | string
-
-export interface Button {
-  key: ButtonKey
-}
-
-export interface ButtonConfig extends Button {
-  name: string | Ref<string>
-  buttonProps?: Partial<Writable<ButtonProps>>
-  icon: keyof typeof Icons
-  events?: any
-}
-export interface ButtonVNode extends Button {
-  nodeParams: any[]
-}
-
-export type ButtonType = ButtonConfig | ButtonVNode
+import { Button, ButtonConfig, ButtonVNode, ButtonType } from './defaultButton.d'
 
 export const isButtonVNode = (button: Button): button is ButtonVNode => {
   return 'nodeParams' in button
