@@ -69,14 +69,14 @@ export const resetValue = (formData: any) => {
  * const obj = { a: { b: { c: 1 } } }
  * console.log(at(path, obj))
  */
-export const at = (path: string, obj: any) => {
+export function at<T = any>(path: string, obj: any) {
   const parts = path.split('.')
   let result = obj
   try {
     for (let i = 0; i < parts.length; i++) {
       result = result[parts[i]]
     }
-    return result
+    return result as T
   } catch (error) {
     console.error(error)
   }
