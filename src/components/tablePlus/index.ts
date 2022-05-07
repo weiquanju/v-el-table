@@ -55,12 +55,28 @@ const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
   const pagination = reactive(
     Object.assign(paginationDefault, props.pagination, {
       onSizeChange(size: number) {
-        pagination.pageSize = size
-        query()
+        if (pagination.pageSize !== size) {
+          pagination.pageSize = size
+          query()
+        }
+      },
+      'onUpdate:page-size'(size: number) {
+        if (pagination.pageSize !== size) {
+          pagination.pageSize = size
+          query()
+        }
       },
       onCurrentChange(page: number) {
-        pagination.currentPage = page
-        query()
+        if (pagination.currentPage !== page) {
+          pagination.currentPage = page
+          query()
+        }
+      },
+      'onUpdate:current-page'(page: number) {
+        if (pagination.currentPage !== page) {
+          pagination.currentPage = page
+          query()
+        }
       },
     }),
   )
