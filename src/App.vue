@@ -77,25 +77,27 @@ const Layout = (props: never, { slots }: SetupContext) => (
   </>
 )
 
-interface TestDataType {
-  id: number;
-  value: string;
-}
-interface Response<Data> { data: Data[] }
-
-
 const tablePlusConfig = reactive<TablePlusProps<DataType>>({
   title: '',
   query: (data: any) => {
-    console.log('query', data)
+    // console.log('query', data)
     return Promise.resolve({
-      data: [{ id: 1, value: 'Hello list item!' }],
-      total: 40,
-      page: data.currentPage,
+      payload: {
+        data: Array.from(Array(10)).map((i, index) => {
+          const n = (data.currentPage - 1) * 10 + index + 1
+          return { id: n, value: `line ${n}` }
+        }),
+        total: 20,
+        page: data.currentPage,
+      }, status: 'success', code: 0
     })
   },
+  responsePath: {
+    data: 'payload.data',
+    currentPage: 'payload.page',
+    total: 'payload.total',
+  },
   includeButtons: ['query'],
-  responsePath: 'data',
   buttons: [
     {
       key: 'add',
@@ -138,16 +140,17 @@ const name = ref('Han Meimei')
 <template>
   <h2>MyInputString</h2>
   <MyInputString v-model="name" />
-  <div>{{ name }}</div>
+  <div>{{ name }}</div> -->
 
   <h2>TablePlus</h2>
   <TablePlus
 :title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"
-    :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query"
-    :response-path="tablePlusConfig.responsePath" :buttons="tablePlusConfig.buttons"></TablePlus>
-
+    :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query" :buttons="tablePlusConfig.buttons">
+  </TablePlus>
   <h2>TablePlus - 自定义布局</h2>
-  <TablePlus v-bind='tablePlusConfig' :layout="Layout" hidden-default-button></TablePlus>
+  <TablePlus v-bind='tablePlusConfig'></TablePlus>
+  <h2>TablePlus - 自定义布局</h2>
+  <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus>
 
   <h2>Table</h2>
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
