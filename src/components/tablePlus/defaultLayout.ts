@@ -1,18 +1,28 @@
-import { h, onMounted, onUnmounted, reactive, ref, SetupContext } from 'vue'
+import { h, nextTick, ref, SetupContext } from 'vue'
 import style from './defaultLayout.module.css'
 import './defaultLayout.css'
 export const LayoutDefault = (props: never, { slots }: SetupContext) => {
-  const box = ref(null as null | HTMLDivElement)
-  const resize = () => {
-    if (!box.value?.offsetWidth) return
-    const { style } = box.value
-    style.setProperty('--tp-column-num', Math.floor(box.value?.offsetWidth / 300).toString())
-  }
-  window.addEventListener('resize', resize)
-  onMounted(resize)
-  onUnmounted(() => {
-    window.removeEventListener('resize', resize)
+  nextTick(() => {
+    init()
   })
+  const box = ref(null as null | HTMLDivElement)
+
+  const init = () => {
+    if (!box.value?.offsetWidth) {
+      return
+    }
+
+    const resize = () => {
+      if (!box.value) return
+      const { style } = box.value
+      const columnNum = Math.floor(box.value?.offsetWidth / 300)
+      style.setProperty('--tp-column-num', columnNum.toString())
+    }
+
+    const resizeObserver = new ResizeObserver(resize)
+    resizeObserver.observe(box.value)
+  }
+
   return h('div', { class: style.tp }, [
     h('div', { class: style.tpHeader }, [
       h('div', { class: style.tpTitle }, [slots.title && slots.title()]),
