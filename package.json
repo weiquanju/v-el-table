@@ -1,6 +1,6 @@
 {
   "name": "v-el-table",
-  "version": "0.1.0-alpha.25",
+  "version": "0.1.0-alpha.26",
   "description": "Easy to use table and form component of Vue 3",
   "author": "anbine@qq.com",
   "homepage": "https://github.com/weiquanju/v-el-table",
@@ -30,7 +30,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preserve": "vite build && cp ./types/* ./dist/",
+    "b": "vite build && cp ./types/* ./dist/",
     "serve": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.vue",
