@@ -13,7 +13,7 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     throw new Error(`${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`)
   }
   const { model } = formProps.form
-  const { inputProps = {}, remoteHandler, children } = field
+  const { inputProps = {}, remoteHandler, inputChildren } = field
 
   if (remoteHandler) {
     remoteHandler(field)
@@ -42,6 +42,6 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
       modelValue: model[prop],
       'onUpdate:modelValue': modelValue,
     },
-    { default: () => children },
+    { default: () => inputChildren },
   )
 }
