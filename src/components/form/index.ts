@@ -8,7 +8,13 @@ const VElForm = function (props: FormProps, ctx: SetupContext) {
   const { fields = [] } = props
   const children = fields
     .filter(({ visible = true }) => visible)
-    .map((field) => h(ElFormItem as any, field.itemProps, { default: () => inputRender(field, props) }))
+    .map((field) =>
+      h(ElFormItem as any, field.itemProps, {
+        default: () => inputRender(field, props),
+        label: typeof field.itemProps?.label === 'function' ? field.itemProps.label : undefined,
+        error: typeof field.itemProps?.error === 'function' ? field.itemProps.error : undefined,
+      }),
+    )
 
   const model = (val: any) => {
     props.form.model = val
