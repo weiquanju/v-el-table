@@ -29,10 +29,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "b": "vite build && cp ./types/* ./dist/",
+    "build": "vite build && cp ./types/* ./dist/",
     "serve": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit",
     "lint": "eslint --ext .ts,.vue src && stylelint **/*.vue",
     "prepare": "husky install"
   },
