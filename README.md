@@ -35,6 +35,10 @@ Please follow the [documentation](https://v-el-table.anbine.com/)!
 
 The document is being written and perfected.
 
+## Contribution
+
+Please read [Contributing Guide](./.github/contributing.md).
+
 ## License
 
 MIT
