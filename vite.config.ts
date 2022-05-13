@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/components/index.ts'),
       name: 'v-el-table',
-      fileName: (format) => `v-el-table.${format}.js`,
+      fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
