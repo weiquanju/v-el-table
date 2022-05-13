@@ -17,13 +17,13 @@
     "dist",
     "src/**/*.d.ts"
   ],
-  "main": "./dist/v-el-table.umd.js",
-  "module": "./dist/v-el-table.es.js",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "style": "dist/style.css",
   "exports": {
     ".": {
-      "import": "./dist/v-el-table.es.js",
-      "require": "./dist/v-el-table.umd.js"
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
     },
     "./dist/*": "./dist/*"
   },
