@@ -11,4 +11,8 @@ export default VElTablePlugin
 
 export { VElForm, VElTable, VElTablePlus }
 
-declare module 'v-el-table'
+declare module 'v-el-table' {
+  export const VElForm: VElForm
+  export const VElTable: VElTable
+  export const VElTablePlus: VElTablePlus
+}
