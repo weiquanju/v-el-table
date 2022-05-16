@@ -32,7 +32,7 @@ export interface TablePlusProps<T = any> {
   pagination?: PaginationProps
   formProps: FormProps
   tableProps: TableBasicProps<T>
-  initQuery: boolean
+  initQuery?: boolean
   query: QueryFnType
   responsePath?: ResponsePathType
   queryParams?: any
