@@ -89,6 +89,10 @@ const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
     pagination: () => h(ElPagination, pagination),
   }
 
+  if (props.initQuery === true) {
+    query()
+  }
+
   return h(props.layout || LayoutDefault, props.layoutProps, slots)
 }
 export default VElTablePlus
