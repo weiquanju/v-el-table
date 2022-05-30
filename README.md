@@ -4,7 +4,7 @@
 </a>
 <br/>
 <a href="https://www.npmjs.com/package/v-el-table">
-    <img src="https://img.shields.io/badge/npm-0.1.0--beta.36-brightgreen">
+    <img src="https://img.shields.io/badge/npm-0.1.0--beta.40-brightgreen">
 </a>
 
 
