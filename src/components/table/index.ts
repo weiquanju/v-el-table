@@ -1,19 +1,21 @@
 import { ElTable, ElTableColumn } from 'element-plus'
-import { FunctionalComponent, h, SetupContext } from 'vue'
+import { type FunctionalComponent, h, type SetupContext } from 'vue'
 import { eventsTransform } from '../utils'
-import { TableBasicProps, TableColumnSlots } from './index.d'
-import { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults'
+import type { TableBasicProps, TableColumnSlots } from './index.d'
 
-const VElTable = function ({ events = {}, table = {}, columns = [] }: TableBasicProps, { slots: { append } }: SetupContext) {
+const VElTable = function <D, T extends TableBasicProps<D>>(
+  { events = {}, table = { data: [], tableLayout: 'auto' }, columns = [] }: T,
+  { slots: { append } }: SetupContext,
+) {
   const slots = {
     default: () =>
       columns.map((column) => {
         const { default: d, header } = column as TableColumnSlots
-        const props = column as TableColumnCtx<any>
+        const props = column
         return h(ElTableColumn, props, { default: d, header })
       }),
     append: append,
   }
-  return h(ElTable, { ...eventsTransform(events), ...table }, slots)
+  return h(ElTable as Parameters<typeof h>[0], { ...eventsTransform(events), ...table }, slots)
 } as FunctionalComponent<TableBasicProps>
 export default VElTable

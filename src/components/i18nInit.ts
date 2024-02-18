@@ -1,5 +1,5 @@
 // import { useGlobalConfig } from 'element-plus'
-import { ref, Ref, watchEffect, WatchOptionsBase, WatchStopHandle } from 'vue'
+import { ref, type Ref, watchEffect, type WatchOptionsBase, type WatchStopHandle } from 'vue'
 import I18N from './I18N'
 
 // const local: Ref<any> = useGlobalConfig('locale') || ref({ name: '' })

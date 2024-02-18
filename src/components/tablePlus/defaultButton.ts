@@ -1,10 +1,10 @@
 import * as Icons from '@element-plus/icons-vue'
-import { TablePlusProps } from './index.d'
+import type { TablePlusProps } from './index.d'
 import { resetValue, eventsTransform } from '../utils'
 import { ElButton } from 'element-plus'
 import { h, isRef, ref } from 'vue'
 import I18N from '../I18N'
-import { Button, ButtonConfig, ButtonVNode, ButtonType } from './defaultButton.d'
+import type { Button, ButtonConfig, ButtonVNode, ButtonType } from './defaultButton.d'
 
 export const isButtonVNode = (button: Button): button is ButtonVNode => {
   return 'nodeParams' in button
@@ -57,7 +57,7 @@ export const getDefaultButtons = ({ props, query }: { props: TablePlusProps; que
       },
     )
   return buttons.value
-    .filter(({ key }: any) => (props.includeButtons ? props.includeButtons.includes(key) : true))
+    .filter(({ key }) => (props.includeButtons ? props.includeButtons.includes(key) : true))
     .map((button) => {
       if (isButtonVNode(button)) {
         const [component, ...rest] = button.nodeParams

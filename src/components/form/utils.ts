@@ -1,7 +1,7 @@
-import * as ElComponents from 'element-plus/lib/components/index'
+import * as ElComponents from 'element-plus/es/components/index'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
-import { FormProps, FormItemProps, ComponentName } from './index.d'
+import type { FormProps, FormItemProps, ComponentName } from './index.d'
 
 const componentKey = Object.keys(ElComponents)
 
@@ -19,7 +19,7 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     remoteHandler(field)
   }
 
-  let Component: any = field.inputComponent //DefineComponent | FunctionalComponent | typeof defineAsyncComponent | ElComponent | JSX.Element | VNode
+  let Component: Parameters<typeof h>[0] = field.inputComponent
 
   // 如果是字符串类型
   if (typeof field.inputComponent === 'string') {
@@ -27,10 +27,10 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     if (!isComponentName(name)) {
       throw new Error(`Error component name: ${name} .`)
     }
-    Component = ElComponents[name]
+    Component = ElComponents[name] as Parameters<typeof h>[0]
   }
 
-  const modelValue = (val: any) => {
+  const modelValue = (val: unknown) => {
     model[prop] = val
   }
 

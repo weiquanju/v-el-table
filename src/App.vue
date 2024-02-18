@@ -2,11 +2,12 @@
 import Form from './components/form'
 import Table from './components/table'
 import TablePlus from './components/tablePlus'
-import { FormProps } from './components/form/index.d'
-import { h, reactive, ref, SetupContext } from 'vue'
+import type { FormProps } from './components/form/index.d'
+// eslint-disable-next-line prettier/prettier
+import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput } from 'element-plus'
-import { TableColumn } from './components/table/index.d'
-import { TablePlusProps } from './components/tablePlus/index.d'
+import type { TableColumn } from './components/table/index.d'
+import type { TablePlusProps } from './components/tablePlus/index.d'
 
 
 
@@ -17,27 +18,27 @@ const config = reactive({
   },
   fields: [
     {
-      itemProps: { prop: 'name', label: '姓名' },
+      itemProps: { prop: 'name', label: '姓名el-input' },
       inputComponent: 'el-input',
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
-        change: (...args: any) => console.log(...args)
+        change: (...args: unknown[]) => console.log(...args)
       }
     },
     {
-      itemProps: { prop: 'name', label: '姓名' },
+      itemProps: { prop: 'name', label: '姓名ElInput' },
       inputComponent: 'ElInput',
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
-        change: (...args: any) => console.log(...args)
+        change: (...args: unknown[]) => console.log(...args)
       }
     },
     {
-      itemProps: { prop: 'name', label: '姓名' },
+      itemProps: { prop: 'name', label: '姓名JSX' },
       inputComponent: () => <ElInput type="input" modelValue={model.value.name}></ElInput>,
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
-        change: (...args: any) => console.log(...args)
+        change: (...args: unknown[]) => console.log(...args)
       }
     }
   ]
@@ -57,9 +58,9 @@ const tableProps = reactive({
         return 'hello'
       }
     }
-  ] as TableColumn<DataType>[],
+  ] as TableColumn[],
   events: {
-    cellClick(...args: any[]) {
+    cellClick(...args: unknown[]) {
       console.log('cellClick', ...args)
     }
   }
@@ -77,9 +78,9 @@ const Layout = (props: never, { slots }: SetupContext) => (
   </>
 )
 
-const tablePlusConfig = reactive<TablePlusProps<DataType>>({
+const tablePlusConfig = reactive<TablePlusProps>({
   title: '',
-  query: (data: any) => {
+  query: (data: { currentPage: number }) => {
     // console.log('query', data)
     return Promise.resolve({
       payload: {
@@ -128,11 +129,11 @@ const tablePlusConfig = reactive<TablePlusProps<DataType>>({
         inputEvents: {}
       },
     ]
-  } as FormProps
+  } as unknown as FormProps
 })
 
 function MyInputString(props: { modelValue: string }, ctx: SetupContext) {
-  return h('input', { value: props.modelValue, onInput: (e: any) => ctx.emit('update:modelValue', e.target.value) })
+  return h('input', { value: props.modelValue, onInput: (e: Event & { target: { value: unknown } }) => ctx.emit('update:modelValue', e.target?.value) })
 }
 const name = ref('Han Meimei')
 </script>
@@ -140,17 +141,16 @@ const name = ref('Han Meimei')
 <template>
   <h2>MyInputString</h2>
   <MyInputString v-model="name" />
-  <div>{{ name }}</div> -->
+  <div>{{ name }}</div>
 
   <h2>TablePlus</h2>
-  <TablePlus
-:title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"
+  <TablePlus :title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"
     :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query" :buttons="tablePlusConfig.buttons">
   </TablePlus>
-  <h2>TablePlus - 自定义布局</h2>
+  <h2>TablePlus</h2>
   <TablePlus v-bind='tablePlusConfig'></TablePlus>
   <h2>TablePlus - 自定义布局</h2>
-  <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus>
+  <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus> 
 
   <h2>Table</h2>
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>

@@ -1,6 +1,6 @@
-import { ButtonProps } from 'element-plus'
-import { Ref } from 'vue'
-import { Writable } from '../interfaces'
+import type { ButtonProps } from 'element-plus'
+import { type Ref, h } from 'vue'
+import type { Writable } from '../interfaces'
 import * as Icons from '@element-plus/icons-vue'
 
 export type ButtonKey = 'query' | 'reset' | string
@@ -13,11 +13,11 @@ export interface ButtonConfig extends Button {
   name: string | Ref<string>
   buttonProps?: Partial<Writable<ButtonProps>>
   icon: keyof typeof Icons
-  events?: any
+  events?: EventsHandlers
 }
 
 export interface ButtonVNode extends Button {
-  nodeParams: any[]
+  nodeParams: Parameters<typeof h>
 }
 
 export type ButtonType = ButtonConfig | ButtonVNode

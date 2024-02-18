@@ -1,8 +1,8 @@
-import { h, reactive, SetupContext } from 'vue'
+import { h, reactive, type FunctionalComponent } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
-import { TablePlusProps } from './index.d'
+import type { TablePlusProps } from './index.d'
 import { at, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './defaultLayout'
@@ -14,9 +14,9 @@ import { getDefaultButtons } from './defaultButton'
  * 支持CURD
  * 组件插槽支持
  */
-const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
+const VElTablePlus: FunctionalComponent<TablePlusProps> = function (p: TablePlusProps) {
   // console.log(Object.keys(props))
-  const props = toCamelCaseProp(p) as TablePlusProps
+  const props = toCamelCaseProp(p as unknown as Parameters<typeof toCamelCaseProp>[0]) as unknown as TablePlusProps
 
   const getQueryParams = () => ({
     pageSize: pagination.pageSize,
@@ -30,9 +30,9 @@ const VElTablePlus = function (p: TablePlusProps, ctx: SetupContext) {
     const path = Object.assign({}, dataPath, props.responsePath)
 
     const data = await props.query(getQueryParams())
-    const res = at<any[]>(path.data, data)
-    const total = at<number>(path.total, data)
-    const currentPage = at<number>(path.currentPage, data)
+    const res = at<unknown[]>(path.data, data) || []
+    const total = at<number>(path.total, data) || 0
+    const currentPage = at<number>(path.currentPage, data) || 1
 
     if (total === undefined || isNaN(total)) {
       console.warn(`merged path data`, JSON.stringify(path))

@@ -1,7 +1,8 @@
-import { DefineComponent, FunctionalComponent } from 'vue'
-import { FormProps } from '../form/index.d'
-import { TableBasicProps } from '../table/index.d'
-import { ButtonType, ButtonKey } from './defaultButton.d'
+import type { DefineComponent, FunctionalComponent } from 'vue'
+import type { FormProps } from '../form/index.d'
+import type { TableBasicProps } from '../table/index.d'
+import type { ButtonType, ButtonKey } from './defaultButton.d'
+import type { ObjectType } from '../interfaces'
 
 export interface PaginationProps {
   currentPage: number
@@ -17,7 +18,7 @@ export interface DataPath {
   total: string
 }
 
-export type QueryFnType<T = any> = (formAndPage: any & { currentPage: number; pageSize: number }) => Promise<T>
+export type QueryFnType<T = unknown> = (formAndPage: unknown & { currentPage: number; pageSize: number }) => Promise<T>
 
 export type ResponsePathType = {
   data?: string
@@ -25,17 +26,17 @@ export type ResponsePathType = {
   total?: string
 }
 
-export interface TablePlusProps<T = any> {
+export interface TablePlusProps<T = unknown> {
   title?: string
-  layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用any兼容😂 */ any
-  layoutProps?: any
+  layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
+  layoutProps?: ObjectType
   pagination?: PaginationProps
   formProps: FormProps
   tableProps: TableBasicProps<T>
   initQuery?: boolean
   query: QueryFnType
   responsePath?: ResponsePathType
-  queryParams?: any
+  queryParams?: unknown
   includeButtons?: ButtonKey[]
   buttons?: ButtonType[]
 }

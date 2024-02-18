@@ -1,39 +1,6 @@
-import { DefineComponent, Slot, VNode } from 'vue'
-import { FormItemRule } from 'element-plus/lib/components/form/src/form.type'
-import { EventsHandlers, ObjectType, ComponentType } from '../interfaces'
-
-export type ComponentSize = 'default' | 'small' | 'large'
-
-export type ElFormProps<M = ObjectType> = {
-  model: M
-  rules?: Partial<Record<string, FormItemRule | FormItemRule[]>>
-  labelPosition?: string
-  labelWidth?: string | number
-  labelSuffix?: string
-  inline?: boolean
-  inlineMessage?: boolean
-  statusIcon?: boolean
-  showMessage?: boolean
-  size?: ComponentSize
-  disabled?: boolean
-  validateOnRuleChange?: boolean
-  hideRequiredAsterisk?: boolean
-  scrollToError?: boolean
-}
-
-export type ElFormItemProps<M = ObjectType> = {
-  label?: string
-  labelWidth?: string | number
-  prop?: string & keyof M
-  required?: boolean
-  rules?: FormItemRule | FormItemRule[]
-  error?: string
-  validateStatus?: string
-  for?: string
-  inlineMessage?: boolean | string
-  showMessage?: boolean
-  size?: ComponentSize
-}
+import type { DefineComponent, Slot, VNode } from 'vue'
+import type { EventsHandlers, ComponentType } from '../interfaces'
+import type { ElFormProps, ElFormItemProps } from 'fix.d'
 
 export type ElFormItemSlots = {
   label?: Slot
@@ -42,14 +9,14 @@ export type ElFormItemSlots = {
 
 export type FormItemProps = {
   itemProps?: ElFormItemProps & ElFormItemSlots
-  inputProps?: Record<string, any>
+  inputProps?: Record<string, unknown>
   inputComponent: ComponentType
   inputEvents?: EventsHandlers
   inputChildren?: string | VNode[]
   visible?: boolean
-  remoteHandler?: <Return = Promise<any>>(itemContext: FormItemProps) => Return
+  remoteHandler?: <Return = Promise<unknown>>(itemContext: FormItemProps) => Return
   remoteParams?: object
-} & Record<string, any>
+} & Record<string, unknown>
 
 export type FormProps = {
   class?: string | CSSModuleClasses

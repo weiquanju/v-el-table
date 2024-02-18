@@ -1,14 +1,14 @@
-import { App, FunctionalComponent } from 'vue'
+import type { App } from 'vue'
 import VElForm from './form'
 import { lang } from './i18nInit'
 import VElTable from './table'
 import VElTablePlus from './tablePlus'
 
 export default {
-  install: (app: App<Element>, options?: any) => {
+  install: <Options extends { [k in string]: string | number }>(app: App<Element>, options?: Options) => {
     app.component('VElForm', VElForm)
-    app.component('VElTable', VElTable as FunctionalComponent)
-    app.component('VElTablePlus', VElTablePlus as FunctionalComponent)
+    app.component('VElTable', VElTable)
+    app.component('VElTablePlus', VElTablePlus)
     if (options && typeof options.lang === 'string') {
       lang.value = options.lang
     }

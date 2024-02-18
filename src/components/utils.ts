@@ -1,5 +1,5 @@
 import { isReactive, reactive, toRef } from 'vue'
-import { EventsHandlers } from './interfaces'
+import type { EventsHandlers, ObjectType } from './interfaces'
 
 export const toPascalNameStyle = (str: string) =>
   str.replace(/[-_ ](\w)|(^\w)/g, (all, one) => {
@@ -14,7 +14,7 @@ export const eventsTransform = (handlers?: EventsHandlers) => {
   if (!handlers) {
     return {} as EventsHandlers
   }
-  const map = new Map<string, (...args: any[]) => void>()
+  const map = new Map<string, (...args: unknown[]) => void>()
   Object.entries(handlers).forEach(([key, handler]) => map.set(toCamelCase(`on-${key}`), handler))
   return Object.fromEntries(map)
 }
@@ -25,7 +25,7 @@ export const toCamelCase = (str: string) => {
   })
 }
 
-export const toCamelCaseProp = (props: { [key: string]: any }) => {
+export const toCamelCaseProp = (props: { [key: string]: unknown }) => {
   const propKeys = Object.keys(props)
   if (isReactive(props)) {
     return reactive(
@@ -51,15 +51,19 @@ export const toCamelCaseProp = (props: { [key: string]: any }) => {
   )
 }
 
-export const resetValue = (formData: any) => {
+export const resetValue = <T = ObjectType>(formData: T) => {
   for (const key in formData) {
     // object类型处理，避免object类型被置为undifined，避免业务层因数据类型改变出现异常的情况
     if (formData[key] !== null && typeof formData[key] === 'object') {
       //数组、对象、函数类型
-      formData[key] = new formData[key].constructor()
-      continue
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const val = formData[key] as any
+      if (typeof val.constructor === 'function') {
+        formData[key] = new val.constructor()
+        continue
+      }
     }
-    formData[key] = undefined
+    ;(formData[key] as unknown) = undefined
   }
   return formData
 }
@@ -69,12 +73,16 @@ export const resetValue = (formData: any) => {
  * const obj = { a: { b: { c: 1 } } }
  * console.log(at(path, obj))
  */
-export function at<T = any>(path: string, obj: any) {
+export function at<T = unknown>(path: string, obj: unknown) {
   const parts = path.split('.')
   let result = obj
   try {
     for (let i = 0; i < parts.length; i++) {
-      result = result[parts[i]]
+      if ([undefined, null].includes(result as undefined | null)) {
+        return result as undefined | null
+      } else {
+        result = (result as ObjectType)[parts[i]]
+      }
     }
     return result as T
   } catch (error) {
