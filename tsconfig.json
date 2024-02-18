@@ -1,24 +1,4 @@
 {
-  "compilerOptions": {
-    "baseUrl": "./",
-    "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "isolatedModules": true,
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
-    "skipLibCheck": true
-  },
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue", "types/index.d.ts"]
 }
