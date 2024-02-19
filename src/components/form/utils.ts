@@ -42,6 +42,6 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
       modelValue: model[prop],
       'onUpdate:modelValue': modelValue,
     },
-    { default: () => inputChildren },
+    { default: inputChildren },
   )
 }
