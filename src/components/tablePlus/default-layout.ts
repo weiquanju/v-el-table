@@ -1,6 +1,6 @@
 import { h, nextTick, ref, type SetupContext } from 'vue'
-import style from './defaultLayout.module.css'
-import './defaultLayout.css'
+import style from './default-layout.module.css'
+import './default-layout.css'
 export const LayoutDefault = (props: never, { slots }: SetupContext) => {
   nextTick(() => {
     init()

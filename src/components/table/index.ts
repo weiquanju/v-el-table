@@ -1,7 +1,7 @@
 import { ElTable, ElTableColumn } from 'element-plus'
 import { type FunctionalComponent, h, type SetupContext } from 'vue'
 import { eventsTransform } from '../utils'
-import type { TableBasicProps, TableColumnSlots } from './index.d'
+import type { TableBasicProps, TableColumnSlots } from './type'
 
 const VElTable = function <D, T extends TableBasicProps<D>>(
   { events = {}, table = { data: [], tableLayout: 'auto' }, columns = [] }: T,

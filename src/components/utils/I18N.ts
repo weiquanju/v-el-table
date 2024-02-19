@@ -41,4 +41,4 @@ class I18N {
   }
 }
 
-export default new I18N('en')
+export const i18n = new I18N('en')

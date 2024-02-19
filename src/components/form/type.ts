@@ -1,6 +1,6 @@
 import type { DefineComponent, Slot, VNode } from 'vue'
 import type { EventsHandlers, ComponentType } from '../interfaces'
-import type { ElFormProps, ElFormItemProps } from 'fix.d'
+import type { ElFormProps, ElFormItemProps } from './type-fix'
 
 export type ElFormItemSlots = {
   label?: Slot
@@ -19,8 +19,6 @@ export type FormItemProps = {
 } & Record<string, unknown>
 
 export type FormProps = {
-  class?: string | CSSModuleClasses
-  style?: string | CSSModuleClasses
   form: ElFormProps
   events?: EventsHandlers
   fields: FormItemProps[]
@@ -41,7 +39,3 @@ export type ComponentName =
   | 'ElColorPicker'
 
 export declare type VElForm = DefineComponent<FormProps>
-
-export default VElForm
-
-// export as namespace

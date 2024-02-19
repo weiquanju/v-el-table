@@ -1,7 +1,7 @@
 import type { DefineComponent, FunctionalComponent } from 'vue'
-import type { FormProps } from '../form/index.d'
-import type { TableBasicProps } from '../table/index.d'
-import type { ButtonType, ButtonKey } from './defaultButton.d'
+import type { FormProps } from '../form/type'
+import type { TableBasicProps } from '../table/type'
+import type { ButtonType } from './default-button-type'
 import type { ObjectType } from '../interfaces'
 
 export interface PaginationProps {
@@ -37,10 +37,5 @@ export interface TablePlusProps<T = unknown> {
   query: QueryFnType
   responsePath?: ResponsePathType
   queryParams?: unknown
-  includeButtons?: ButtonKey[]
   buttons?: ButtonType[]
 }
-
-declare type TablePlus = DefineComponent<TablePlusProps>
-
-export default TablePlus

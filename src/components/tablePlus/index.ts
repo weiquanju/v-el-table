@@ -2,11 +2,11 @@ import { h, reactive, type FunctionalComponent } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
-import type { TablePlusProps } from './index.d'
+import type { TablePlusProps } from './type'
 import { at, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
-import { LayoutDefault } from './defaultLayout'
-import { getDefaultButtons } from './defaultButton'
+import { LayoutDefault } from './default-layout'
+import { getDefaultButtons } from './default-button'
 
 /**
  * @todo feat:

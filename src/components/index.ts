@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import VElForm from './form'
-import { lang } from './i18nInit'
+import { lang } from './utils/i18nInit'
 import VElTable from './table'
 import VElTablePlus from './tablePlus'
 

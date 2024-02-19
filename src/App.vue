@@ -2,12 +2,12 @@
 import Form from './components/form'
 import Table from './components/table'
 import TablePlus from './components/tablePlus'
-import type { FormProps } from './components/form/index.d'
+import type { FormProps } from './components/form/type'
 // eslint-disable-next-line prettier/prettier
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput } from 'element-plus'
-import type { TableColumn } from './components/table/index.d'
-import type { TablePlusProps } from './components/tablePlus/index.d'
+import type { TableColumn } from './components/table/type'
+import type { TablePlusProps } from './components/tablePlus/type'
 
 
 
@@ -106,7 +106,7 @@ const tablePlusConfig = reactive<TablePlusProps>({
       icon: 'CircleClose',
       events: { click: () => console.log('Hello world!') },
     },
-    { key: 'remove', nodeParams: ['button', { class: 'el-button' }, 'remove'] }
+    ['button', { class: 'el-button' }, 'remove']
   ],
   tableProps,
   formProps: {

@@ -1,6 +1,6 @@
 // import { useGlobalConfig } from 'element-plus'
 import { ref, type Ref, watchEffect, type WatchOptionsBase, type WatchStopHandle } from 'vue'
-import I18N from './I18N'
+import { i18n } from './I18N'
 
 // const local: Ref<any> = useGlobalConfig('locale') || ref({ name: '' })
 /*使用ElementPlus语言配置*/
@@ -11,7 +11,7 @@ let stopHandle: WatchStopHandle | undefined = undefined
 if (!stopHandle) {
   stopHandle = watchEffect(
     () => {
-      I18N.setLocale(lang.value)
+      i18n.setLocale(lang.value)
     },
     { immediate: true } as WatchOptionsBase,
   )
