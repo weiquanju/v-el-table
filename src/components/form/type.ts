@@ -12,7 +12,7 @@ export type FormItemProps = {
   inputProps?: Record<string, unknown>
   inputComponent: ComponentType
   inputEvents?: EventsHandlers
-  inputChildren?: string | VNode[]
+  inputChildren?: string | VNode[] | (() => VNode[] | VNode)
   visible?: boolean
   remoteHandler?: <Return = Promise<unknown>>(itemContext: FormItemProps) => Return
   remoteParams?: object
