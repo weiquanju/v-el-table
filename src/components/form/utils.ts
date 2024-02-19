@@ -1,7 +1,7 @@
 import * as ElComponents from 'element-plus/es/components/index'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
-import type { FormProps, FormItemProps, ComponentName } from './index.d'
+import type { FormProps, FormItemProps, ComponentName } from './type'
 
 const componentKey = Object.keys(ElComponents)
 

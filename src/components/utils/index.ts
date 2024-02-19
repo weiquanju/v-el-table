@@ -1,5 +1,7 @@
 import { isReactive, reactive, toRef } from 'vue'
-import type { EventsHandlers, ObjectType } from './interfaces'
+import type { EventsHandlers, ObjectType } from '../interfaces'
+
+export { i18n } from './I18N'
 
 export const toPascalNameStyle = (str: string) =>
   str.replace(/[-_ ](\w)|(^\w)/g, (all, one) => {
