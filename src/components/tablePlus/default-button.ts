@@ -1,4 +1,4 @@
-import * as Icons from '@element-plus/icons-vue'
+import * as ElementIcons from '@element-plus/icons-vue'
 import type { TablePlusProps } from './type'
 import { resetValue, eventsTransform } from '../utils'
 import { ElButton } from 'element-plus'
@@ -11,7 +11,7 @@ const createButton = ({ name, icon, events = {}, buttonProps = {} }: ButtonConfi
     ElButton,
     { ...eventsTransform(events), ...buttonProps },
     {
-      icon: () => h(Icons[icon]),
+      icon: () => h(ElementIcons[icon]),
       default: () => (isRef(name) ? name.value : name),
     },
   )

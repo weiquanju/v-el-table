@@ -98,7 +98,6 @@ const tablePlusConfig = reactive<TablePlusProps>({
     currentPage: 'payload.page',
     total: 'payload.total',
   },
-  includeButtons: ['query'],
   buttons: [
     {
       key: 'add',
@@ -150,7 +149,7 @@ const name = ref('Han Meimei')
   <h2>TablePlus</h2>
   <TablePlus v-bind='tablePlusConfig'></TablePlus>
   <h2>TablePlus - 自定义布局</h2>
-  <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus> 
+  <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus>
 
   <h2>Table</h2>
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
