@@ -12,6 +12,7 @@ export default defineConfig({
         form: path.resolve(__dirname, 'src/components/form/index.ts'),
         table: path.resolve(__dirname, 'src/components/table/index.ts'),
         utils: path.resolve(__dirname, 'src/components/utils/index.ts'),
+        'auto-import': path.resolve(__dirname, 'src/components/auto-import/index.ts'),
         'table-plus': path.resolve(__dirname, 'src/components/tablePlus/index.ts'),
       },
       name: 'v-el-table',
@@ -37,7 +38,7 @@ export default defineConfig({
         // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
         globals: {
           vue: 'Vue',
-          '@element-plus/icons-vue': 'Icons',
+          '@element-plus/icons-vue': 'ElementIcons',
           'element-plus/es/components/index': 'ElComponents',
           'element-plus': 'ElementPlus',
         },
