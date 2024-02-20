@@ -1,6 +1,7 @@
 
 <a href="https://v-el-table.anbine.com/">
-    <img src="./.github/images/zip.png" height="48px" width="auto" alt="" />
+    <img src="https://github.com/weiquanju/v-el-table/raw/main/app/v-el-table-source/.github/images/zip.png" height="48px" width="auto" alt="" />
+    
 </a>
 <br/>
 
@@ -288,7 +289,7 @@ const tablePlusConfig = reactive<TablePlusProps>({
 
 ## Contribution
 
-Please read [Contributing Guide](./.github/contributing.md).
+Please read [Contributing Guide](https://github.com/weiquanju/v-el-table/blob/main/app/v-el-table-source/.github/contributing.md).
 
 ## License
 
