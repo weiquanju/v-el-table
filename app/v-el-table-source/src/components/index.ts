@@ -1,8 +1,14 @@
 import type { App } from 'vue'
 import VElForm from './form'
-import { lang } from './utils/i18nInit'
+import { lang } from './utils/i18n-init'
 import VElTable from './table'
 import VElTablePlus from './table-plus'
+
+export * from './form'
+export * from './table'
+export * from './utils'
+export * from './table-plus'
+export * from './auto-import'
 
 export default {
   install: <Options extends { [k in string]: string | number }>(app: App<Element>, options?: Options) => {

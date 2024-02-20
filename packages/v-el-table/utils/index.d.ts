@@ -1,5 +1,6 @@
 import type { EventsHandlers, ObjectType } from '../interfaces';
-export { i18n } from './I18N';
+export * from './I18N';
+export * from './i18n-init';
 export declare const toPascalNameStyle: (str: string) => string;
 /**
  * @link https://github.com/vuejs/jsx-next/issues/217#issuecomment-743046201 How to use v-bind without arguments in jsx?

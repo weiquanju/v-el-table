@@ -1,5 +1,9 @@
 import { type FunctionalComponent } from 'vue';
 import type { TablePlusProps } from './type';
+export type * from './type';
+export * from './config';
+export * from './default-button';
+export * from './default-layout';
 /**
  * @todo feat:
  * 支持单元格编辑

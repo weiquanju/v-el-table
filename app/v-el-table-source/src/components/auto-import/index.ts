@@ -5,6 +5,7 @@
  */
 function resolver(componentName: string) {
   //匹配v-el VEl vel VEL
+  // eslint-disable-next-line no-useless-escape
   if (/^v\-?el\-?\w+/i.test(componentName) === false) {
     return
   }

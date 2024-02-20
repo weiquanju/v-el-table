@@ -1,8 +1,7 @@
 <script setup lang="tsx">
 import { reactive } from 'vue';
 import { ElOption } from 'element-plus';
-import type { FormItemProps, FormProps } from 'v-el-table/form/type';
-import VElForm from 'v-el-table/form';
+import type { FormItemProps, FormProps } from 'node_modules/v-el-table/form/type';
 
 const configure: FormProps = reactive({
     form: {

@@ -2,12 +2,12 @@ import type { DefineComponent, Slot, VNode } from 'vue'
 import type { EventsHandlers, ComponentType } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
 
-export type ElFormItemSlots = {
+export declare type ElFormItemSlots = {
   label?: Slot
   error?: Slot
 }
 
-export type FormItemProps = {
+export declare type FormItemProps = {
   itemProps?: ElFormItemProps & ElFormItemSlots
   inputProps?: Record<string, unknown>
   inputComponent: ComponentType
@@ -18,13 +18,13 @@ export type FormItemProps = {
   remoteParams?: object
 } & Record<string, unknown>
 
-export type FormProps = {
+export declare type FormProps = {
   form: ElFormProps
   events?: EventsHandlers
   fields: FormItemProps[]
 }
 
-export type ComponentName =
+export declare type ComponentName =
   | 'ElCalendar'
   | 'ElSelect'
   | 'ElInput'
@@ -37,5 +37,3 @@ export type ComponentName =
   | 'ElRadioGroup'
   | 'ElSlider'
   | 'ElColorPicker'
-
-export declare type VElForm = DefineComponent<FormProps>

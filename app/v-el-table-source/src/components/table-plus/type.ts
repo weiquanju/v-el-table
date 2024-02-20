@@ -18,9 +18,9 @@ export interface DataPath {
   total: string
 }
 
-export type QueryFnType<T = unknown> = (formAndPage: unknown & { currentPage: number; pageSize: number }) => Promise<T>
+export declare type QueryFnType<T = unknown> = (formAndPage: unknown & { currentPage: number; pageSize: number }) => Promise<T>
 
-export type ResponsePathType = {
+export declare type ResponsePathType = {
   data?: string
   currentPage?: string
   total?: string

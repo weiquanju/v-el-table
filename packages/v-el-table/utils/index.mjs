@@ -1,12 +1,12 @@
-var i = Object.defineProperty;
-var a = (n, t, e) => t in n ? i(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
-var o = (n, t, e) => (a(n, typeof t != "symbol" ? t + "" : t, e), e);
-import { ref as u, reactive as l, computed as f, isReactive as h, toRef as p } from "vue";
-class v {
+var u = Object.defineProperty;
+var f = (n, t, e) => t in n ? u(n, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : n[t] = e;
+var c = (n, t, e) => (f(n, typeof t != "symbol" ? t + "" : t, e), e);
+import { ref as l, reactive as i, computed as h, watchEffect as p, isReactive as v, toRef as w } from "vue";
+class g {
   constructor(t) {
-    o(this, "locale", u("en"));
-    o(this, "translations");
-    this.locale.value = t, this.translations = l({
+    c(this, "locale", l("en"));
+    c(this, "translations");
+    this.locale.value = t, this.translations = i({
       en: {
         reset: "reset",
         query: "query"
@@ -18,7 +18,7 @@ class v {
     });
   }
   getTranslation(t) {
-    return f(() => this.translations[this.locale.value][t]);
+    return h(() => this.translations[this.locale.value][t]);
   }
   t(t) {
     return this.getTranslation(t);
@@ -40,27 +40,38 @@ class v {
     this.translations[t] = e;
   }
 }
-const y = new v("en"), C = (n) => n.replace(/[-_ ](\w)|(^\w)/g, (t, e) => (e || t).toUpperCase()), b = (n) => {
+const m = new g("en"), d = l("en");
+let o;
+const C = () => {
+  o || (o = p(
+    () => {
+      m.setLocale(d.value);
+    },
+    { immediate: !0 }
+  ));
+}, b = () => {
+  o && o();
+}, j = (n) => n.replace(/[-_ ](\w)|(^\w)/g, (t, e) => (e || t).toUpperCase()), E = (n) => {
   if (!n)
     return {};
   const t = /* @__PURE__ */ new Map();
-  return Object.entries(n).forEach(([e, r]) => t.set(c(`on-${e}`), r)), Object.fromEntries(t);
-}, c = (n) => n.replace(/[-_ ](\w)|(^\w)/g, (t, e) => e ? e.toUpperCase() : t.toLowerCase()), g = (n) => {
+  return Object.entries(n).forEach(([e, r]) => t.set(a(`on-${e}`), r)), Object.fromEntries(t);
+}, a = (n) => n.replace(/[-_ ](\w)|(^\w)/g, (t, e) => e ? e.toUpperCase() : t.toLowerCase()), O = (n) => {
   const t = Object.keys(n);
-  return h(n) ? l(
+  return v(n) ? i(
     Object.fromEntries(
       t.map((e) => {
-        const r = p(n, e);
-        return t.find((s) => /[-_ ]/.test(s)) ? [c(e), r] : [e, r];
+        const r = w(n, e);
+        return t.find((s) => /[-_ ]/.test(s)) ? [a(e), r] : [e, r];
       })
     )
   ) : Object.fromEntries(
     t.map((e) => {
       const r = n[e];
-      return t.find((s) => /[-_ ]/.test(s)) ? [c(e), r] : [e, r];
+      return t.find((s) => /[-_ ]/.test(s)) ? [a(e), r] : [e, r];
     })
   );
-}, j = (n) => {
+}, T = (n) => {
   for (const t in n) {
     if (n[t] !== null && typeof n[t] == "object") {
       const e = n[t];
@@ -73,7 +84,7 @@ const y = new v("en"), C = (n) => n.replace(/[-_ ](\w)|(^\w)/g, (t, e) => (e || 
   }
   return n;
 };
-function d(n, t) {
+function _(n, t) {
   const e = n.split(".");
   let r = t;
   try {
@@ -88,12 +99,15 @@ function d(n, t) {
   }
 }
 export {
-  d as at,
-  b as eventsTransform,
-  y as i18n,
-  j as resetValue,
-  c as toCamelCase,
-  g as toCamelCaseProp,
-  C as toPascalNameStyle
+  _ as at,
+  E as eventsTransform,
+  m as i18n,
+  d as lang,
+  T as resetValue,
+  b as stopWatchLang,
+  a as toCamelCase,
+  O as toCamelCaseProp,
+  j as toPascalNameStyle,
+  C as watchLang
 };
 //# sourceMappingURL=index.mjs.map

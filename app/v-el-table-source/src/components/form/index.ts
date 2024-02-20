@@ -4,6 +4,7 @@ import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
 import { type FunctionalComponent, h, type VNodeProps } from 'vue'
 import type { ObjectType } from '../interfaces'
+export type * from './type'
 
 const VElForm = function (props: FormProps) {
   const { fields = [] } = props

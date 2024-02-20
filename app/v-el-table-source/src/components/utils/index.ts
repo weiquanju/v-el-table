@@ -1,7 +1,8 @@
 import { isReactive, reactive, toRef } from 'vue'
 import type { EventsHandlers, ObjectType } from '../interfaces'
 
-export { i18n } from './I18N'
+export * from './I18N'
+export * from './i18n-init'
 
 export const toPascalNameStyle = (str: string) =>
   str.replace(/[-_ ](\w)|(^\w)/g, (all, one) => {
@@ -38,8 +39,8 @@ export const toCamelCaseProp = (props: { [key: string]: unknown }) => {
             return [toCamelCase(key), value]
           }
           return [key, value]
-        }),
-      ),
+        })
+      )
     )
   }
   return Object.fromEntries(
@@ -49,7 +50,7 @@ export const toCamelCaseProp = (props: { [key: string]: unknown }) => {
         return [toCamelCase(key), value]
       }
       return [key, value]
-    }),
+    })
   )
 }
 

@@ -8,11 +8,20 @@ export const lang: Ref<string> = ref('en')
 
 // 加载后，开始监听
 let stopHandle: WatchStopHandle | undefined = undefined
-if (!stopHandle) {
-  stopHandle = watchEffect(
-    () => {
-      i18n.setLocale(lang.value)
-    },
-    { immediate: true } as WatchOptionsBase,
-  )
+
+export const watchLang = ()=>{
+  if (!stopHandle) {
+    stopHandle = watchEffect(
+      () => {
+        i18n.setLocale(lang.value)
+      },
+      { immediate: true } as WatchOptionsBase,
+    )
+  }
+}
+
+export const stopWatchLang = () => {
+  if (stopHandle) {
+    stopHandle()
+  }
 }

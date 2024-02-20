@@ -7,6 +7,10 @@ import { at, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
 import { getDefaultButtons } from './default-button'
+export type * from './type'
+export * from './config'
+export * from './default-button'
+export * from './default-layout'
 
 /**
  * @todo feat:

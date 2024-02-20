@@ -15,11 +15,11 @@ export interface DataPath {
     currentPage: string;
     total: string;
 }
-export type QueryFnType<T = unknown> = (formAndPage: unknown & {
+export declare type QueryFnType<T = unknown> = (formAndPage: unknown & {
     currentPage: number;
     pageSize: number;
 }) => Promise<T>;
-export type ResponsePathType = {
+export declare type ResponsePathType = {
     data?: string;
     currentPage?: string;
     total?: string;
