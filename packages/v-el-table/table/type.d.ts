@@ -1,4 +1,4 @@
-import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
+import type { TableColumnCtx } from 'element-plus';
 import type { EventsHandlers } from '../interfaces';
 import type { Slot } from 'vue';
 import type { TableProps } from 'element-plus';

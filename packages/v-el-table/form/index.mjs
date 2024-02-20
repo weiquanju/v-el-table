@@ -1,49 +1,63 @@
-import { ElFormItem as d, ElForm as P } from "element-plus";
-import * as u from "element-plus/es/components/index";
-import { h as a } from "vue";
-import { toPascalNameStyle as E, eventsTransform as l } from "../utils/index.mjs";
-const C = Object.keys(u), b = (o) => C.includes(o), y = (o, p) => {
-  const { prop: n, label: s = "" } = (o == null ? void 0 : o.itemProps) || {};
-  if (!n)
-    throw new Error(`${s || "undefined label"} of 'FormItemProps.itemProps.prop' in form is undefined!`);
-  const { model: t } = p.form, { inputProps: m = {}, remoteHandler: e, inputChildren: c } = o;
-  e && e(o);
-  let i = o.inputComponent;
+import { ElCalendar as d, ElSelect as P, ElInput as f, ElSwitch as C, ElCheckboxGroup as b, ElCheckbox as h, ElTimeSelect as k, ElTimePicker as y, ElDatePicker as v, ElRadioGroup as w, ElSlider as S, ElColorPicker as F, ElFormItem as V, ElForm as x } from "element-plus";
+import { h as s } from "vue";
+import { toPascalNameStyle as I, eventsTransform as i } from "../utils/index.mjs";
+const a = {
+  ElCalendar: d,
+  ElSelect: P,
+  ElInput: f,
+  ElSwitch: C,
+  ElCheckboxGroup: b,
+  ElCheckbox: h,
+  ElTimeSelect: k,
+  ElTimePicker: y,
+  ElDatePicker: v,
+  ElRadioGroup: w,
+  ElSlider: S,
+  ElColorPicker: F
+}, T = Object.keys(a), G = (o) => T.includes(o), N = (o, l) => {
+  const { prop: t, label: p = "" } = (o == null ? void 0 : o.itemProps) || {};
+  if (!t)
+    throw new Error(
+      `${p || "undefined label"} of 'FormItemProps.itemProps.prop' in form is undefined!`
+    );
+  const { model: e } = l.form, { inputProps: m = {}, remoteHandler: n, inputChildren: u } = o;
+  n && n(o);
+  let c = o.inputComponent;
   if (typeof o.inputComponent == "string") {
-    const r = E(o.inputComponent);
-    if (!b(r))
+    const r = I(o.inputComponent);
+    if (!G(r))
       throw new Error(`Error component name: ${r} .`);
-    i = u[r];
+    c = a[r];
   }
-  const f = (r) => {
-    t[n] = r;
+  const E = (r) => {
+    e[t] = r;
   };
-  return a(
-    i,
+  return s(
+    c,
     {
       ...m,
-      ...l(o.inputEvents),
-      modelValue: t[n],
-      "onUpdate:modelValue": f
+      ...i(o.inputEvents),
+      modelValue: e[t],
+      "onUpdate:modelValue": E
     },
-    { default: c }
+    { default: u }
   );
-}, F = function(o) {
-  const { fields: p = [] } = o, n = p.filter(({ visible: t = !0 }) => t).map(
-    (t) => {
-      var m, e;
-      return a(d, t.itemProps, {
-        default: () => y(t, o),
-        label: typeof ((m = t.itemProps) == null ? void 0 : m.label) == "function" ? t.itemProps.label : void 0,
-        error: typeof ((e = t.itemProps) == null ? void 0 : e.error) == "function" ? t.itemProps.error : void 0
+}, g = function(o) {
+  const { fields: l = [] } = o, t = l.filter(({ visible: e = !0 }) => e).map(
+    (e) => {
+      var m, n;
+      return s(V, e.itemProps, {
+        default: () => N(e, o),
+        label: typeof ((m = e.itemProps) == null ? void 0 : m.label) == "function" ? e.itemProps.label : void 0,
+        error: typeof ((n = e.itemProps) == null ? void 0 : n.error) == "function" ? e.itemProps.error : void 0
       });
     }
-  ), s = (t) => {
-    o.form.model = t;
+  ), p = (e) => {
+    o.form.model = e;
   };
-  return a(P, { ...o.form, ...l(o.events), "onUpdate:model": s }, { default: () => n });
+  return s(x, { ...o.form, ...i(o.events), "onUpdate:model": p }, { default: () => t });
 };
 export {
-  F as default
+  g as default
 };
 //# sourceMappingURL=index.mjs.map
