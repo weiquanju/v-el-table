@@ -1,6 +1,6 @@
 {
   "name": "v-el-table",
-  "version": "0.1.0-beta.43",
+  "version": "0.1.0-beta.44",
   "description": "Easy to use table and form component of Vue 3",
   "author": "anbine@qq.com",
   "homepage": "https://github.com/weiquanju/v-el-table",
@@ -14,7 +14,8 @@
   ],
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    ".github/images/zip.png"
   ],
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
