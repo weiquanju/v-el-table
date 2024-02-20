@@ -8,7 +8,7 @@
   "private": "true",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --emptyOutDir && echo build *.d.ts && tsc -p ./build/tsconfig.json && node build/index.mjs",
+    "build": "vite build && echo build *.d.ts && tsc -p ./build/tsconfig.json && node build/index.mjs",
     "preview": "vite preview",
     "test:unit": "vitest",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",

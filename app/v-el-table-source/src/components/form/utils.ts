@@ -1,7 +1,35 @@
-import * as ElComponents from 'element-plus/es/components/index'
+import {
+  ElCalendar,
+  ElSelect,
+  ElInput,
+  ElSwitch,
+  ElCheckboxGroup,
+  ElCheckbox,
+  ElTimeSelect,
+  ElTimePicker,
+  ElDatePicker,
+  ElRadioGroup,
+  ElSlider,
+  ElColorPicker
+} from 'element-plus'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
 import type { FormProps, FormItemProps, ComponentName } from './type'
+
+const ElComponents = {
+  ElCalendar,
+  ElSelect,
+  ElInput,
+  ElSwitch,
+  ElCheckboxGroup,
+  ElCheckbox,
+  ElTimeSelect,
+  ElTimePicker,
+  ElDatePicker,
+  ElRadioGroup,
+  ElSlider,
+  ElColorPicker
+}
 
 const componentKey = Object.keys(ElComponents)
 
@@ -10,7 +38,9 @@ export const isComponentName = (name: string): name is ComponentName => componen
 export const inputRender = (field: FormItemProps, formProps: FormProps) => {
   const { prop, label = '' } = field?.itemProps || {}
   if (!prop) {
-    throw new Error(`${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`)
+    throw new Error(
+      `${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`
+    )
   }
   const { model } = formProps.form
   const { inputProps = {}, remoteHandler, inputChildren } = field
@@ -40,8 +70,8 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
       ...inputProps,
       ...eventsTransform(field.inputEvents),
       modelValue: model[prop],
-      'onUpdate:modelValue': modelValue,
+      'onUpdate:modelValue': modelValue
     },
-    { default: inputChildren },
+    { default: inputChildren }
   )
 }
