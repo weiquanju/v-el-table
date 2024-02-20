@@ -1,0 +1,13 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationDir": "../../../packages/v-el-table",
+    "rootDir": "../src/components",
+    "baseUrl": "../src/components",
+    "typeRoots": ["../env.d.ts"]
+  },
+  "include": ["../src/components/**/*"]
+}

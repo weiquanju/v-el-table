@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});function s(l){if(/^v\-?el\-?\w+/i.test(l)===!1)return;const t=new Map([["Form","v-el-table/form"],["Table","v-el-table/table"],["TablePlus","v-el-table/table-plus"]]),a=l.replace(/-(\w)/g,(e,r)=>r.toUpperCase()).slice(3);if(t.has(a)){const e=t.get(a);if(e)return{from:e,name:"default"}}}exports.default=s;
+//# sourceMappingURL=index.cjs.map

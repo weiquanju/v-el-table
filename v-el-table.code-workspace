@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "./app/v-el-table-source"
+		},
+		{
+			"path": "./app/vue-test"
+		},
+		{
+			"path": "./packages"
+		},
+	],
+	"settings": {}
+}

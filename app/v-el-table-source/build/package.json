@@ -1,0 +1,55 @@
+{
+  "name": "v-el-table",
+  "version": "0.1.0-beta.46",
+  "description": "Easy and useful Vue3 form and table components, based on Element-Plus.",
+  "author": "anbine@qq.com",
+  "homepage": "https://github.com/weiquanju/v-el-table",
+  "keywords": [
+    "v-el-table",
+    "table",
+    "form",
+    "element-plus",
+    "ui",
+    "vue"
+  ],
+  "license": "MIT",
+  "files": [
+    "./*",
+    "./**/*"
+  ],
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "style": "style.css",
+  "exports": {
+    ".": {
+      "import": "./index.mjs",
+      "types": "./index.d.ts",
+      "require": "./index.cjs"
+    },
+    "./auto-import": {
+      "import": "./auto-import/index.mjs",
+      "types": "./auto-import/index.d.ts",
+      "require": "./auto-import/index.cjs"
+    },
+    "./form": {
+      "import": "./form/index.mjs",
+      "types": "./form/index.d.ts",
+      "require": "./form/index.cjs"
+    },
+    "./table": {
+      "import": "./table/index.mjs",
+      "types": "./table/index.d.ts",
+      "require": "./table/index.cjs"
+    },
+    "./table-plus": {
+      "import": "./table-plus/index.mjs",
+      "types": "./table-plus/index.d.ts",
+      "require": "./table-plus/index.cjs"
+    }
+  },
+  "peerDependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "element-plus": "^2.4.4",
+    "vue": "^3.4.5"
+  }
+}
