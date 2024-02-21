@@ -48,7 +48,7 @@ $ pnpm install v-el-table
 - Volar compatibility with type hints
 - Automatic component import
 - JSX friendly
-- Compact, gzip 5.2kB
+- Compact, gzip 5kB
 
 ### Components
 
@@ -59,20 +59,13 @@ $ pnpm install v-el-table
 ### Files and size
 
 ```log
-dist/style.css              0.44 kB │ gzip: 0.27 kB
-dist/auto-import/index.mjs  0.52 kB │ gzip: 0.38 kB │ map:  1.31 kB
-dist/table/index.mjs        0.55 kB │ gzip: 0.33 kB │ map:  1.57 kB
-dist/index.mjs              0.71 kB │ gzip: 0.37 kB │ map:  1.84 kB
-dist/form/index.mjs         1.62 kB │ gzip: 0.76 kB │ map:  4.57 kB
-dist/utils/index.mjs        2.47 kB │ gzip: 1.05 kB │ map:  7.16 kB
-dist/table-plus/index.mjs   4.38 kB │ gzip: 1.78 kB │ map: 11.25 kB
-dist/style.css              0.44 kB │ gzip: 0.27 kB
-dist/auto-import/index.cjs  0.45 kB │ gzip: 0.33 kB │ map:  1.27 kB
-dist/table/index.cjs        0.52 kB │ gzip: 0.34 kB │ map:  1.58 kB
-dist/index.cjs              0.77 kB │ gzip: 0.40 kB │ map:  1.83 kB
-dist/form/index.cjs         1.60 kB │ gzip: 0.82 kB │ map:  4.46 kB
-dist/utils/index.cjs        1.88 kB │ gzip: 0.91 kB │ map:  6.91 kB
-dist/table-plus/index.cjs   3.79 kB │ gzip: 1.59 kB │ map: 11.03 kB
+style.css              0.44 kB │ gzip: 0.27 kB
+auto-import/index.mjs  0.52 kB │ gzip: 0.38 kB │ map:  1.39 kB
+table/index.mjs        0.55 kB │ gzip: 0.33 kB │ map:  1.63 kB
+index.mjs              1.01 kB │ gzip: 0.46 kB │ map:  1.15 kB
+form/index.mjs         2.04 kB │ gzip: 0.92 kB │ map:  5.48 kB
+utils/index.mjs        2.72 kB │ gzip: 1.16 kB │ map:  8.53 kB
+table-plus/index.mjs   4.43 kB │ gzip: 1.80 kB │ map: 11.49 kB
 ```
 
 ## Usage
