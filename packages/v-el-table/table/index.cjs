@@ -1,2 +1,0 @@
-"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const t=require("element-plus"),l=require("vue"),i=require("../utils/index.cjs"),f=function({events:u={},table:s={data:[],tableLayout:"auto"},columns:o=[]},{slots:{append:r}}){const a={default:()=>o.map(e=>{const{default:n,header:d}=e,c=e;return l.h(t.ElTableColumn,c,{default:n,header:d})}),append:r};return l.h(t.ElTable,{...i.eventsTransform(u),...s},a)};exports.default=f;
-//# sourceMappingURL=index.cjs.map
