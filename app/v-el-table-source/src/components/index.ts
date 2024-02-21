@@ -20,5 +20,3 @@ export default {
     }
   },
 }
-
-export { VElForm, VElTable, VElTablePlus }

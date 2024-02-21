@@ -2,17 +2,17 @@
 import Form from './components/form'
 import Table from './components/table'
 import TablePlus from './components/table-plus'
-import type { FormProps } from './components/form/type'
+import type { VElFormProps } from './components/form/type'
 // eslint-disable-next-line prettier/prettier
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput } from 'element-plus'
 import type { TableColumn } from './components/table/type'
-import type { TablePlusProps } from './components/table-plus'type'
+import type { TablePlusProps } from './components/table-plus'
 
 
 
 const model = ref({ name: 'User Name', num: 1 })
-const config = reactive({
+const config: VElFormProps<typeof model.value> = reactive({
   form: {
     model: model
   },
@@ -42,7 +42,7 @@ const config = reactive({
       }
     }
   ]
-} as unknown as FormProps)
+})
 
 
 type DataType = { id: number; value: string }
@@ -128,7 +128,7 @@ const tablePlusConfig = reactive<TablePlusProps>({
         inputEvents: {}
       },
     ]
-  } as unknown as FormProps
+  }
 })
 
 function MyInputString(props: { modelValue: string }, ctx: SetupContext) {

@@ -1,5 +1,5 @@
 import type { DefineComponent, FunctionalComponent } from 'vue'
-import type { FormProps } from '../form/type'
+import type { VElFormProps } from '../form/type'
 import type { TableBasicProps } from '../table/type'
 import type { ButtonType } from './default-button-type'
 import type { ObjectType } from '../interfaces'
@@ -31,7 +31,7 @@ export interface TablePlusProps<T = unknown> {
   layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
   layoutProps?: ObjectType
   pagination?: PaginationProps
-  formProps: FormProps
+  formProps: VElFormProps
   tableProps: TableBasicProps<T>
   initQuery?: boolean
   query: QueryFnType

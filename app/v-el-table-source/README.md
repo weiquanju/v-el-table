@@ -114,10 +114,10 @@ For volar support, add this line to  `env.d.ts`,
 <script setup lang="tsx">
 import { reactive } from 'vue';
 import { ElOption } from 'element-plus';
-import type { FormItemProps, FormProps } from 'v-el-table/form/type';
+import type { FormItemProps, VElFormProps } from 'v-el-table/form/type';
 import VElForm from 'v-el-table/form';
 
-const configure: FormProps = reactive({
+const configure: VElFormProps = reactive({
     form: {
         model: {
             name: 'v-el-table',
@@ -203,7 +203,7 @@ const tableProps = reactive({
 <script setup lang="tsx">
 import { reactive } from 'vue';
 import { ElButton } from 'element-plus';
-import type { FormProps } from 'v-el-table/form/type';
+import type { VElFormProps } from 'v-el-table/form/type';
 import VElTablePlus from 'v-el-table/table-plus';
 import type { TableColumn } from 'v-el-table/table/type';
 import type { TablePlusProps } from 'v-el-table/table-plus/type';
@@ -278,7 +278,7 @@ const tablePlusConfig = reactive<TablePlusProps>({
                 inputEvents: {}
             },
         ]
-    } as unknown as FormProps
+    } as unknown as VElFormProps
 })
 
 </script>

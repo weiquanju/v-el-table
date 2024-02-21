@@ -1,5 +1,6 @@
 import { isReactive, reactive, toRef } from 'vue'
 import type { EventsHandlers, ObjectType } from '../interfaces'
+import type { FormItemProps, InputComponent } from '../form'
 
 export * from './I18N'
 export * from './i18n-init'
@@ -13,8 +14,10 @@ export const toPascalNameStyle = (str: string) =>
  * @link https://github.com/vuejs/jsx-next/issues/217#issuecomment-743046201 How to use v-bind without arguments in jsx?
  * 将event handlers 由 {click:(event)=>xxx} 转为 {onClick:(event)=>xxx}
  */
-export const eventsTransform = (handlers?: EventsHandlers) => {
-  if (!handlers) {
+export const eventsTransform = <T extends InputComponent = InputComponent>(
+  handlers?: FormItemProps<ObjectType, T>['inputEvents']
+) => {
+  if (!handlers || typeof handlers !== 'object') {
     return {} as EventsHandlers
   }
   const map = new Map<string, (...args: unknown[]) => void>()

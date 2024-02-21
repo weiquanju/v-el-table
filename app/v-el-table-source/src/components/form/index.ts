@@ -1,4 +1,4 @@
-import type { FormProps } from './type'
+import type { VElFormProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
@@ -6,7 +6,7 @@ import { type FunctionalComponent, h, type VNodeProps } from 'vue'
 import type { ObjectType } from '../interfaces'
 export type * from './type'
 
-const VElForm = function (props: FormProps) {
+const VElForm = function (props: VElFormProps) {
   const { fields = [] } = props
   const children = fields
     .filter(({ visible = true }) => visible)
@@ -23,5 +23,5 @@ const VElForm = function (props: FormProps) {
   }
 
   return h(ElForm, { ...props.form, ...eventsTransform(props.events), 'onUpdate:model': model } as VNodeProps, { default: () => children })
-} as FunctionalComponent<FormProps>
+} as FunctionalComponent<VElFormProps>
 export default VElForm

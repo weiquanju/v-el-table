@@ -14,7 +14,7 @@ import {
 } from 'element-plus'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
-import type { FormProps, FormItemProps, ComponentName } from './type'
+import type { VElFormProps, FormItemProps, ComponentName } from './type'
 
 const ElComponents = {
   ElCalendar,
@@ -35,13 +35,7 @@ const componentKey = Object.keys(ElComponents)
 
 export const isComponentName = (name: string): name is ComponentName => componentKey.includes(name)
 
-export const inputRender = (field: FormItemProps, formProps: FormProps) => {
-  const { prop, label = '' } = field?.itemProps || {}
-  if (!prop) {
-    throw new Error(
-      `${label || 'undefined label'} of 'FormItemProps.itemProps.prop' in form is undefined!`
-    )
-  }
+export const inputRender = (field: FormItemProps, formProps: VElFormProps) => {
   const { model } = formProps.form
   const { inputProps = {}, remoteHandler, inputChildren } = field
 
@@ -53,15 +47,16 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
 
   // 如果是字符串类型
   if (typeof field.inputComponent === 'string') {
-    const name = toPascalNameStyle(field.inputComponent)
+    let name = toPascalNameStyle(field.inputComponent)
+    if (name.startsWith('El') === false) name = `El${name}`
     if (!isComponentName(name)) {
       throw new Error(`Error component name: ${name} .`)
     }
-    Component = ElComponents[name] as Parameters<typeof h>[0]
+    Component = ElComponents[name as keyof typeof ElComponents] as Parameters<typeof h>[0]
   }
 
   const modelValue = (val: unknown) => {
-    model[prop] = val
+    if (field?.itemProps?.prop) return (model[field.itemProps.prop] = val)
   }
 
   return h(
@@ -69,7 +64,7 @@ export const inputRender = (field: FormItemProps, formProps: FormProps) => {
     {
       ...inputProps,
       ...eventsTransform(field.inputEvents),
-      modelValue: model[prop],
+      modelValue: field?.itemProps?.prop ? model[field.itemProps.prop] : undefined,
       'onUpdate:modelValue': modelValue
     },
     { default: inputChildren }
