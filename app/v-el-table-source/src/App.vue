@@ -11,10 +11,13 @@ import type { TablePlusProps } from './components/table-plus'
 
 const formRef = ref<FormInstance>()
 
-const model = ref({ name: 'User Name', num: 1 })
-const config: VElFormProps<typeof model.value> = reactive({
+interface FormType {
+  name: 'User Name'
+}
+
+const config: VElFormProps<FormType> = reactive({
   form: {
-    model: model,
+    model: { name: 'User Name' },
     ref: (r: FormInstance) => {
       formRef.value = r
     },
@@ -35,7 +38,7 @@ const config: VElFormProps<typeof model.value> = reactive({
     },
     {
       itemProps: { prop: 'name', label: '姓名JSX' },
-      inputComponent: () => <ElInput type="input" modelValue={model.value.name}></ElInput>,
+      inputComponent: () => <ElInput type="input" modelValue={config.form.model.name}></ElInput>,
       inputProps: { type: 'text', placeholder: 'Please input' },
     }
   ]

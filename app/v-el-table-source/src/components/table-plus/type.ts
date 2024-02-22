@@ -18,7 +18,9 @@ export declare interface DataPath {
   total: string
 }
 
-export declare type QueryFnType<T = unknown> = (formAndPage: unknown & { currentPage: number; pageSize: number }) => Promise<T>
+export declare type QueryFnType<T = unknown> = (
+  formAndPage: unknown & { currentPage: number; pageSize: number }
+) => Promise<T>
 
 export declare type ResponsePathType = {
   data?: string
@@ -28,7 +30,10 @@ export declare type ResponsePathType = {
 
 export declare interface TablePlusProps<T = unknown> {
   title?: string
-  layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
+  layout?:
+    | DefineComponent
+    | FunctionalComponent
+    | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
   layoutProps?: ObjectType
   pagination?: PaginationProps
   formProps: VElFormProps

@@ -8,10 +8,12 @@ import type {
 } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
 
+export * from './type-fix'
+
 export declare type InputComponent = ComponentType | ComponentName | ComponentInputs
 
 export declare type FormItemProps<
-  FormData extends ObjectType = ObjectType,
+  FormData extends object = object,
   T extends InputComponent = InputComponent,
   P extends Record<string, unknown> = Record<string, unknown>,
   S extends VNodeChild | VNodeChild[] | RenderFunction = VNodeChild | VNodeChild[] | RenderFunction
@@ -22,11 +24,11 @@ export declare type FormItemProps<
   inputEvents?: T extends VueComponentType ? InferComponentEmits<T, EventsHandlers> : EventsHandlers
   inputChildren?: T extends VueComponentType ? InferComponentSlots<T, S> : S
   visible?: boolean
-  remoteHandler?: <T = unknown, R = Promise<T>>(itemContext: FormItemProps) => R
+  remoteHandler?: <T = unknown, R = Promise<T>>(itemContext: FormItemProps<FormData>) => R
   remoteParams?: object
 } & object
 
-export declare type VElFormProps<FormData extends ObjectType = ObjectType, T = unknown> = {
+export declare type VElFormProps<FormData extends object = object> = {
   form: ElFormProps<FormData>
   events?: EventsHandlers
   fields: FormItemProps<FormData>[]

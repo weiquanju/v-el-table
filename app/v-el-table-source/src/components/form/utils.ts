@@ -35,7 +35,10 @@ const componentKey = Object.keys(ElComponents)
 
 export const isComponentName = (name: string): name is ComponentName => componentKey.includes(name)
 
-export const inputRender = (field: FormItemProps, formProps: VElFormProps) => {
+export const inputRender = <T extends object = object>(
+  field: FormItemProps<T>,
+  formProps: VElFormProps<T>
+) => {
   const { model } = formProps.form
   const { inputProps = {}, remoteHandler, inputChildren } = field
 
@@ -56,7 +59,8 @@ export const inputRender = (field: FormItemProps, formProps: VElFormProps) => {
   }
 
   const modelValue = (val: unknown) => {
-    if (field?.itemProps?.prop) return (model[field.itemProps.prop] = val)
+    if (!field?.itemProps?.prop) return
+    Object.assign(model, { [field.itemProps.prop]: val })
   }
 
   return h(
@@ -64,7 +68,7 @@ export const inputRender = (field: FormItemProps, formProps: VElFormProps) => {
     {
       ...inputProps,
       ...eventsTransform(field.inputEvents),
-      modelValue: field?.itemProps?.prop ? model[field.itemProps.prop] : undefined,
+      // modelValue: field?.itemProps?.prop ? model[field.itemProps.prop] : undefined,
       'onUpdate:modelValue': modelValue
     },
     { default: inputChildren }

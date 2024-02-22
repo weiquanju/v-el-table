@@ -4,7 +4,7 @@ import type { Slot } from 'vue'
 
 export declare type ComponentSize = 'default' | 'small' | 'large'
 
-export declare interface ElFormProps<M extends ObjectType = ObjectType> extends ObjectType {
+export declare interface ElFormProps<M extends object = object> extends ObjectType {
   model: M
   rules?: Partial<Record<string, FormItemRule | FormItemRule[]>>
   labelPosition?: string
@@ -23,9 +23,9 @@ export declare interface ElFormProps<M extends ObjectType = ObjectType> extends 
 
 export declare interface ElFormItemProps<
   // form model data
-  D extends ObjectType | unknown = ObjectType,
+  D = unknown,
   // prop类型自动推导
-  P = D extends ObjectType ? keyof D : string
+  P = D extends object ? keyof D : string
 > {
   label?: string | Slot
   labelWidth?: string | number
