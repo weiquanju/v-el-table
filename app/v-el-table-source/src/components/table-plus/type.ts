@@ -4,7 +4,7 @@ import type { TableBasicProps } from '../table/type'
 import type { ButtonType } from './default-button-type'
 import type { ObjectType } from '../interfaces'
 
-export interface PaginationProps {
+export declare interface PaginationProps {
   currentPage: number
   pageSizes: number[]
   pageSize: number
@@ -12,7 +12,7 @@ export interface PaginationProps {
   total: number
 }
 
-export interface DataPath {
+export declare interface DataPath {
   data: string
   currentPage: string
   total: string
@@ -26,7 +26,7 @@ export declare type ResponsePathType = {
   total?: string
 }
 
-export interface TablePlusProps<T = unknown> {
+export declare interface TablePlusProps<T = unknown> {
   title?: string
   layout?: DefineComponent | FunctionalComponent | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
   layoutProps?: ObjectType

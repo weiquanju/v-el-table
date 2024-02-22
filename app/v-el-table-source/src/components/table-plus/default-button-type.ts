@@ -4,7 +4,7 @@ import type { Writable, EventsHandlers } from '../interfaces'
 import * as ElementIcons from '@element-plus/icons-vue'
 export type * from './default-button-type'
 
-export interface ButtonConfig {
+export declare interface ButtonConfig {
   key?: string
   name: string | Ref<string>
   buttonProps?: Partial<Writable<ButtonProps>>
@@ -12,4 +12,4 @@ export interface ButtonConfig {
   events?: EventsHandlers
 }
 
-export type ButtonType = ButtonConfig | Parameters<typeof h>
+export declare type ButtonType = ButtonConfig | Parameters<typeof h>

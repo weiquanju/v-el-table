@@ -13,20 +13,20 @@ import type {
   ComponentOptionsMixin
 } from 'vue'
 
-export type FunctionType = <Event = unknown>(...args: Event[]) => void
+export declare type FunctionType = <Event = unknown>(...args: Event[]) => void
 
-export type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]
+export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]
 
-export type ObjectType = Record<
+export declare type ObjectType = Record<
   PropertyKey,
   unknown | string | number | boolean | undefined | null | FunctionType
 >
 
-export type EventsHandlers<K extends string = string> = Record<K, FunctionType>
+export declare type EventsHandlers<K extends string = string> = Record<K, FunctionType>
 
-export type ComponentType = string | Component | DefineComponent | FunctionalComponent
+export declare type ComponentType = string | Component | DefineComponent | FunctionalComponent
 
-export type VueComponentType<
+export declare type VueComponentType<
   /**
    * @param Props 组件属性
    */
@@ -58,9 +58,9 @@ export type VueComponentType<
     >
   | FunctionalComponent<P, E, S>
 
-export type Setup = <Props = unknown, Data = object>(
+export declare type Setup = <Props = unknown, Data = object>(
   props: Readonly<Props>,
   ctx: SetupContext
 ) => RenderFunction | Data
 
-export type Writable<T> = { -readonly [P in keyof T]: T[P] }
+export declare type Writable<T> = { -readonly [P in keyof T]: T[P] }

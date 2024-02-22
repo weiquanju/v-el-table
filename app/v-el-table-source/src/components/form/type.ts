@@ -1,4 +1,4 @@
-import type { Slot, VNodeChild } from 'vue'
+import type { VNodeChild } from 'vue'
 import type {
   EventsHandlers,
   ComponentType,
@@ -8,7 +8,7 @@ import type {
 } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
 
-export type InputComponent = ComponentType | ComponentName | ComponentInputs
+export declare type InputComponent = ComponentType | ComponentName | ComponentInputs
 
 export declare type FormItemProps<
   FormData extends ObjectType = ObjectType,
@@ -26,7 +26,7 @@ export declare type FormItemProps<
   remoteParams?: object
 } & object
 
-export declare type VElFormProps<FormData extends ObjectType = ObjectType> = {
+export declare type VElFormProps<FormData extends ObjectType = ObjectType, T = unknown> = {
   form: ElFormProps<FormData>
   events?: EventsHandlers
   fields: FormItemProps<FormData>[]
