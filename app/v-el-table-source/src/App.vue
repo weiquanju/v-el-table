@@ -5,16 +5,19 @@ import TablePlus from './components/table-plus'
 import type { VElFormProps } from './components/form/type'
 // eslint-disable-next-line prettier/prettier
 import { type SetupContext, h, reactive, ref } from 'vue'
-import { ElInput } from 'element-plus'
+import { ElInput, type FormInstance } from 'element-plus'
 import type { TableColumn } from './components/table/type'
 import type { TablePlusProps } from './components/table-plus'
 
-
+const formRef = ref<FormInstance>()
 
 const model = ref({ name: 'User Name', num: 1 })
 const config: VElFormProps<typeof model.value> = reactive({
   form: {
-    model: model
+    model: model,
+    ref: (r: FormInstance) => {
+      formRef.value = r
+    },
   },
   fields: [
     {
@@ -22,24 +25,18 @@ const config: VElFormProps<typeof model.value> = reactive({
       inputComponent: 'el-input',
       inputProps: { type: 'text', placeholder: 'Please input' },
       inputEvents: {
-        change: (...args: unknown[]) => console.log(...args)
+        focus: (...args: unknown[]) => console.log('formRef', formRef.value?.validate)
       }
     },
     {
       itemProps: { prop: 'name', label: '姓名ElInput' },
       inputComponent: 'ElInput',
       inputProps: { type: 'text', placeholder: 'Please input' },
-      inputEvents: {
-        change: (...args: unknown[]) => console.log(...args)
-      }
     },
     {
       itemProps: { prop: 'name', label: '姓名JSX' },
       inputComponent: () => <ElInput type="input" modelValue={model.value.name}></ElInput>,
       inputProps: { type: 'text', placeholder: 'Please input' },
-      inputEvents: {
-        change: (...args: unknown[]) => console.log(...args)
-      }
     }
   ]
 })
