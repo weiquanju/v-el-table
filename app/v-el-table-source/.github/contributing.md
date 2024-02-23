@@ -8,19 +8,24 @@ You will need [Node.js](https://nodejs.org) **version 16+**
 After cloning the repo, run:
 
 ```bash
-
-npm install
-// or
-yarn install
-
+# v-el-table project source code
+cd app/v-el-table-source
+pnpm install
+# develop
+pnpm dev
+# develop
+pnpm build
 ```
 
-develop
+Test package
 
 ```bash
-npm run dev
-// or 
-yarn dev
+# Test package project
+cd app/vue-test
+# Need install at first time
+pnpm install
+# To View web UI
+pnpm dev
 ```
 
 ## Document translation
