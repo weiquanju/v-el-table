@@ -1,9 +1,8 @@
 <script setup lang="tsx">
-import Form from './components/form'
+import VElForm from './components/form'
 import Table from './components/table'
 import TablePlus from './components/table-plus'
-import type { VElFormProps } from './components/form/type'
-// eslint-disable-next-line prettier/prettier
+import type { ElFormProps, FormItemProps, VElFormProps } from './components/form/type'
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
 import type { TableColumn } from './components/table/type'
@@ -12,36 +11,38 @@ import type { TablePlusProps } from './components/table-plus'
 const formRef = ref<FormInstance>()
 
 interface FormType {
-  name: 'User Name'
+  name: string
 }
 
-const config: VElFormProps<FormType> = reactive({
-  form: {
-    model: { name: 'User Name' },
-    ref: (r: FormInstance) => {
-      formRef.value = r
-    },
-  },
-  fields: [
-    {
-      itemProps: { prop: 'name', label: '姓名el-input' },
-      inputComponent: 'el-input',
-      inputProps: { type: 'text', placeholder: 'Please input' },
-      inputEvents: {
-        focus: (...args: unknown[]) => console.log('formRef', formRef.value?.validate)
-      }
-    },
-    {
-      itemProps: { prop: 'name', label: '姓名ElInput' },
-      inputComponent: 'ElInput',
-      inputProps: { type: 'text', placeholder: 'Please input' },
-    },
-    {
-      itemProps: { prop: 'name', label: '姓名JSX' },
-      inputComponent: () => <ElInput type="input" modelValue={config.form.model.name}></ElInput>,
-      inputProps: { type: 'text', placeholder: 'Please input' },
+const formFields: FormItemProps<FormType>[] = [
+  {
+    itemProps: { prop: 'name', label: '姓名el-input' },
+    inputComponent: 'el-input',
+    inputProps: { type: 'text', placeholder: 'Please input' },
+    inputEvents: {
+      focus: (...args: unknown[]) => console.log('formRef', formRef.value?.validate)
     }
-  ]
+  },
+  {
+    itemProps: { prop: 'name', label: '姓名ElInput' },
+    inputComponent: 'ElInput',
+    inputProps: { type: 'text', placeholder: 'Please input' },
+  },
+  {
+    itemProps: { prop: 'name', label: '姓名JSX' },
+    inputComponent: () => <ElInput type="input" modelValue={config.form.model.name}></ElInput>,
+    inputProps: { type: 'text', placeholder: 'Please input' },
+  }
+]
+const formConfig: ElFormProps<FormType> = {
+  model: { name: 'User Name' },
+  ref: (r: FormInstance) => {
+    formRef.value = r
+  },
+}
+const config = reactive<VElFormProps<FormType>>({
+  form: formConfig,
+  fields: formFields
 })
 
 
@@ -155,5 +156,5 @@ const name = ref('Han Meimei')
   <Table :table="tableProps.table" :columns="tableProps.columns" :events="tableProps.events"></Table>
 
   <h2>Form</h2>
-  <Form v-bind="config"></Form>
+  <VElForm v-bind="config"></VElForm>
 </template>

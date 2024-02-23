@@ -23,7 +23,7 @@ export declare interface ElFormProps<M extends object = object> extends ObjectTy
 
 export declare interface ElFormItemProps<
   // form model data
-  D = unknown,
+  D extends object | unknown = object,
   // prop类型自动推导
   P = D extends object ? keyof D : string
 > {

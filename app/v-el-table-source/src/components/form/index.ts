@@ -1,11 +1,11 @@
-import type { VElFormProps } from './type'
+import type { GenericForm, VElFormProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
-import { h, type VNodeProps, type FunctionalComponent } from 'vue'
+import { h, type VNodeProps } from 'vue'
 export type * from './type'
 
-const VElForm: FunctionalComponent<VElFormProps> = function (props: VElFormProps) {
+function VElForm<T extends object>(props: VElFormProps<T>) {
   const { fields = [] } = props
   const children = fields
     .filter(({ visible = true }) => visible)
@@ -17,7 +17,7 @@ const VElForm: FunctionalComponent<VElFormProps> = function (props: VElFormProps
       })
     )
 
-  const model = <T extends object = object>(val: T) => {
+  const model = (val: VElFormProps<T>['form']['model']) => {
     props.form.model = val
   }
 
@@ -28,4 +28,4 @@ const VElForm: FunctionalComponent<VElFormProps> = function (props: VElFormProps
   )
 }
 
-export default VElForm
+export default VElForm as GenericForm
