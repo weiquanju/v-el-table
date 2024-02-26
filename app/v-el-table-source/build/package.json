@@ -45,7 +45,8 @@
       "import": "./table-plus/index.mjs",
       "types": "./table-plus/index.d.ts",
       "require": "./table-plus/index.cjs"
-    }
+    },
+    "./style.css": "./style.css"
   },
   "peerDependencies": {
     "@element-plus/icons-vue": "^2.3.1",
