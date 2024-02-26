@@ -7,7 +7,8 @@ import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
 import type { TableColumn } from './components/table/type'
 import type { TablePlusProps } from './components/table-plus'
-
+import { i18n } from './components'
+i18n.setLocale('zh-cn')
 const formRef = ref<FormInstance>()
 
 interface FormType {

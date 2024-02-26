@@ -1,6 +1,5 @@
 import type { App } from 'vue'
 import VElForm from './form'
-import { lang } from './utils/i18n-init'
 import VElTable from './table'
 import VElTablePlus from './table-plus'
 
@@ -15,8 +14,5 @@ export default {
     app.component('VElForm', VElForm)
     app.component('VElTable', VElTable)
     app.component('VElTablePlus', VElTablePlus)
-    if (options && typeof options.lang === 'string') {
-      lang.value = options.lang
-    }
   },
 }

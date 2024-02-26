@@ -3,7 +3,6 @@ import type { EventsHandlers, ObjectType } from '../interfaces'
 import type { FormItemProps, InputComponent } from '../form'
 
 export * from './I18N'
-export * from './i18n-init'
 
 export const toPascalNameStyle = (str: string) =>
   str.replace(/[-_ ](\w)|(^\w)/g, (all, one) => {
