@@ -1,6 +1,6 @@
 {
   "name": "v-el-table",
-  "version": "0.1.0-rc.58",
+  "version": "0.1.0-rc.59",
   "description": "Easy and useful Vue3 form and table components, based on Element-Plus.",
   "author": "anbine@qq.com",
   "homepage": "https://github.com/weiquanju/v-el-table",
@@ -45,6 +45,9 @@
       "import": "./table-plus/index.mjs",
       "types": "./table-plus/index.d.ts",
       "require": "./table-plus/index.cjs"
+    },
+    "./types": {
+      "types": "./types.d.ts"
     },
     "./style.css": "./style.css"
   },
