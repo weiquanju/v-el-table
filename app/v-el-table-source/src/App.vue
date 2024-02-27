@@ -87,7 +87,7 @@ const Layout = (props: never, { slots }: SetupContext) => (
     <div class="footer">{slots.footer && slots.footer()}</div>
   </>
 )
-const tablePlusConfig: TablePlusProps<TableDataItem, FormData, TableBasicProps<TableDataItem>> = reactive({
+const tablePlusConfig: TablePlusProps<TableDataItem, FormData> = reactive({
   title: '',
   query: (data: { currentPage: number }) => {
     // console.log('query', data)

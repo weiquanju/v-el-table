@@ -33,33 +33,31 @@ export declare type ResponsePathType = {
   total?: string
 }
 
-export declare interface TablePlusProps<
-  TableDataItem,
-  FormData extends object = object,
-  TableProps extends TableBasicProps<TableDataItem> = TableBasicProps<TableDataItem>
-> {
+export declare interface TablePlusProps<TableDataItem, FormData extends object = object> {
   title?: string
   layout?: unknown //| DefineComponent | FunctionalComponent
   layoutProps?: unknown | ObjectType
   pagination?: PaginationProps
   formProps: VElFormProps<FormData>
-  tableProps: TableProps<TableDataItem>
+  tableProps: TableBasicProps<TableDataItem>
   initQuery?: boolean
   query: QueryFnType<FormData>
   responsePath?: ResponsePathType
   queryParams?: unknown
   buttons?: ButtonType[]
+  getExpose?: (expose: TablePlusExpose) => void
 }
 
-export declare type GenericTablePlus = <
-  T,
-  FormData extends object = object,
-  TableProps extends TableBasicProps<T> = TableBasicProps<T>
->(
-  props: TablePlusProps<T, FormData, TableProps> & GenericCommonType,
+export declare interface TablePlusExpose {
+  query: () => Promise<void>
+  reset: () => void
+}
+
+export declare type GenericTablePlus = <T, FormData extends object = object>(
+  props: TablePlusProps<T, FormData> & GenericCommonType,
   ctx?: GenericCtx,
   expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
-  setup?: Promise<GenericReturnInstance<TablePlusProps<T, FormData, TableProps>>>
+  setup?: Promise<GenericReturnInstance<TablePlusProps<T, FormData>>>
 ) => GenericRenderNodeType & {
-  __ctx?: GenericReturnInstance<TablePlusProps<T, FormData, TableProps>>
+  __ctx?: GenericReturnInstance<TablePlusProps<T, FormData>>
 }
