@@ -12,6 +12,7 @@
 }
 .tpBtn{
     display: flex;
+    margin-bottom: 16px;
 }
 
 .tpTable{
