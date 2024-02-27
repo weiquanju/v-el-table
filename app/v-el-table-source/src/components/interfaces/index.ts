@@ -13,6 +13,8 @@ import type {
   ComponentOptionsMixin
 } from 'vue'
 
+export * from './generic'
+
 export declare type FunctionType = <Event = unknown>(...args: Event[]) => void
 
 export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]

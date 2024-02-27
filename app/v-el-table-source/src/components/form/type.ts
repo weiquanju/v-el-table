@@ -1,6 +1,12 @@
 import type { VNodeChild } from 'vue'
 import type { EventsHandlers, ComponentType, RenderFunction, VueComponentType } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
+import type {
+  GenericCommonType,
+  GenericCtx,
+  GenericRenderNodeType,
+  GenericReturnInstance
+} from '../interfaces'
 
 export * from './type-fix'
 
@@ -102,44 +108,8 @@ export declare type InferComponentSlots<T extends VueComponentType, Default = un
   T extends VueComponentType<{}, {}, infer S> ? Partial<S> : Default
 
 export declare type GenericForm = <FormData extends object>(
-  props: {
-    form: ElFormProps<FormData>
-    events?: EventsHandlers
-    fields: FormItemProps<FormData>[]
-  } & CommonType,
- ctx?: Ctx,
- expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
- setup?: Promise<
-    ReturnInstance<{
-      form: ElFormProps<FormData>
-      events?: EventsHandlers
-      fields: FormItemProps<FormData>[]
-    }>
-  >
-) => RenderNodeType & {
-  __ctx?: ReturnInstance<{
-    form: ElFormProps<FormData>
-    events?: EventsHandlers
-    fields: FormItemProps<FormData>[]
-  }>
-}
-
-declare type RenderNodeType = import('vue').VNode<
-  import('vue').RendererNode,
-  import('vue').RendererElement,
-  { [key: string]: any }
->
-
-declare type CommonType = import('vue').VNodeProps &
-  import('vue').AllowedComponentProps &
-  import('vue').ComponentCustomProps
-
-declare type Ctx<S = {}, E = any> = {
-  attrs: any
-  slots: S
-  emit: E
-}
-declare interface ReturnInstance<T> extends Ctx {
-  props: T & CommonType
-  expose(exposed: import('vue').ShallowUnwrapRef<{}>): void
-}
+  props: VElFormProps<FormData> & GenericCommonType,
+  ctx?: GenericCtx,
+  expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
+  setup?: Promise<GenericReturnInstance<VElFormProps<FormData>>>
+) => GenericRenderNodeType & { __ctx?: GenericReturnInstance<VElFormProps<FormData>> }

@@ -1,8 +1,13 @@
-import type { DefineComponent, FunctionalComponent } from 'vue'
 import type { VElFormProps } from '../form/type'
 import type { TableBasicProps } from '../table/type'
 import type { ButtonType } from './default-button-type'
 import type { ObjectType } from '../interfaces'
+import type {
+  GenericCommonType,
+  GenericCtx,
+  GenericRenderNodeType,
+  GenericReturnInstance
+} from '../interfaces'
 
 export declare interface PaginationProps {
   currentPage: number
@@ -18,9 +23,9 @@ export declare interface DataPath {
   total: string
 }
 
-export declare type QueryFnType<T = unknown> = (
-  formAndPage: unknown & { currentPage: number; pageSize: number }
-) => Promise<T>
+export declare type QueryFnType<P = unknown> = (
+  formAndPage: P & { currentPage: number; pageSize: number }
+) => Promise<unknown>
 
 export declare type ResponsePathType = {
   data?: string
@@ -28,19 +33,33 @@ export declare type ResponsePathType = {
   total?: string
 }
 
-export declare interface TablePlusProps<T = unknown> {
+export declare interface TablePlusProps<
+  TableDataItem,
+  FormData extends object = object,
+  TableProps extends TableBasicProps<TableDataItem> = TableBasicProps<TableDataItem>
+> {
   title?: string
-  layout?:
-    | DefineComponent
-    | FunctionalComponent
-    | /**组件调用处提示语法错误,因此使用unknown兼容😂 */ unknown
-  layoutProps?: ObjectType
+  layout?: unknown //| DefineComponent | FunctionalComponent
+  layoutProps?: unknown | ObjectType
   pagination?: PaginationProps
-  formProps: VElFormProps
-  tableProps: TableBasicProps<T>
+  formProps: VElFormProps<FormData>
+  tableProps: TableProps<TableDataItem>
   initQuery?: boolean
-  query: QueryFnType
+  query: QueryFnType<FormData>
   responsePath?: ResponsePathType
   queryParams?: unknown
   buttons?: ButtonType[]
+}
+
+export declare type GenericTablePlus = <
+  T,
+  FormData extends object = object,
+  TableProps extends TableBasicProps<T> = TableBasicProps<T>
+>(
+  props: TablePlusProps<T, FormData, TableProps> & GenericCommonType,
+  ctx?: GenericCtx,
+  expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
+  setup?: Promise<GenericReturnInstance<TablePlusProps<T, FormData, TableProps>>>
+) => GenericRenderNodeType & {
+  __ctx?: GenericReturnInstance<TablePlusProps<T, FormData, TableProps>>
 }

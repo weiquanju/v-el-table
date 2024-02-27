@@ -5,7 +5,7 @@ import TablePlus from './components/table-plus'
 import type { ElFormProps, FormItemProps, VElFormProps } from './components/form/type'
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
-import type { TableColumn } from './components/table/type'
+import type { TableBasicProps } from './components/table/type'
 import type { TablePlusProps } from './components/table-plus'
 import { i18n } from './components'
 i18n.setLocale('zh-cn')
@@ -47,20 +47,28 @@ const config = reactive<VElFormProps<FormType>>({
 })
 
 
-type DataType = { id: number; value: string }
-const tableProps = reactive({
-  table: { data: [{ id: 1, value: 'Hello table!' } as DataType], tableLayout: 'fixed' as 'fixed' | 'auto' },
+
+interface TableDataItem { id: number, value: string }
+interface FormData { id: number, value: string }
+
+
+
+const tableProps = reactive<TableBasicProps<TableDataItem>>({
+  table: { data: [{ id: 1, value: 'Hello table!' }], tableLayout: 'fixed' as 'fixed' | 'auto' },
   columns: [
     { prop: 'id', label: 'id' },
     { prop: 'value', label: '值' },
     {
-      prop: 'end', label: '操作', default: (scope: { row: DataType, column: TableColumn<DataType>, $index: number }) => {
-        return <button onClick={() => console.log(scope)}>click</button>
-      }, header() {
+      prop: 'end', label: '操作',
+      default: (props) => {
+        return <button onClick={() => console.log(props)}>click</button>
+      },
+      header(props) {
+        console.log(props)
         return 'hello'
       }
     }
-  ] as TableColumn[],
+  ],
   events: {
     cellClick(...args: unknown[]) {
       console.log('cellClick', ...args)
@@ -79,8 +87,7 @@ const Layout = (props: never, { slots }: SetupContext) => (
     <div class="footer">{slots.footer && slots.footer()}</div>
   </>
 )
-
-const tablePlusConfig = reactive<TablePlusProps>({
+const tablePlusConfig: TablePlusProps<TableDataItem, FormData, TableBasicProps<TableDataItem>> = reactive({
   title: '',
   query: (data: { currentPage: number }) => {
     // console.log('query', data)
@@ -92,7 +99,8 @@ const tablePlusConfig = reactive<TablePlusProps>({
         }),
         total: 20,
         page: data.currentPage,
-      }, status: 'success', code: 0
+      },
+      status: 'success', code: 0
     })
   },
   responsePath: {
@@ -109,11 +117,11 @@ const tablePlusConfig = reactive<TablePlusProps>({
     },
     ['button', { class: 'el-button' }, 'remove']
   ],
-  tableProps,
+  tableProps: { ...tableProps },
   formProps: {
     form: {
       model: {
-        id: '1',
+        id: 1,
         value: ''
       }
     },
@@ -146,7 +154,8 @@ const name = ref('Han Meimei')
 
   <h2>TablePlus</h2>
   <TablePlus :title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"
-    :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query" :buttons="tablePlusConfig.buttons">
+    :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query" :buttons="tablePlusConfig.buttons"
+    :response-path="tablePlusConfig.responsePath">
   </TablePlus>
   <h2>TablePlus</h2>
   <TablePlus v-bind='tablePlusConfig'></TablePlus>

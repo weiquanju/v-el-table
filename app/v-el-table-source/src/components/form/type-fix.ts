@@ -21,11 +21,12 @@ export declare interface ElFormProps<M extends object = object> extends ObjectTy
   scrollToError?: boolean
 }
 
+
 export declare interface ElFormItemProps<
   // form model data
   D extends object | unknown = object,
   // prop类型自动推导
-  P = D extends object ? keyof D : string
+  P = D extends object ? string | keyof D : string
 > {
   label?: string | Slot
   labelWidth?: string | number
