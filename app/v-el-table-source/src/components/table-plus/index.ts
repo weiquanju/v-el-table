@@ -3,7 +3,7 @@ import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
 import type { GenericTablePlus, TablePlusProps } from './type'
-import { at, toCamelCaseProp } from '../utils'
+import { at, resetValue, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
 import { getDefaultButtons } from './default-button'
@@ -18,15 +18,13 @@ export * from './default-layout'
  * 支持CURD
  * 组件插槽支持
  */
-const VElTablePlus = function <
-  TableDataItem = unknown,
-  FormData extends object = object,
-  TableBasic extends TableBasicProps<TableDataItem> = TableBasicProps<TableDataItem>
->(p: TablePlusProps<TableDataItem, FormData>) {
+const VElTablePlus = function <TableDataItem = unknown, FormData extends object = object>(
+  p: TablePlusProps<TableDataItem, FormData>
+) {
   // console.log(Object.keys(props))
   const props = toCamelCaseProp(
     p as unknown as Parameters<typeof toCamelCaseProp>[0]
-  ) as unknown as TablePlusProps<TableDataItem, FormData, TableBasic>
+  ) as unknown as TablePlusProps<TableDataItem, FormData>
 
   const getQueryParams = () => ({
     pageSize: pagination.pageSize,
@@ -44,19 +42,19 @@ const VElTablePlus = function <
     const total = at<number>(path.total, data) || 0
     const currentPage = at<number>(path.currentPage, data) || 1
 
-    if (total === undefined || isNaN(total)) {
+    if (total === undefined || total === null || isNaN(total)) {
       console.warn(`merged path data`, JSON.stringify(path))
       throw new Error(
         'Get `total` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
       )
     }
-    if (currentPage === undefined || isNaN(currentPage)) {
+    if (currentPage === undefined || currentPage === null || isNaN(currentPage)) {
       console.warn(`merged path data`, JSON.stringify(path))
       throw new Error(
         'Get `currentPage` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
       )
     }
-    if (res === undefined) {
+    if (res === undefined || res === null) {
       console.warn(`merged path data`, JSON.stringify(path))
       throw new Error(
         'Get `data` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
@@ -66,6 +64,16 @@ const VElTablePlus = function <
     props.tableProps.table.data = res as TableDataItem[]
     pagination.total = total
     pagination.currentPage = currentPage
+  }
+
+  const reset = () => {
+    resetValue(props.formProps.form.model)
+  }
+
+  const expose = { query, reset }
+
+  if (typeof props.getExpose === 'function') {
+    props.getExpose(expose)
   }
 
   const pagination = reactive(
@@ -99,7 +107,10 @@ const VElTablePlus = function <
 
   const slots = {
     title: () => props.title,
-    btn: () => h(ElButtonGroup, null, { default: () => getDefaultButtons({ props, query }) }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
+    btn: () =>
+      h(ElButtonGroup, null, {
+        default: () => getDefaultButtons({ buttons: props.buttons, query, reset })
+      }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
     filter: () => h(Form, props.formProps as any),
     table: () => h(Table, props.tableProps as any),
     pagination: () => h(ElPagination, pagination)
