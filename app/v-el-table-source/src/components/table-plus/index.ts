@@ -18,7 +18,7 @@ export * from './default-layout'
  * 支持CURD
  * 组件插槽支持
  */
-const VElTablePlus = function <TableDataItem = unknown, FormData extends object = object>(
+function TablePlus<TableDataItem = unknown, FormData extends object = object>(
   p: TablePlusProps<TableDataItem, FormData>
 ) {
   // console.log(Object.keys(props))
@@ -122,4 +122,7 @@ const VElTablePlus = function <TableDataItem = unknown, FormData extends object 
 
   return h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
 }
-export default VElTablePlus as GenericTablePlus
+
+export const VElTablePlus = TablePlus as GenericTablePlus
+
+export default VElTablePlus

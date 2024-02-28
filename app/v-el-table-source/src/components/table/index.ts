@@ -1,10 +1,10 @@
 import { ElTable, ElTableColumn } from 'element-plus'
-import { type FunctionalComponent, h, type SetupContext } from 'vue'
+import { h, type SetupContext } from 'vue'
 import { eventsTransform } from '../utils'
 import type { GenericTable, TableBasicProps, TableColumnSlots } from './type'
 export type * from './type'
 
-const VElTable = function <T>(
+function Table<T>(
   { events = {}, table = { data: [], tableLayout: 'auto' }, columns = [] }: TableBasicProps<T>,
   { slots: { append } }: SetupContext
 ) {
@@ -18,6 +18,8 @@ const VElTable = function <T>(
     append: append
   }
   return h(ElTable as Parameters<typeof h>[0], { ...eventsTransform(events), ...table }, slots)
-} as FunctionalComponent<TableBasicProps>
+}
 
-export default VElTable as GenericTable
+export const VElTable = Table as GenericTable
+
+export default VElTable

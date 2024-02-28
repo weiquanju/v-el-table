@@ -5,7 +5,7 @@ import { eventsTransform } from '../utils'
 import { h, type VNodeProps } from 'vue'
 export type * from './type'
 
-function VElForm<T extends object>(props: VElFormProps<T>) {
+ function Form<T extends object>(props: VElFormProps<T>) {
   const { fields = [] } = props
   const children = fields
     .filter(({ visible = true }) => visible)
@@ -26,6 +26,8 @@ function VElForm<T extends object>(props: VElFormProps<T>) {
     { ...props.form, ...eventsTransform(props.events), 'onUpdate:model': model } as VNodeProps,
     { default: () => children }
   )
-}
+} 
 
-export default VElForm as GenericForm
+export const VElForm = Form as GenericForm
+
+export default VElForm 
