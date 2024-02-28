@@ -4,6 +4,9 @@
 			"path": "./app/v-el-table-source"
 		},
 		{
+			"path": "./app/v-el-table-doc"
+		},
+		{
 			"path": "./app/vue-test"
 		},
 		{
