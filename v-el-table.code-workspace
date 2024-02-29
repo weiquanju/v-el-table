@@ -4,10 +4,16 @@
 			"path": "./app/v-el-table-source"
 		},
 		{
+			"path": "./app/v-el-table-doc"
+		},
+		{
 			"path": "./app/vue-test"
 		},
 		{
 			"path": "./packages/v-el-table"
+		},
+		{
+			"path": "./packages/vuepress-plugin-demo-code-block"
 		},
 	],
 	"settings": {}

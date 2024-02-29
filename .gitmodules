@@ -1,0 +1,6 @@
+[submodule "app/v-el-table-doc"]
+	path = app/v-el-table-doc
+	url = git@github.com:weiquanju/v-el-table-doc.git
+[submodule "packages/vuepress-plugin-demo-code-block"]
+	path = packages/vuepress-plugin-demo-code-block
+	url = git@github.com:weiquanju/vuepress-plugin-demo-code-block.git
