@@ -1,4 +1,4 @@
-import type { GenericForm, VElFormProps } from './type'
+import type { VElGenericForm, VElFormProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
@@ -28,6 +28,6 @@ export type * from './type'
   )
 } 
 
-export const VElForm = Form as GenericForm
+export const VElForm = Form as VElGenericForm
 
 export default VElForm 

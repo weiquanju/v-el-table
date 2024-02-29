@@ -5,8 +5,8 @@ import TablePlus from './components/table-plus'
 import type { ElFormProps, FormItemProps, VElFormProps } from './components/form/type'
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
-import type { TableBasicProps } from './components/table/type'
-import type { TablePlusProps } from './components/table-plus'
+import type { VElTableProps } from './components/table/type'
+import type { VElTablePlusProps } from './components/table-plus'
 import { i18n } from './components'
 i18n.setLocale('zh-cn')
 const formRef = ref<FormInstance>()
@@ -53,7 +53,7 @@ interface FormData { id: number, value: string }
 
 
 
-const tableProps = reactive<TableBasicProps<TableDataItem>>({
+const tableProps = reactive<VElTableProps<TableDataItem>>({
   table: { data: [{ id: 1, value: 'Hello table!' }], tableLayout: 'fixed' as 'fixed' | 'auto' },
   columns: [
     { prop: 'id', label: 'id' },
@@ -87,7 +87,7 @@ const Layout = (props: never, { slots }: SetupContext) => (
     <div class="footer">{slots.footer && slots.footer()}</div>
   </>
 )
-const tablePlusConfig: TablePlusProps<TableDataItem, FormData> = reactive({
+const tablePlusConfig: VElTablePlusProps<TableDataItem, FormData> = reactive({
   title: '',
   query: (data: { currentPage: number }) => {
     // console.log('query', data)

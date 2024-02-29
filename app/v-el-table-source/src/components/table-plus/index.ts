@@ -2,7 +2,7 @@ import { h, reactive } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
-import type { GenericTablePlus, TablePlusProps } from './type'
+import type { VElGenericTablePlus, VElTablePlusProps } from './type'
 import { at, resetValue, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
@@ -19,12 +19,12 @@ export * from './default-layout'
  * 组件插槽支持
  */
 function TablePlus<TableDataItem = unknown, FormData extends object = object>(
-  p: TablePlusProps<TableDataItem, FormData>
+  p: VElTablePlusProps<TableDataItem, FormData>
 ) {
   // console.log(Object.keys(props))
   const props = toCamelCaseProp(
     p as unknown as Parameters<typeof toCamelCaseProp>[0]
-  ) as unknown as TablePlusProps<TableDataItem, FormData>
+  ) as unknown as VElTablePlusProps<TableDataItem, FormData>
 
   const getQueryParams = () => ({
     pageSize: pagination.pageSize,
@@ -123,6 +123,6 @@ function TablePlus<TableDataItem = unknown, FormData extends object = object>(
   return h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
 }
 
-export const VElTablePlus = TablePlus as GenericTablePlus
+export const VElTablePlus = TablePlus as VElGenericTablePlus
 
 export default VElTablePlus

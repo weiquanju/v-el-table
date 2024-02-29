@@ -1,5 +1,5 @@
 import type { VElFormProps } from '../form/type'
-import type { TableBasicProps } from '../table/type'
+import type { VElTableProps } from '../table/type'
 import type { ButtonType } from './default-button-type'
 import type { ObjectType } from '../interfaces'
 import type {
@@ -33,13 +33,13 @@ export declare type ResponsePathType = {
   total?: string
 }
 
-export declare interface TablePlusProps<TableDataItem, FormData extends object = object> {
+export declare interface VElTablePlusProps<TableDataItem, FormData extends object = object> {
   title?: string
   layout?: unknown //| DefineComponent | FunctionalComponent
   layoutProps?: unknown | ObjectType
   pagination?: PaginationProps
   formProps: VElFormProps<FormData>
-  tableProps: TableBasicProps<TableDataItem>
+  tableProps: VElTableProps<TableDataItem>
   initQuery?: boolean
   query: QueryFnType<FormData>
   responsePath?: ResponsePathType
@@ -53,11 +53,11 @@ export declare interface TablePlusExpose {
   reset: () => void
 }
 
-export declare type GenericTablePlus = <T, FormData extends object = object>(
-  props: TablePlusProps<T, FormData> & GenericCommonType,
+export declare type VElGenericTablePlus = <T, FormData extends object = object>(
+  props: VElTablePlusProps<T, FormData> & GenericCommonType,
   ctx?: GenericCtx,
   expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
-  setup?: Promise<GenericReturnInstance<TablePlusProps<T, FormData>>>
+  setup?: Promise<GenericReturnInstance<VElTablePlusProps<T, FormData>>>
 ) => GenericRenderNodeType & {
-  __ctx?: GenericReturnInstance<TablePlusProps<T, FormData>>
+  __ctx?: GenericReturnInstance<VElTablePlusProps<T, FormData>>
 }

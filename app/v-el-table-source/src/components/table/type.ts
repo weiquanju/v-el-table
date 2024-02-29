@@ -55,7 +55,7 @@ export declare type ElTableColumnProps<T> = Pick<
 
 export declare type TableColumn<T = unknown> = Partial<ElTableColumnProps<T> & TableColumnSlots<T>>
 
-export declare interface TableBasicProps<TableDataItem = unknown> {
+export declare interface VElTableProps<TableDataItem = unknown> {
   events?: EventsHandlers
   columns: TableColumn<TableDataItem>[]
   table: Omit<TableProps<TableDataItem>, 'context'>
@@ -75,11 +75,11 @@ export declare type FormatterArgArray<T = unknown, Cell = unknown> = [
   index: number
 ]
 
-export declare type GenericTable = <TableDataItem = unknown>(
-  props: TableBasicProps<TableDataItem> & GenericCommonType,
+export declare type VElGenericTable = <TableDataItem = unknown>(
+  props: VElTableProps<TableDataItem> & GenericCommonType,
   ctx?: GenericCtx,
   expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
-  setup?: Promise<GenericReturnInstance<TableBasicProps<TableDataItem>>>
+  setup?: Promise<GenericReturnInstance<VElTableProps<TableDataItem>>>
 ) => GenericRenderNodeType & {
-  __ctx?: GenericReturnInstance<TableBasicProps<TableDataItem>>
+  __ctx?: GenericReturnInstance<VElTableProps<TableDataItem>>
 }

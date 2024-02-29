@@ -107,7 +107,7 @@ export declare type InferComponentEmits<T extends VueComponentType, Default = un
 export declare type InferComponentSlots<T extends VueComponentType, Default = unknown> =
   T extends VueComponentType<{}, {}, infer S> ? Partial<S> : Default
 
-export declare type GenericForm = <FormData extends object>(
+export declare type VElGenericForm = <FormData extends object>(
   props: VElFormProps<FormData> & GenericCommonType,
   ctx?: GenericCtx,
   expose?: (exposed: import('vue').ShallowUnwrapRef<{}>) => void,
