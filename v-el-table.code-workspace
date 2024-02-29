@@ -7,7 +7,7 @@
 			"path": "./app/vue-test"
 		},
 		{
-			"path": "./packages"
+			"path": "./packages/v-el-table"
 		},
 	],
 	"settings": {}
