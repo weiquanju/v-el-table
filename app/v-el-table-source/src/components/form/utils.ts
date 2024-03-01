@@ -71,6 +71,6 @@ export const inputRender = <T extends object = object>(
       modelValue: field?.itemProps?.prop ? model[field.itemProps.prop as keyof T] : undefined,
       'onUpdate:modelValue': modelValue
     },
-    { default: inputChildren }
+    { default: typeof inputChildren === 'function' ? inputChildren : () => inputChildren }
   )
 }

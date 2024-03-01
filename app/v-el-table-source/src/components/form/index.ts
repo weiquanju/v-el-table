@@ -1,4 +1,4 @@
-import type { VElGenericForm, VElFormProps } from './type'
+import type { VElGenericForm, VElFormProps, FormItemProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
@@ -9,7 +9,7 @@ export type * from './type'
   const { fields = [] } = props
   const children = fields
     .filter(({ visible = true }) => visible)
-    .map((field) =>
+    .map((field: FormItemProps<T>) =>
       h(ElFormItem, field.itemProps as VNodeProps, {
         default: () => inputRender(field, props),
         label: typeof field.itemProps?.label === 'function' ? field.itemProps.label : undefined,
