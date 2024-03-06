@@ -1,9 +1,9 @@
 <script setup lang="tsx">
 import { reactive } from 'vue';
 import { ElOption } from 'element-plus';
-import type { FormItemProps, FormProps } from 'node_modules/v-el-table/form/type';
+import type { VElFormProps } from 'v-el-table';
 
-const configure: FormProps = reactive({
+const configure: VElFormProps = reactive({
     form: {
         model: {
             name: 'v-el-table',
@@ -33,7 +33,7 @@ const configure: FormProps = reactive({
                     value={val}
                 />)}</>
         }
-    ] as unknown as FormItemProps[]
+    ]
 })
 </script>
 <template>

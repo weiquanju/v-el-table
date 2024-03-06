@@ -1,26 +1,29 @@
 <script setup lang="tsx">
-import type { TableColumn } from 'node_modules/v-el-table/table/type';
+import type { VElTableProps } from 'v-el-table';
+import { ElButton } from 'element-plus'
 
-type DataType = { id: number; value: string }
-const tableProps = reactive({
+interface TableData { id: number; value: string }
+
+const tableProps: VElTableProps<TableData> = reactive({
     table: {
         border: true,
-        data: [{ id: 1, value: 'Hello table!' } as DataType], tableLayout: 'fixed' as 'fixed' | 'auto'
-     },
+        data: [{ id: 1, value: 'Hello table!' }],
+        tableLayout: 'fixed'
+    },
     columns: [
         { prop: 'id', label: 'id' },
         { prop: 'value', label: 'Value' },
         {
             prop: 'end',
             label: 'Operation',
-            default: (scope: { row: DataType, column: TableColumn<DataType>, $index: number }) => {
-                return <ElButton text type="primary" onClick={() => console.log('To Edit',scope.row)}>Edit</ElButton>
+            default: (props) => {
+                return <ElButton text type="primary" onClick={() => console.log('To Edit',props.row)}>Edit</ElButton>
             },
             header() {
                 return 'Operation'
             }
         }
-    ] as TableColumn[],
+    ],
     events: {
         cellClick(...args: unknown[]) {
             console.log('cellClick', ...args)
@@ -29,5 +32,5 @@ const tableProps = reactive({
 })
 </script>
 <template>
-    <VELTable v-bind="tableProps" />
+    <VElTable v-bind="tableProps" />
 </template>

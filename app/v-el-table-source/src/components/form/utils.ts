@@ -10,7 +10,9 @@ import {
   ElDatePicker,
   ElRadioGroup,
   ElSlider,
-  ElColorPicker
+  ElColorPicker,
+  ElTree,
+  ElTreeSelect,
 } from 'element-plus'
 import { h } from 'vue'
 import { toPascalNameStyle, eventsTransform } from '../utils'
@@ -28,7 +30,9 @@ const ElComponents = {
   ElDatePicker,
   ElRadioGroup,
   ElSlider,
-  ElColorPicker
+  ElColorPicker,
+  ElTree,
+  ElTreeSelect,
 }
 
 const componentKey = Object.keys(ElComponents)

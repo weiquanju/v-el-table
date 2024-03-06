@@ -1,4 +1,4 @@
-import { h, reactive, type SetupContext } from 'vue'
+import { h, reactive } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
@@ -7,10 +7,7 @@ import { at, resetValue, toCamelCaseProp } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
 import { getDefaultButtons } from './default-button'
-export type * from './type'
-export * from './config'
-export * from './default-button'
-export * from './default-layout'
+
 
 /**
  * @todo feat:
@@ -124,6 +121,6 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
   return h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
 }
 
-export const VElTablePlus = TablePlus as VElGenericTablePlus
+const VElTablePlus = TablePlus as VElGenericTablePlus
 
 export default VElTablePlus

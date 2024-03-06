@@ -10,15 +10,15 @@ function resolver(componentName: string) {
     return
   }
   const resolveMap = new Map([
-    ['Form', 'v-el-table/form'],
-    ['Table', 'v-el-table/table'],
-    ['TablePlus', 'v-el-table/table-plus'],
+    ['Form', { from: 'v-el-table', name: 'VElForm' }],
+    ['Table', { from: 'v-el-table', name: 'VElTable' }],
+    ['TablePlus', { from: 'v-el-table', name: 'VElTablePlus' }]
   ])
   //下划线风格转为驼峰
   const name = componentName.replace(/-(\w)/g, (m, m1) => m1.toUpperCase()).slice(3)
   if (resolveMap.has(name)) {
-    const from = resolveMap.get(name)
-    if (from) return { from, name: 'default' /*components/button.vue默认以default方式导出*/ }
+    const resolve = resolveMap.get(name)
+    if (resolve) return resolve
   }
 }
 

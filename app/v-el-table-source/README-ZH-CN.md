@@ -15,17 +15,15 @@
 </a>
 <br/>
 
-**V-El-Table** developed using **Vue** and **Element Plus**, that's a **table** component library .
-It comprises 3 components: v-el-form, v-el-table, and v-el-table-plus.
+**V-El-Table** 使用了 **Vue** and **Element Plus**, 是一个 **table** 组件库 .
+包括3个组件: v-el-form, v-el-table, and v-el-table-plus.
 
+[English Document](https://github.com/weiquanju/v-el-table/blob/main/app/v-el-table-source/README.md).
+## 开始
 
-[中文文档](https://github.com/weiquanju/v-el-table/blob/main/app/v-el-table-source/README-ZH-CN.md).
+先安装[Element Plus](https://element-plus.org/en-US/guide/installation.html)
 
-## Getting Started
-
-[Element Plus](https://element-plus.org) needs to installed first. [How to install Element Plus?](https://element-plus.org/en-US/guide/installation.html)
-
-### Install
+### 安装
 
 ```sh
 # Choose a package manager you like.
@@ -48,7 +46,7 @@ import "element-plus/dist/index.css";
 import "v-el-table/style.css";
 ```
 
-### Auto import
+### 组件自动导入
 
 There is a demo of auto import project(with pnpm workspace), please click [vue-test](https://github.com/weiquanju/v-el-table/tree/main/app/vue-test).
 
@@ -71,10 +69,10 @@ export default defineConfig({
 })
 ```
 
-### Global Configure
+### 全局配置
 
 ```ts
-//add language
+//添加语言
 i18n.setTranslations({
   'zh-hk': {
       reset: '重設',
@@ -82,10 +80,10 @@ i18n.setTranslations({
     }
 })
 
-// set component language
+// 设置语言
 i18n.setLocale('zh-cn')
 
-// set response data path of table plus the `query` parameter
+// 设置TablePlus`query`函数的响应数据路径，用来渲染表格数据，处理分页逻辑
 Object.assign(dataPath, {
   data: 'data.list',
   currentPage: 'data.pageIndex',
@@ -93,30 +91,23 @@ Object.assign(dataPath, {
 })
 ```
 
-For volar support, add this line to `env.d.ts`,
+支持Volar, 在 `env.d.ts`请添加这一行
 
 ```ts
 /// <reference types="./components.d.ts" />
 ```
 
 
-## Features
+## 特性
 
-- Flexible, Configurable parameters
-- ES Module and CommonJS support
-- Volar compatibility with type hints
-- Automatic component import
-- JSX friendly
-- Compact, gzip 5kB
+- 灵活，可配置参数
+- 支持 ES 模块和 CommonJS
+- 兼容 Volar 的类型提示
+- 自动组件导入
+- JSX 友好
+- 紧凑，gzip 5kB
 
-### Components
-
-- VElFormPlus
-- VElTable
-- VElTablePlus
-
-
-## Usage
+## 使用
 
 ### v-el-form
 
@@ -313,7 +304,7 @@ const tablePlusConfig = reactive<VElTablePlusProps<TableData,FormData>>({
 </template>
 ```
 
-#### Get TablePlus instance
+#### 获取 TablePlus 实例
 
 
 ```ts
@@ -327,11 +318,11 @@ const tablePlusConfig: VElTablePlusProps = reactive({
 })
 ```
 
-## Contribution
+## 贡献代码
 
 Please read [Contributing Guide](https://github.com/weiquanju/v-el-table/blob/main/app/v-el-table-source/.github/contributing.md).
 
-## License
+## 开源许可
 
 MIT
 

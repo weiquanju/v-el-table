@@ -47,6 +47,8 @@ export declare type ComponentName =
   | 'ElRadioGroup'
   | 'ElSlider'
   | 'ElColorPicker'
+  | 'ElTree'
+  | 'ElTreeSelect'
   | 'Calendar'
   | 'Select'
   | 'Input'
@@ -58,7 +60,9 @@ export declare type ComponentName =
   | 'DatePicker'
   | 'RadioGroup'
   | 'Slider'
-  | 'ColorPicker'
+  | 'ColorPicker'  
+  | 'Tree'
+  | 'TreeSelect'
   | 'el-calendar'
   | 'el-select'
   | 'el-input'
@@ -83,6 +87,8 @@ export declare type ComponentName =
   | 'radio-group'
   | 'slider'
   | 'color-picker'
+  | 'tree'
+  | 'tree-select'
 
 export declare type ComponentInputs =
   | (typeof import('element-plus'))['ElCalendar']
@@ -97,6 +103,9 @@ export declare type ComponentInputs =
   | (typeof import('element-plus'))['ElRadioGroup']
   | (typeof import('element-plus'))['ElSlider']
   | (typeof import('element-plus'))['ElColorPicker']
+  | (typeof import('element-plus'))['ElTree']
+  | (typeof import('element-plus'))['ElTreeSelect']
+
 
 export declare type InferComponentProps<T extends VueComponentType, Default = unknown> =
   T extends VueComponentType<infer Props> ? Partial<Props> : Default

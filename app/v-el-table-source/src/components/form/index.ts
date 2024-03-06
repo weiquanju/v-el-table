@@ -3,7 +3,6 @@ import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform } from '../utils'
 import { h, type VNodeProps } from 'vue'
-export type * from './type'
 
  function Form<T extends object>(props: VElFormProps<T>) {
   const { fields = [] } = props
@@ -28,6 +27,6 @@ export type * from './type'
   )
 } 
 
-export const VElForm = Form as VElGenericForm
+const VElForm = Form as VElGenericForm
 
 export default VElForm 

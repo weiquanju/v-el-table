@@ -1,6 +1,6 @@
 import { isReactive, reactive, toRef } from 'vue'
 import type { EventsHandlers, ObjectType } from '../interfaces'
-import type { FormItemProps, InputComponent } from '../form'
+import type { FormItemProps, InputComponent } from '../form/type'
 
 export * from './I18N'
 
