@@ -17,15 +17,18 @@ const createButton = ({ name, icon, events = {}, buttonProps = {} }: ButtonConfi
 
 /**@todo 定义按钮组件 */
 export const getDefaultButtons = ({
+  hideDefaultButton,
   buttons = [],
   reset,
   query
 }: {
+  hideDefaultButton?: boolean | string
   buttons?: ButtonType[]
   query: () => void
   reset: () => void
 }) => {
-  const defaultButton: ButtonConfig[] = [
+  
+  const defaultButton: ButtonConfig[] = hideDefaultButton === true || hideDefaultButton === '' ? [] : [
     {
       key: 'query',
       name: i18n.t('query'),

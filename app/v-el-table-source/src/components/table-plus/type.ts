@@ -38,12 +38,13 @@ export declare interface VElTablePlusProps<TableDataItem, FormData extends objec
   layout?: unknown //| DefineComponent | FunctionalComponent
   layoutProps?: unknown | ObjectType
   pagination?: PaginationProps
-  formProps: VElFormProps<FormData>
+  formProps?: VElFormProps<FormData>
   tableProps: VElTableProps<TableDataItem>
   initQuery?: boolean
-  query: QueryFnType<FormData>
+  query: QueryFnType<Partial<FormData>>
   responsePath?: ResponsePathType
   queryParams?: unknown
+  hideDefaultButton?: boolean
   buttons?: ButtonType[]
   getExpose?: (expose: TablePlusExpose) => void
 }

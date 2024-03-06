@@ -1,4 +1,4 @@
-import { h, nextTick, ref, type SetupContext } from 'vue'
+import { h, nextTick, ref, type SetupContext, type EmitsOptions } from 'vue'
 import style from './default-layout.module.css'
 import './default-layout.css'
 

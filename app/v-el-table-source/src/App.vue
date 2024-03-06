@@ -64,7 +64,7 @@ const tableProps = reactive<VElTableProps<TableDataItem>>({
         return <button onClick={() => console.log(props)}>click</button>
       },
       header(props) {
-        console.log(props)
+        // console.log(props)
         return 'hello'
       }
     }
@@ -157,8 +157,8 @@ const name = ref('Han Meimei')
     :table-props="tablePlusConfig.tableProps" :query="tablePlusConfig.query" :buttons="tablePlusConfig.buttons"
     :response-path="tablePlusConfig.responsePath">
   </TablePlus>
-  <h2>TablePlus</h2>
-  <TablePlus v-bind='tablePlusConfig'></TablePlus>
+  <h2>TablePlus hideDefaultButton</h2>
+  <TablePlus v-bind='tablePlusConfig' hideDefaultButton></TablePlus>
   <h2>TablePlus - 自定义布局</h2>
   <TablePlus v-bind='tablePlusConfig' :layout="Layout"></TablePlus>
 

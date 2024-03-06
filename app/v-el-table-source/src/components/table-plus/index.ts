@@ -1,4 +1,4 @@
-import { h, reactive } from 'vue'
+import { h, reactive, type SetupContext } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
@@ -18,20 +18,21 @@ export * from './default-layout'
  * 支持CURD
  * 组件插槽支持
  */
-function TablePlus<TableDataItem = unknown, FormData extends object = object>(
+const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
   p: VElTablePlusProps<TableDataItem, FormData>
-) {
+) => {
   // console.log(Object.keys(props))
   const props = toCamelCaseProp(
     p as unknown as Parameters<typeof toCamelCaseProp>[0]
   ) as unknown as VElTablePlusProps<TableDataItem, FormData>
 
-  const getQueryParams = () => ({
-    pageSize: pagination.pageSize,
-    currentPage: pagination.currentPage,
-    ...props.formProps.form.model,
-    ...(props.queryParams || {})
-  })
+  const getQueryParams = () =>
+    ({
+      pageSize: pagination.pageSize,
+      currentPage: pagination.currentPage,
+      ...(props.formProps?.form?.model || {}),
+      ...(props.queryParams || {})
+    }) as Parameters<typeof props.query>[0]
 
   const query = async () => {
     // 文件路径配置
@@ -67,13 +68,13 @@ function TablePlus<TableDataItem = unknown, FormData extends object = object>(
   }
 
   const reset = () => {
-    resetValue(props.formProps.form.model)
+    if (props.formProps?.form?.model) resetValue(props.formProps.form.model)
   }
 
-  const expose = { query, reset }
+  const exposed = { query, reset }
 
   if (typeof props.getExpose === 'function') {
-    props.getExpose(expose)
+    props.getExpose(exposed)
   }
 
   const pagination = reactive(
@@ -109,9 +110,9 @@ function TablePlus<TableDataItem = unknown, FormData extends object = object>(
     title: () => props.title,
     btn: () =>
       h(ElButtonGroup, null, {
-        default: () => getDefaultButtons({ buttons: props.buttons, query, reset })
+        default: () => getDefaultButtons({ hideDefaultButton: props.hideDefaultButton, buttons: props.buttons, query, reset })
       }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
-    filter: () => h(Form, props.formProps as any),
+    filter: () => (!props.formProps ? null : h(Form, props.formProps as any)),
     table: () => h(Table, props.tableProps as any),
     pagination: () => h(ElPagination, pagination)
   }
