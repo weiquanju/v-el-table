@@ -15,7 +15,7 @@ import type {
 
 export * from './generic'
 
-export declare type FunctionType = <Event = unknown>(...args: Event[]) => void
+export declare type FunctionType = (...args: any[]) => any;
 
 export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]
 
