@@ -7,6 +7,7 @@ import type {
   GenericRenderNodeType,
   GenericReturnInstance
 } from '../interfaces'
+import type { FormInstance } from 'element-plus'
 
 export * from './type-fix'
 
@@ -29,6 +30,7 @@ export declare type FormItemProps<
 } & object
 
 export declare type VElFormProps<FormData extends object = object> = {
+  getInstance?: (r: FormInstance) => void
   form: ElFormProps<FormData>
   events?: EventsHandlers
   fields: FormItemProps<FormData>[]

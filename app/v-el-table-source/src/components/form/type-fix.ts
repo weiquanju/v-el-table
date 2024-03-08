@@ -19,10 +19,10 @@ declare interface ElFormPropsBase extends ObjectType {
   hideRequiredAsterisk?: boolean
   scrollToError?: boolean
 }
-export declare interface ElFormProps<M extends object = object>  extends Partial<ToProxyRecord<ElFormPropsBase>> {
+export declare interface ElFormProps<M extends object = object>
+  extends Partial<ToProxyRecord<ElFormPropsBase>> {
   model: M
 }
-
 
 export declare interface ElFormItemProps<
   // form model data

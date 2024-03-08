@@ -2,7 +2,7 @@ import type { VElGenericForm, VElFormProps, FormItemProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
 import { eventsTransform, unProxyRecord } from '../utils'
-import { h, toValue, type VNodeProps } from 'vue'
+import { h, toValue, type VNodeProps, type VNodeRef } from 'vue'
 import type { InferComponentProps } from '../interfaces'
 
 type ItemProps = InferComponentProps<typeof ElFormItem>
@@ -29,6 +29,7 @@ function Form<T extends object>(props: VElFormProps<T>) {
       {
         ...unProxyRecord(props.form),
         ...eventsTransform(props.events),
+        ref: props.getInstance as unknown as VNodeRef,
         'onUpdate:model': model
       } as VNodeProps,
       { default: () => children }

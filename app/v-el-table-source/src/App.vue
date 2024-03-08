@@ -45,12 +45,12 @@ const formFields: FormItemProps<FormType>[] = [
   }
 ]
 const formConfig: ElFormProps<FormType> = {
-  model: { name: 'User Name' },
-  ref: (r: FormInstance) => {
-    formRef.value = r
-  },
+  model: { name: 'User Name' }
 }
 const config = reactive<VElFormProps<FormType>>({
+  getInstance: (r: FormInstance) => {
+    formRef.value = r
+  },
   form: formConfig,
   fields: formFields
 })
