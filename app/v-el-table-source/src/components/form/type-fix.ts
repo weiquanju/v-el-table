@@ -1,11 +1,10 @@
 import type { FormItemRule } from 'element-plus'
-import type { ObjectType } from '../interfaces'
+import type { ObjectType, ToProxyRecord } from '../interfaces'
 import type { Slot } from 'vue'
 
 export declare type ComponentSize = 'default' | 'small' | 'large'
 
-export declare interface ElFormProps<M extends object = object> extends ObjectType {
-  model: M
+declare interface ElFormPropsBase extends ObjectType {
   rules?: Partial<Record<string, FormItemRule | FormItemRule[]>>
   labelPosition?: string
   labelWidth?: string | number
@@ -19,6 +18,9 @@ export declare interface ElFormProps<M extends object = object> extends ObjectTy
   validateOnRuleChange?: boolean
   hideRequiredAsterisk?: boolean
   scrollToError?: boolean
+}
+export declare interface ElFormProps<M extends object = object>  extends Partial<ToProxyRecord<ElFormPropsBase>> {
+  model: M
 }
 
 

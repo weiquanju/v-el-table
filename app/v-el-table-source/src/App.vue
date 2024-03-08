@@ -6,7 +6,7 @@ import type { ElFormProps, FormItemProps, VElFormProps } from './components/form
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
 import type { VElTableProps } from './components/table/type'
-import type { VElTablePlusProps } from './components/table-plus'
+import type { VElTablePlusProps } from './components/table-plus/type'
 import { i18n } from './components'
 i18n.setLocale('zh-cn')
 const formRef = ref<FormInstance>()
@@ -15,11 +15,20 @@ interface FormType {
   name: string
 }
 
+const myLabel = ref('姓名el-input')
+
+const reactivePlaceholder = ref('Please input')
+
+setTimeout(()=>{
+  myLabel.value = '姓名el-input changed'
+  reactivePlaceholder.value = 'Please input name'
+},1000)
+
 const formFields: FormItemProps<FormType>[] = [
   {
-    itemProps: { prop: 'name', label: '姓名el-input' },
+    itemProps: { prop: 'name', label: myLabel },
     inputComponent: 'el-input',
-    inputProps: { type: 'text', placeholder: 'Please input' },
+    inputProps: { type: 'text', placeholder: reactivePlaceholder },
     inputEvents: {
       focus: (...args: unknown[]) => console.log('formRef', formRef.value?.validate)
     }

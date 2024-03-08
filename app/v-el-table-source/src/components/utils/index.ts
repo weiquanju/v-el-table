@@ -1,5 +1,5 @@
-import { isReactive, reactive, toRef } from 'vue'
-import type { EventsHandlers, ObjectType } from '../interfaces'
+import { isProxy, isReactive, reactive, toRef, toValue } from 'vue'
+import type { EventsHandlers, ObjectType, ToProxyRecord, ToUnProxyRecord } from '../interfaces'
 import type { FormItemProps, InputComponent } from '../form/type'
 
 export * from './I18N'
@@ -92,5 +92,17 @@ export function at<T = unknown>(path: string, obj: unknown) {
     return result as T
   } catch (error) {
     console.error(error)
+  }
+}
+
+export function unProxyRecord<T = any>(data: T): ToUnProxyRecord<T> {
+  if (data !== null && typeof data === 'object') {
+    return Object.fromEntries(
+      Object.entries(data).map(([key, value]) => {
+        return [key, toValue(value)]
+      })
+    ) as ToUnProxyRecord<T>
+  } else {
+    return (isProxy(data) ? toValue(data) : data) as ToUnProxyRecord<T>
   }
 }

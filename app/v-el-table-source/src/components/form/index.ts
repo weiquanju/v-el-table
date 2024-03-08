@@ -1,15 +1,18 @@
 import type { VElGenericForm, VElFormProps, FormItemProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
-import { eventsTransform } from '../utils'
-import { h, type VNodeProps } from 'vue'
+import { eventsTransform, unProxyRecord } from '../utils'
+import { h, toValue, type VNodeProps } from 'vue'
+import type { InferComponentProps } from '../interfaces'
 
- function Form<T extends object>(props: VElFormProps<T>) {
+type ItemProps = InferComponentProps<typeof ElFormItem>
+
+function Form<T extends object>(props: VElFormProps<T>) {
   const { fields = [] } = props
   const children = fields
-    .filter(({ visible = true }) => visible)
+    .filter(({ visible = true }) => toValue(visible))
     .map((field: FormItemProps<T>) =>
-      h(ElFormItem, field.itemProps as VNodeProps, {
+      h(ElFormItem, unProxyRecord<ItemProps>(field.itemProps as ItemProps), {
         default: () => inputRender(field, props),
         label: typeof field.itemProps?.label === 'function' ? field.itemProps.label : undefined,
         error: typeof field.itemProps?.error === 'function' ? field.itemProps.error : undefined
@@ -20,13 +23,19 @@ import { h, type VNodeProps } from 'vue'
     props.form.model = val
   }
 
-  return h(
-    ElForm,
-    { ...props.form, ...eventsTransform(props.events), 'onUpdate:model': model } as VNodeProps,
-    { default: () => children }
-  )
-} 
+  return h('div', [
+    h(
+      ElForm,
+      {
+        ...unProxyRecord(props.form),
+        ...eventsTransform(props.events),
+        'onUpdate:model': model
+      } as VNodeProps,
+      { default: () => children }
+    )
+  ])
+}
 
 const VElForm = Form as VElGenericForm
 
-export default VElForm 
+export default VElForm

@@ -2,13 +2,21 @@
 import { reactive } from 'vue'
 import { ElButton } from 'element-plus'
 import type { TableColumn, VElTablePlusProps } from 'v-el-table'
+import type { ToProxy } from 'node_modules/v-el-table/interfaces';
 
 interface TableData { id: number; value: string }
 
 interface FormData { id: number }
 
-const tablePlusConfig = reactive<VElTablePlusProps<TableData,FormData>>({
-  // hideDefaultButton: true,
+const hideDefaultButton = ref(false)
+
+setTimeout(() => {
+  hideDefaultButton.value = true
+}, 1000)
+
+
+const tablePlusConfig: VElTablePlusProps<TableData, FormData> = {
+  hideDefaultButton: hideDefaultButton as ToProxy<boolean>,
   title: 'My Table',
   query: (data: { currentPage: number }) => {
     console.log('query', data)
@@ -42,7 +50,7 @@ const tablePlusConfig = reactive<VElTablePlusProps<TableData,FormData>>({
   tableProps: {
     table: {
       border: true,
-      data: [{ id: 1, value: 'Hello table!' } as TableData],
+      data: reactive([{ id: 1, value: 'Hello table!' }]),
       tableLayout: 'fixed' as 'fixed' | 'auto'
     },
     columns: [
@@ -83,7 +91,7 @@ const tablePlusConfig = reactive<VElTablePlusProps<TableData,FormData>>({
       }
     ]
   }
-})
+}
 </script>
 <template>
   <VElTablePlus v-bind="tablePlusConfig" />

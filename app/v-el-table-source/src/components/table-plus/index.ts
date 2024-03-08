@@ -1,13 +1,12 @@
-import { h, reactive } from 'vue'
+import { h, reactive, toValue, isRef, ref, type Ref } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
 import type { VElGenericTablePlus, VElTablePlusProps } from './type'
-import { at, resetValue, toCamelCaseProp } from '../utils'
+import { at, resetValue, toCamelCaseProp, unProxyRecord } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
 import { getDefaultButtons } from './default-button'
-
 
 /**
  * @todo feat:
@@ -27,7 +26,7 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
     ({
       pageSize: pagination.pageSize,
       currentPage: pagination.currentPage,
-      ...(props.formProps?.form?.model || {}),
+      ...(toValue(props.formProps)?.form?.model || {}),
       ...(props.queryParams || {})
     }) as Parameters<typeof props.query>[0]
 
@@ -59,7 +58,20 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
       )
     }
 
-    props.tableProps.table.data = res as TableDataItem[]
+    if (!props.tableProps.table) {
+      props.tableProps.table = {}
+    }
+    if (!props.tableProps.table.data) {
+      props.tableProps.table.data = [] as TableDataItem[]
+    }
+
+    const { data: tableData } = props.tableProps.table
+    if (isRef(tableData)) {
+      tableData.value = res as TableDataItem[]
+    } else {
+      props.tableProps.table.data = res as TableDataItem[]
+    }
+
     pagination.total = total
     pagination.currentPage = currentPage
   }
@@ -104,21 +116,29 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
   )
 
   const slots = {
-    title: () => props.title,
+    title: () => toValue(props.title),
     btn: () =>
       h(ElButtonGroup, null, {
-        default: () => getDefaultButtons({ hideDefaultButton: props.hideDefaultButton, buttons: props.buttons, query, reset })
+        default: () =>
+          getDefaultButtons({
+            hideDefaultButton: props.hideDefaultButton,
+            buttons: props.buttons,
+            query,
+            reset
+          })
       }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
-    filter: () => (!props.formProps ? null : h(Form, props.formProps as any)),
-    table: () => h(Table, props.tableProps as any),
-    pagination: () => h(ElPagination, pagination)
+    filter: () => (!props.formProps ? null : h(Form, unProxyRecord(props.formProps) as any)),
+    table: () => h(Table, unProxyRecord(props.tableProps) as any),
+    pagination: () => h(ElPagination, pagination as Parameters<typeof h>[1])
   }
 
-  if (props.initQuery === true) {
+  if (toValue(props.initQuery) === true) {
     query()
   }
 
-  return h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
+  return h('div', [
+    h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
+  ])
 }
 
 const VElTablePlus = TablePlus as VElGenericTablePlus

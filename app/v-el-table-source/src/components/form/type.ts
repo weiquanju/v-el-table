@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue'
-import type { EventsHandlers, ComponentType, RenderFunction, VueComponentType } from '../interfaces'
+import type { EventsHandlers, ComponentType, RenderFunction, VueComponentType, InferComponentProps, InferComponentEmits, InferComponentSlots, ToProxyRecord, ToProxy } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
 import type {
   GenericCommonType,
@@ -18,12 +18,12 @@ export declare type FormItemProps<
   P extends Record<string, unknown> = Record<string, unknown>,
   S extends VNodeChild | VNodeChild[] | RenderFunction = VNodeChild | VNodeChild[] | RenderFunction
 > = {
-  itemProps?: ElFormItemProps<FormData>
-  inputProps?: T extends VueComponentType ? InferComponentProps<T, P> : P
+  itemProps?: ToProxyRecord<ElFormItemProps<FormData>>
+  inputProps?: ToProxyRecord<T extends VueComponentType ? InferComponentProps<T, P> : P>
   inputComponent: T
   inputEvents?: T extends VueComponentType ? InferComponentEmits<T, EventsHandlers> : EventsHandlers
   inputChildren?: T extends VueComponentType ? InferComponentSlots<T, S> : S
-  visible?: boolean
+  visible?: ToProxy<boolean>
   remoteHandler?: <T = unknown, R = Promise<T>>(itemContext: FormItemProps<FormData>) => R
   remoteParams?: object
 } & object
@@ -106,15 +106,6 @@ export declare type ComponentInputs =
   | (typeof import('element-plus'))['ElTree']
   | (typeof import('element-plus'))['ElTreeSelect']
 
-
-export declare type InferComponentProps<T extends VueComponentType, Default = unknown> =
-  T extends VueComponentType<infer Props> ? Partial<Props> : Default
-
-export declare type InferComponentEmits<T extends VueComponentType, Default = unknown> =
-  T extends VueComponentType<{}, infer E> ? Partial<E> : Default
-
-export declare type InferComponentSlots<T extends VueComponentType, Default = unknown> =
-  T extends VueComponentType<{}, {}, infer S> ? Partial<S> : Default
 
 export declare type VElGenericForm = <FormData extends object>(
   props: VElFormProps<FormData> & GenericCommonType,

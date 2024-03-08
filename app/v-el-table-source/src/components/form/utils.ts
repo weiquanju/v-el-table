@@ -12,10 +12,10 @@ import {
   ElSlider,
   ElColorPicker,
   ElTree,
-  ElTreeSelect,
+  ElTreeSelect
 } from 'element-plus'
-import { h } from 'vue'
-import { toPascalNameStyle, eventsTransform } from '../utils'
+import { h, isRef, toValue } from 'vue'
+import { toPascalNameStyle, eventsTransform, unProxyRecord } from '../utils'
 import type { VElFormProps, FormItemProps, ComponentName } from './type'
 
 const ElComponents = {
@@ -32,7 +32,7 @@ const ElComponents = {
   ElSlider,
   ElColorPicker,
   ElTree,
-  ElTreeSelect,
+  ElTreeSelect
 }
 
 const componentKey = Object.keys(ElComponents)
@@ -62,15 +62,22 @@ export const inputRender = <T extends object = object>(
     Component = ElComponents[name as keyof typeof ElComponents] as Parameters<typeof h>[0]
   }
 
-  const modelValue = (val: unknown) => {
+  const modelValue = (val: T[keyof T]) => {
     if (!field?.itemProps?.prop) return
-    Object.assign(model, { [field.itemProps.prop]: val })
+    const key = toValue(field.itemProps.prop) as keyof T
+
+    const item = model[key]
+    if(isRef(item)){
+      item.value = val
+    }else{
+      model[key] = val
+    }
   }
 
   return h(
     Component,
     {
-      ...inputProps,
+      ...unProxyRecord(inputProps),
       ...eventsTransform(field.inputEvents),
       modelValue: field?.itemProps?.prop ? model[field.itemProps.prop as keyof T] : undefined,
       'onUpdate:modelValue': modelValue

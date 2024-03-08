@@ -1,7 +1,7 @@
 import type { VElFormProps } from '../form/type'
 import type { VElTableProps } from '../table/type'
 import type { ButtonType } from './default-button-type'
-import type { ObjectType } from '../interfaces'
+import type { ObjectType, ToProxy, ToProxyRecord } from '../interfaces'
 import type {
   GenericCommonType,
   GenericCtx,
@@ -34,17 +34,17 @@ export declare type ResponsePathType = {
 }
 
 export declare interface VElTablePlusProps<TableDataItem, FormData extends object = object> {
-  title?: string
+  title?: ToProxy<string>
   layout?: unknown //| DefineComponent | FunctionalComponent
-  layoutProps?: unknown | ObjectType
-  pagination?: PaginationProps
+  layoutProps?: unknown | ToProxyRecord<ObjectType>
+  pagination?: ToProxyRecord<PaginationProps>
   formProps?: VElFormProps<FormData>
   tableProps: VElTableProps<TableDataItem>
-  initQuery?: boolean
+  initQuery?: ToProxy<boolean>
   query: QueryFnType<Partial<FormData>>
   responsePath?: ResponsePathType
   queryParams?: unknown
-  hideDefaultButton?: boolean
+  hideDefaultButton?: ToProxy<boolean>
   buttons?: ButtonType[]
   getExpose?: (expose: TablePlusExpose) => void
 }

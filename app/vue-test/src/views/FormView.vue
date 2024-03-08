@@ -3,13 +3,21 @@ import { reactive } from 'vue';
 import { ElOption } from 'element-plus';
 import type { VElFormProps } from 'v-el-table';
 
-const configure: VElFormProps = reactive({
+const model = reactive({
+    name: 'v-el-table',
+    components: 'small'
+})
+
+const labelWidth = ref(100)
+
+setTimeout(() => {
+    labelWidth.value = 200
+}, 1000)
+
+const configure: VElFormProps = {
     form: {
-        model: {
-            name: 'v-el-table',
-            components: 'small'
-        },
-        labelWidth: 100
+        model,
+        labelWidth
     },
     fields: [
         {
@@ -34,7 +42,7 @@ const configure: VElFormProps = reactive({
                 />)}</>
         }
     ]
-})
+}
 </script>
 <template>
     <VElForm v-bind="configure" />

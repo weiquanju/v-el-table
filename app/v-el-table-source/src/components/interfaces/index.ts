@@ -10,12 +10,17 @@ import type {
   MethodOptions,
   EmitsOptions,
   SlotsType,
-  ComponentOptionsMixin
+  ComponentOptionsMixin,
+  Ref,
+  ShallowRef,
+  ComputedRef,
+  toValue,
+  MaybeRefOrGetter
 } from 'vue'
 
 export * from './generic'
 
-export declare type FunctionType = (...args: any[]) => any;
+export declare type FunctionType = (...args: any[]) => any
 
 export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]
 
@@ -66,3 +71,22 @@ export declare type Setup = <Props = unknown, Data = object>(
 ) => RenderFunction | Data
 
 export declare type Writable<T> = { -readonly [P in keyof T]: T[P] }
+
+export declare type ToProxy<T> = T extends number | string | boolean | undefined | null
+  ? MaybeRefOrGetter<T> | ComputedRef<T> 
+  : T
+
+export declare type ToProxyRecord<T> = T extends { [P in keyof any]: any }
+  ? { [K in keyof T]: ToProxy<T[K]> }
+  : ToProxy<T>
+
+export declare type ToUnProxyRecord<T> = T extends ToProxyRecord<infer P> ? P : T 
+
+export declare type InferComponentProps<T extends VueComponentType, Default = unknown> =
+  T extends VueComponentType<infer Props> ? Partial<Props> : Default
+
+export declare type InferComponentEmits<T extends VueComponentType, Default = unknown> =
+  T extends VueComponentType<{}, infer E> ? Partial<E> : Default
+
+export declare type InferComponentSlots<T extends VueComponentType, Default = unknown> =
+  T extends VueComponentType<{}, {}, infer S> ? Partial<S> : Default
