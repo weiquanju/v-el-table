@@ -3,7 +3,7 @@ import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
 import type { VElGenericTablePlus, VElTablePlusProps } from './type'
-import { at, resetValue, toCamelCaseProp, unProxyRecord } from '../utils'
+import { at, resetValue, toCamelCaseProp, unRefRecord } from '../utils'
 import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
 import { getDefaultButtons } from './default-button'
@@ -127,8 +127,8 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
             reset
           })
       }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
-    filter: () => (!props.formProps ? null : h(Form, unProxyRecord(props.formProps) as any)),
-    table: () => h(Table, unProxyRecord(props.tableProps) as any),
+    filter: () => (!props.formProps ? null : h(Form, unRefRecord(props.formProps) as any)),
+    table: () => h(Table, unRefRecord(props.tableProps) as any),
     pagination: () => h(ElPagination, pagination as Parameters<typeof h>[1])
   }
 

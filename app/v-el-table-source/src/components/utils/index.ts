@@ -95,7 +95,7 @@ export function at<T = unknown>(path: string, obj: unknown) {
   }
 }
 
-export function unProxyRecord<T = any>(data: T): ToUnProxyRecord<T> {
+export function unRefRecord<T = any>(data: T): ToUnProxyRecord<T> {
   if (data !== null && typeof data === 'object') {
     return Object.fromEntries(
       Object.entries(data).map(([key, value]) => {

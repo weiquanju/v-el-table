@@ -1,7 +1,7 @@
 import type { VElGenericForm, VElFormProps, FormItemProps } from './type'
 import { ElForm, ElFormItem } from 'element-plus'
 import { inputRender } from './utils'
-import { eventsTransform, unProxyRecord } from '../utils'
+import { eventsTransform, unRefRecord } from '../utils'
 import { h, unref, type VNodeProps, type VNodeRef } from 'vue'
 import type { InferComponentProps } from '../interfaces'
 
@@ -12,7 +12,7 @@ function Form<T extends object>(props: VElFormProps<T>) {
   const children = fields
     .filter(({ visible = true }) => unref(visible))
     .map((field: FormItemProps<T>) =>
-      h(ElFormItem, unProxyRecord<ItemProps>(field.itemProps as ItemProps), {
+      h(ElFormItem, unRefRecord<ItemProps>(field.itemProps as ItemProps), {
         default: () => inputRender(field, props),
         label: typeof field.itemProps?.label === 'function' ? field.itemProps.label : undefined,
         error: typeof field.itemProps?.error === 'function' ? field.itemProps.error : undefined
@@ -27,7 +27,7 @@ function Form<T extends object>(props: VElFormProps<T>) {
     h(
       ElForm,
       {
-        ...unProxyRecord(props.form),
+        ...unRefRecord(props.form),
         ...eventsTransform(props.events),
         ref: (props.getInstance || props.form.ref) as unknown as VNodeRef,
         'onUpdate:model': model

@@ -1,5 +1,5 @@
 import * as ElementIcons from '@element-plus/icons-vue'
-import { eventsTransform } from '../utils'
+import { eventsTransform, unRefRecord } from '../utils'
 import { ElButton } from 'element-plus'
 import { h, isRef, unref } from 'vue'
 import { i18n } from '../utils'
@@ -7,11 +7,15 @@ import type { ButtonConfig, ButtonType } from './default-button-type'
 import type { ToRef } from '../interfaces'
 
 const createButton = ({ name, icon, events = {}, buttonProps = {} }: ButtonConfig) => {
-  const key = !icon ? null : unref(icon) as keyof typeof ElementIcons
-  return h(ElButton, { ...eventsTransform(events), ...buttonProps } as Parameters<typeof h>[1], {
-    icon: () => key && h(ElementIcons[key]),
-    default: () => isRef(name) ? unref(name) : name
-  })
+  const key = !icon ? null : (unref(icon) as keyof typeof ElementIcons)
+  return h(
+    ElButton,
+    { ...eventsTransform(events), ...unRefRecord(buttonProps) } as Parameters<typeof h>[1],
+    {
+      icon: () => key && h(ElementIcons[key]),
+      default: () => unref(name)
+    }
+  )
 }
 
 /**@todo 定义按钮组件 */
@@ -26,9 +30,7 @@ export const getDefaultButtons = ({
   query: () => void
   reset: () => void
 }) => {
-  const isHide = hideDefaultButton
-    ? unref<boolean | string>(hideDefaultButton)
-    : hideDefaultButton
+  const isHide = hideDefaultButton ? unref<boolean | string>(hideDefaultButton) : hideDefaultButton
   const defaultButton: ButtonConfig[] =
     isHide === true || isHide === ''
       ? []
@@ -49,10 +51,10 @@ export const getDefaultButtons = ({
           }
         ]
 
-  return [...defaultButton, ...buttons].map((button) => {
+  return [...defaultButton, ...buttons].map((button: ButtonType) => {
     if (Array.isArray(button)) {
       const [component, ...params] = button
-      return h(component, ...params)
+      return h(component, ...unRefRecord(params))
     }
     return createButton(button as ButtonConfig)
   })

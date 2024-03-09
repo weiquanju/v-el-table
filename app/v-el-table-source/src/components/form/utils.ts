@@ -15,7 +15,7 @@ import {
   ElTreeSelect
 } from 'element-plus'
 import { h, isRef, unref } from 'vue'
-import { toPascalNameStyle, eventsTransform, unProxyRecord } from '../utils'
+import { toPascalNameStyle, eventsTransform, unRefRecord } from '../utils'
 import type { VElFormProps, FormItemProps, ComponentName } from './type'
 
 const ElComponents = {
@@ -77,7 +77,7 @@ export const inputRender = <T extends object = object>(
   return h(
     Component,
     {
-      ...unProxyRecord(inputProps),
+      ...unRefRecord(inputProps),
       ...eventsTransform(field.inputEvents),
       modelValue: field?.itemProps?.prop ? model[field.itemProps.prop as keyof T] : undefined,
       'onUpdate:modelValue': modelValue

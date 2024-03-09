@@ -1,6 +1,6 @@
 import { ElTable, ElTableColumn } from 'element-plus'
 import { h, type SetupContext } from 'vue'
-import { eventsTransform, unProxyRecord } from '../utils'
+import { eventsTransform, unRefRecord } from '../utils'
 import type { VElGenericTable, VElTableProps, TableColumnSlots } from './type'
 
 function Table<T>(
@@ -11,7 +11,7 @@ function Table<T>(
     default: () =>
       columns.map((column) => {
         const { default: d, header } = column as TableColumnSlots<T>
-        const props = unProxyRecord({ ...column, default: undefined, header: undefined })
+        const props = unRefRecord({ ...column, default: undefined, header: undefined })
         return h(ElTableColumn, props as Parameters<typeof h>[1], { default: d, header })
       }),
     append: append
@@ -21,7 +21,7 @@ function Table<T>(
       ElTable as Parameters<typeof h>[0],
       {
         ...eventsTransform(events),
-        ...unProxyRecord(table)
+        ...unRefRecord(table)
       },
       slots
     )
