@@ -54,7 +54,10 @@ export const getDefaultButtons = ({
   return [...defaultButton, ...buttons].map((button: ButtonType) => {
     if (Array.isArray(button)) {
       const [component, ...params] = button
-      return h(component, ...unRefRecord(params))
+      let unrefParams = params.map(unRefRecord)
+      return h(component, ...(unrefParams as any))
+    } else if (typeof button === 'function'){
+      return h(button)
     }
     return createButton(button as ButtonConfig)
   })

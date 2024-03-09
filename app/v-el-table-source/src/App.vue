@@ -19,10 +19,10 @@ const myLabel = ref('姓名el-input')
 
 const reactivePlaceholder = ref('Please input')
 
-setTimeout(()=>{
+setTimeout(() => {
   myLabel.value = '姓名el-input changed'
   reactivePlaceholder.value = 'Please input name'
-},1000)
+}, 1000)
 
 const formFields: FormItemProps<FormType>[] = [
   {
@@ -96,6 +96,14 @@ const Layout = (props: never, { slots }: SetupContext) => (
     <div class="footer">{slots.footer && slots.footer()}</div>
   </>
 )
+
+
+const disabled = ref(true)
+
+setTimeout(() => {
+  disabled.value = false
+}, 1000)
+
 const tablePlusConfig: VElTablePlusProps<TableDataItem, FormData> = reactive({
   title: '',
   query: (data: { currentPage: number }) => {
@@ -122,9 +130,13 @@ const tablePlusConfig: VElTablePlusProps<TableDataItem, FormData> = reactive({
       key: 'add',
       name: '新增',
       icon: 'CircleClose',
+      buttonProps: { disabled },
       events: { click: () => console.log('Hello world!') },
     },
-    ['button', { class: 'el-button' }, 'remove']
+    ['button', { class: 'el-button' }, 'remove'],
+    () => <>
+      <button class="el-button">hi</button>
+    </>
   ],
   tableProps: { ...tableProps },
   formProps: {

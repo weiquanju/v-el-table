@@ -11,14 +11,16 @@ import type {
   EmitsOptions,
   SlotsType,
   ComponentOptionsMixin,
-  unref,
+  ComputedRef,
+  ShallowRef,
+  Ref,
 } from 'vue'
 
 export * from './generic'
 
 export declare type FunctionType = (...args: any[]) => any
 
-export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild[]
+export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild | VNodeChild[]
 
 export declare type ObjectType = Record<
   PropertyKey,
@@ -27,7 +29,7 @@ export declare type ObjectType = Record<
 
 export declare type EventsHandlers<K extends string = string> = Record<K, FunctionType>
 
-export declare type ComponentType = string | Component | DefineComponent | FunctionalComponent
+export declare type ComponentType = Component | DefineComponent | FunctionalComponent
 
 export declare type VueComponentType<
   /**
@@ -69,7 +71,7 @@ export declare type Setup = <Props = unknown, Data = object>(
 export declare type Writable<T> = { -readonly [P in keyof T]: T[P] }
 
 export declare type ToRef<T> = T extends number | string | boolean | undefined | null
-  ? Parameters<typeof unref<T>>[0] 
+  ? Ref<T> | ComputedRef<T> | ShallowRef<T> | T
   : T
 
 export declare type ToRefRecord<T> = T extends { [P in keyof any]: any }

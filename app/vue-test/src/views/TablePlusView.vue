@@ -2,7 +2,6 @@
 import { reactive } from 'vue'
 import { ElButton } from 'element-plus'
 import type { TableColumn, VElTablePlusProps } from 'v-el-table'
-import type { ToProxy } from 'node_modules/v-el-table/interfaces';
 
 interface TableData { id: number; value: string }
 
@@ -10,13 +9,16 @@ interface FormData { id: number }
 
 const hideDefaultButton = ref(false)
 
+const disabled = ref(true)
+
 setTimeout(() => {
   hideDefaultButton.value = true
+  disabled.value = false
 }, 1000)
 
 
 const tablePlusConfig: VElTablePlusProps<TableData, FormData> = {
-  hideDefaultButton: hideDefaultButton as ToProxy<boolean>,
+  hideDefaultButton: hideDefaultButton,
   title: 'My Table',
   query: (data: { currentPage: number }) => {
     console.log('query', data)
@@ -43,6 +45,7 @@ const tablePlusConfig: VElTablePlusProps<TableData, FormData> = {
       key: 'add',
       name: 'create',
       icon: 'Plus',
+      buttonProps: { disabled },
       events: { click: () => console.log('To add one!') }
     },
     ['button', { class: 'el-button' }, 'del']
