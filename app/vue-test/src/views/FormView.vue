@@ -1,7 +1,9 @@
 <script setup lang="tsx">
 import { reactive } from 'vue';
-import { ElOption } from 'element-plus';
+import { ElOption, type FormInstance } from 'element-plus';
 import type { VElFormProps } from 'v-el-table';
+
+const formRef = ref<FormInstance>()
 
 const model = reactive({
     name: 'v-el-table',
@@ -15,9 +17,10 @@ setTimeout(() => {
 }, 1000)
 
 const configure: VElFormProps = {
+    getInstance: (r: FormInstance) => (formRef.value = r),
     form: {
         model,
-        labelWidth
+        labelWidth,
     },
     fields: [
         {
@@ -25,7 +28,7 @@ const configure: VElFormProps = {
             inputComponent: 'el-input',
             inputProps: { type: 'text', placeholder: 'Please input' },
             inputEvents: {
-                change: (...args: unknown[]) => console.log(...args)
+                change: (...args: unknown[]) => console.log(formRef.value, ...args)
             }
         },
         {

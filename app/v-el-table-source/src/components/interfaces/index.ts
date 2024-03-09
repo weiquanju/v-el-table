@@ -11,11 +11,7 @@ import type {
   EmitsOptions,
   SlotsType,
   ComponentOptionsMixin,
-  Ref,
-  ShallowRef,
-  ComputedRef,
-  toValue,
-  MaybeRefOrGetter
+  unref,
 } from 'vue'
 
 export * from './generic'
@@ -72,15 +68,15 @@ export declare type Setup = <Props = unknown, Data = object>(
 
 export declare type Writable<T> = { -readonly [P in keyof T]: T[P] }
 
-export declare type ToProxy<T> = T extends number | string | boolean | undefined | null
-  ? MaybeRefOrGetter<T> | ComputedRef<T> 
+export declare type ToRef<T> = T extends number | string | boolean | undefined | null
+  ? Parameters<typeof unref<T>>[0] 
   : T
 
-export declare type ToProxyRecord<T> = T extends { [P in keyof any]: any }
-  ? { [K in keyof T]: ToProxy<T[K]> }
-  : ToProxy<T>
+export declare type ToRefRecord<T> = T extends { [P in keyof any]: any }
+  ? { [K in keyof T]: ToRef<T[K]> }
+  : ToRef<T>
 
-export declare type ToUnProxyRecord<T> = T extends ToProxyRecord<infer P> ? P : T 
+export declare type ToUnProxyRecord<T> = T extends ToRefRecord<infer P> ? P : T 
 
 export declare type InferComponentProps<T extends VueComponentType, Default = unknown> =
   T extends VueComponentType<infer Props> ? Partial<Props> : Default

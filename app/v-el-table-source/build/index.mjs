@@ -1,7 +1,7 @@
 import { shell } from "./exec.mjs";
 import { readFile, writeFile } from "fs/promises";
 
-const version = '0.1.1-rc.66'
+const version = '0.1.1-rc.67'
 
 /**
  * 

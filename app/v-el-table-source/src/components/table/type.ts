@@ -5,7 +5,7 @@ import type {
   GenericCtx,
   GenericRenderNodeType,
   GenericReturnInstance,
-  ToProxyRecord
+  ToRefRecord
 } from '../interfaces'
 import type { VNodeChild } from 'vue'
 
@@ -54,12 +54,12 @@ export declare type ElTableColumnProps<T> = Pick<
   | 'filteredValue'
 >
 
-export declare type TableColumn<T = unknown> = Partial<ToProxyRecord<ElTableColumnProps<T>> & TableColumnSlots<T>>
+export declare type TableColumn<T = unknown> = Partial<ToRefRecord<ElTableColumnProps<T>> & TableColumnSlots<T>>
 
 export declare interface VElTableProps<TableDataItem = unknown> {
   events?: EventsHandlers
   columns: TableColumn<TableDataItem>[]
-  table?: Partial<ToProxyRecord<Omit<TableProps<TableDataItem>, 'context'>>>
+  table?: Partial<ToRefRecord<Omit<TableProps<TableDataItem>, 'context'>>>
 }
 
 export declare type FormatterArgObject<T = unknown, Cell = unknown> = {

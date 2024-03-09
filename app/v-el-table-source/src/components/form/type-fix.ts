@@ -1,5 +1,5 @@
 import type { FormItemRule } from 'element-plus'
-import type { ObjectType, ToProxyRecord } from '../interfaces'
+import type { ObjectType, ToRefRecord } from '../interfaces'
 import type { Slot } from 'vue'
 
 export declare type ComponentSize = 'default' | 'small' | 'large'
@@ -20,7 +20,7 @@ declare interface ElFormPropsBase extends ObjectType {
   scrollToError?: boolean
 }
 export declare interface ElFormProps<M extends object = object>
-  extends Partial<ToProxyRecord<ElFormPropsBase>> {
+  extends Partial<ToRefRecord<ElFormPropsBase>> {
   model: M
 }
 

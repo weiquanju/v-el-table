@@ -1,4 +1,4 @@
-import { h, reactive, toValue, isRef, ref, type Ref } from 'vue'
+import { h, reactive, isRef, unref } from 'vue'
 import { ElPagination, ElButtonGroup } from 'element-plus'
 import Form from '../form'
 import Table from '../table'
@@ -26,7 +26,7 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
     ({
       pageSize: pagination.pageSize,
       currentPage: pagination.currentPage,
-      ...(toValue(props.formProps)?.form?.model || {}),
+      ...(unref(props.formProps)?.form?.model || {}),
       ...(props.queryParams || {})
     }) as Parameters<typeof props.query>[0]
 
@@ -116,7 +116,7 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
   )
 
   const slots = {
-    title: () => toValue(props.title),
+    title: () => unref(props.title),
     btn: () =>
       h(ElButtonGroup, null, {
         default: () =>
@@ -132,7 +132,7 @@ const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
     pagination: () => h(ElPagination, pagination as Parameters<typeof h>[1])
   }
 
-  if (toValue(props.initQuery) === true) {
+  if (unref(props.initQuery) === true) {
     query()
   }
 

@@ -1,5 +1,5 @@
 import type { VNodeChild } from 'vue'
-import type { EventsHandlers, ComponentType, RenderFunction, VueComponentType, InferComponentProps, InferComponentEmits, InferComponentSlots, ToProxyRecord, ToProxy } from '../interfaces'
+import type { EventsHandlers, ComponentType, RenderFunction, VueComponentType, InferComponentProps, InferComponentEmits, InferComponentSlots, ToRefRecord, ToRef } from '../interfaces'
 import type { ElFormProps, ElFormItemProps } from './type-fix'
 import type {
   GenericCommonType,
@@ -19,12 +19,12 @@ export declare type FormItemProps<
   P extends Record<string, unknown> = Record<string, unknown>,
   S extends VNodeChild | VNodeChild[] | RenderFunction = VNodeChild | VNodeChild[] | RenderFunction
 > = {
-  itemProps?: ToProxyRecord<ElFormItemProps<FormData>>
-  inputProps?: ToProxyRecord<T extends VueComponentType ? InferComponentProps<T, P> : P>
+  itemProps?: ToRefRecord<ElFormItemProps<FormData>>
+  inputProps?: ToRefRecord<T extends VueComponentType ? InferComponentProps<T, P> : P>
   inputComponent: T
   inputEvents?: T extends VueComponentType ? InferComponentEmits<T, EventsHandlers> : EventsHandlers
   inputChildren?: T extends VueComponentType ? InferComponentSlots<T, S> : S
-  visible?: ToProxy<boolean>
+  visible?: ToRef<boolean>
   remoteHandler?: <T = unknown, R = Promise<T>>(itemContext: FormItemProps<FormData>) => R
   remoteParams?: object
 } & object

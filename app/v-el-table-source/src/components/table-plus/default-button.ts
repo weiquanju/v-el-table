@@ -1,16 +1,16 @@
 import * as ElementIcons from '@element-plus/icons-vue'
 import { eventsTransform } from '../utils'
 import { ElButton } from 'element-plus'
-import { h, isRef, toValue } from 'vue'
+import { h, isRef, unref } from 'vue'
 import { i18n } from '../utils'
 import type { ButtonConfig, ButtonType } from './default-button-type'
-import type { ToProxy } from '../interfaces'
+import type { ToRef } from '../interfaces'
 
 const createButton = ({ name, icon, events = {}, buttonProps = {} }: ButtonConfig) => {
-  const key = !icon ? null : toValue<keyof typeof ElementIcons>(icon as any)
+  const key = !icon ? null : unref(icon) as keyof typeof ElementIcons
   return h(ElButton, { ...eventsTransform(events), ...buttonProps } as Parameters<typeof h>[1], {
     icon: () => key && h(ElementIcons[key]),
-    default: () => toValue(name)
+    default: () => isRef(name) ? unref(name) : name
   })
 }
 
@@ -21,13 +21,13 @@ export const getDefaultButtons = ({
   reset,
   query
 }: {
-  hideDefaultButton?: ToProxy<boolean | string>
+  hideDefaultButton?: ToRef<boolean | string>
   buttons?: ButtonType[]
   query: () => void
   reset: () => void
 }) => {
   const isHide = hideDefaultButton
-    ? toValue<boolean | string>(hideDefaultButton)
+    ? unref<boolean | string>(hideDefaultButton)
     : hideDefaultButton
   const defaultButton: ButtonConfig[] =
     isHide === true || isHide === ''

@@ -14,7 +14,7 @@ import {
   ElTree,
   ElTreeSelect
 } from 'element-plus'
-import { h, isRef, toValue } from 'vue'
+import { h, isRef, unref } from 'vue'
 import { toPascalNameStyle, eventsTransform, unProxyRecord } from '../utils'
 import type { VElFormProps, FormItemProps, ComponentName } from './type'
 
@@ -64,7 +64,7 @@ export const inputRender = <T extends object = object>(
 
   const modelValue = (val: T[keyof T]) => {
     if (!field?.itemProps?.prop) return
-    const key = toValue(field.itemProps.prop) as keyof T
+    const key = unref(field.itemProps.prop) as keyof T
 
     const item = model[key]
     if(isRef(item)){
