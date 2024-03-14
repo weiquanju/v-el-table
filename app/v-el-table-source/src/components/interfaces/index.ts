@@ -13,14 +13,16 @@ import type {
   ComponentOptionsMixin,
   ComputedRef,
   ShallowRef,
-  Ref,
+  Ref
 } from 'vue'
 
 export * from './generic'
 
 export declare type FunctionType = (...args: any[]) => any
 
-export declare type RenderFunction<TT = void> = <T extends TT = TT>(ctx: T) => VNodeChild | VNodeChild[]
+export declare type RenderFunction<TT = void> = <T extends TT = TT>(
+  ctx: T
+) => VNodeChild | VNodeChild[]
 
 export declare type ObjectType = Record<
   PropertyKey,
@@ -70,15 +72,18 @@ export declare type Setup = <Props = unknown, Data = object>(
 
 export declare type Writable<T> = { -readonly [P in keyof T]: T[P] }
 
-export declare type ToRef<T> = T extends number | string | boolean | undefined | null
+export declare type ToRef<T> = T extends number | string | undefined | null
   ? Ref<T> | ComputedRef<T> | ShallowRef<T> | T
-  : T
+  //Boolean values are a special case
+  : T extends boolean
+    ? Ref<boolean> | ComputedRef<boolean> | ShallowRef<boolean> | boolean
+    : T
 
 export declare type ToRefRecord<T> = T extends { [P in keyof any]: any }
   ? { [K in keyof T]: ToRef<T[K]> }
   : ToRef<T>
 
-export declare type ToUnProxyRecord<T> = T extends ToRefRecord<infer P> ? P : T 
+export declare type ToUnProxyRecord<T> = T extends ToRefRecord<infer P> ? P : T
 
 export declare type InferComponentProps<T extends VueComponentType, Default = unknown> =
   T extends VueComponentType<infer Props> ? Partial<Props> : Default
