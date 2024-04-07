@@ -13,12 +13,19 @@ import type {
   ComponentOptionsMixin,
   ComputedRef,
   ShallowRef,
-  Ref
+  Ref,
+  VNode
 } from 'vue'
 
 export * from './generic'
 
 export declare type FunctionType = (...args: any[]) => any
+
+export type ToArray<T> = T[] | T 
+
+export interface Slot {
+  (...args: any[]): ToArray<VNode | string | number | boolean | null | undefined | void>
+}
 
 export declare type RenderFunction<TT = void> = <T extends TT = TT>(
   ctx: T

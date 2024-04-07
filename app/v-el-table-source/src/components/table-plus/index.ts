@@ -1,12 +1,7 @@
-import { h, reactive, isRef, unref } from 'vue'
-import { ElPagination, ElButtonGroup } from 'element-plus'
-import Form from '../form'
-import Table from '../table'
+import { h, type SetupContext } from 'vue'
 import type { VElGenericTablePlus, VElTablePlusProps } from './type'
-import { at, resetValue, toCamelCaseProp, unRefRecord } from '../utils'
-import { dataPath, paginationDefault } from './config'
 import { LayoutDefault } from './default-layout'
-import { getDefaultButtons } from './default-button'
+import { useTablePlusProps } from './use-table-plus-props'
 
 /**
  * @todo feat:
@@ -15,129 +10,15 @@ import { getDefaultButtons } from './default-button'
  * 组件插槽支持
  */
 const TablePlus = <TableDataItem = unknown, FormData extends object = object>(
-  p: VElTablePlusProps<TableDataItem, FormData>
+  p: VElTablePlusProps<TableDataItem, FormData>,
+  setupContext: SetupContext
 ) => {
-  // console.log(Object.keys(props))
-  const props = toCamelCaseProp(
-    p as unknown as Parameters<typeof toCamelCaseProp>[0]
-  ) as unknown as VElTablePlusProps<TableDataItem, FormData>
-
-  const getQueryParams = () =>
-    ({
-      pageSize: pagination.pageSize,
-      currentPage: pagination.currentPage,
-      ...(unref(props.formProps)?.form?.model || {}),
-      ...(props.queryParams || {})
-    }) as Parameters<typeof props.query>[0]
-
-  const query = async () => {
-    // 文件路径配置
-    const path = Object.assign({}, dataPath, props.responsePath)
-
-    const data = await props.query(getQueryParams())
-    const res = at<unknown[]>(path.data, data) || []
-    const total = at<number>(path.total, data) || 0
-    const currentPage = at<number>(path.currentPage, data) || 1
-
-    if (total === undefined || total === null || isNaN(total)) {
-      console.warn(`merged path data`, JSON.stringify(path))
-      throw new Error(
-        'Get `total` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
-      )
-    }
-    if (currentPage === undefined || currentPage === null || isNaN(currentPage)) {
-      console.warn(`merged path data`, JSON.stringify(path))
-      throw new Error(
-        'Get `currentPage` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
-      )
-    }
-    if (res === undefined || res === null) {
-      console.warn(`merged path data`, JSON.stringify(path))
-      throw new Error(
-        'Get `data` param error when query data.Please check VElTablePlus configuration parameter `responsePath`.'
-      )
-    }
-
-    if (!props.tableProps.table) {
-      props.tableProps.table = {}
-    }
-    if (!props.tableProps.table.data) {
-      props.tableProps.table.data = [] as TableDataItem[]
-    }
-
-    const { data: tableData } = props.tableProps.table
-    if (isRef(tableData)) {
-      tableData.value = res as TableDataItem[]
-    } else {
-      props.tableProps.table.data = res as TableDataItem[]
-    }
-
-    pagination.total = total
-    pagination.currentPage = currentPage
-  }
-
-  const reset = () => {
-    if (props.formProps?.form?.model) resetValue(props.formProps.form.model)
-  }
-
-  const exposed = { query, reset }
-
-  if (typeof props.getExpose === 'function') {
-    props.getExpose(exposed)
-  }
-
-  const pagination = reactive(
-    Object.assign(paginationDefault, props.pagination, {
-      onSizeChange(size: number) {
-        if (pagination.pageSize !== size) {
-          pagination.pageSize = size
-          query()
-        }
-      },
-      'onUpdate:page-size'(size: number) {
-        if (pagination.pageSize !== size) {
-          pagination.pageSize = size
-          query()
-        }
-      },
-      onCurrentChange(page: number) {
-        if (pagination.currentPage !== page) {
-          pagination.currentPage = page
-          query()
-        }
-      },
-      'onUpdate:current-page'(page: number) {
-        if (pagination.currentPage !== page) {
-          pagination.currentPage = page
-          query()
-        }
-      }
-    })
-  )
-
-  const slots = {
-    title: () => unref(props.title),
-    btn: () =>
-      h(ElButtonGroup, null, {
-        default: () =>
-          getDefaultButtons({
-            hideDefaultButton: props.hideDefaultButton,
-            buttons: props.buttons,
-            query,
-            reset
-          })
-      }), //查询 重置 查询配置 表格配置 表格导出 收起/展开 新增 编辑 删除
-    filter: () => (!props.formProps ? null : h(Form, unRefRecord(props.formProps) as any)),
-    table: () => h(Table, unRefRecord(props.tableProps) as any),
-    pagination: () => h(ElPagination, pagination as Parameters<typeof h>[1])
-  }
-
-  if (unref(props.initQuery) === true) {
-    query()
-  }
-
+  const { props, slots } = useTablePlusProps(p, setupContext)
   return h('div', [
-    h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], slots)
+    h(props.layout || LayoutDefault, props.layoutProps as Parameters<typeof h>[1], {
+      ...setupContext.slots,
+      ...slots
+    })
   ])
 }
 

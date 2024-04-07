@@ -5,9 +5,8 @@ import TablePlus from './components/table-plus'
 import type { ElFormProps, FormItemProps, VElFormProps } from './components/form/type'
 import { type SetupContext, h, reactive, ref } from 'vue'
 import { ElInput, type FormInstance } from 'element-plus'
-import type { VElTableProps } from './components/table/type'
-import type { VElTablePlusProps } from './components/table-plus/type'
-import { i18n } from './components'
+import { VElTableTabs, i18n, type VElTablePlusProps, type VElTableTabsProps, type VElTableProps } from './components'
+
 i18n.setLocale('zh-cn')
 const formRef = ref<FormInstance>()
 
@@ -162,6 +161,65 @@ const tablePlusConfig: VElTablePlusProps<TableDataItem, FormData> = reactive({
   }
 })
 
+const tableTabsConfig: VElTableTabsProps<TableDataItem, FormData> = {
+  title: '',
+  query: (data) => {
+    // console.log('query', data)
+    return Promise.resolve({
+      payload: {
+        data: Array.from(Array(10)).map((i, index) => {
+          const n = (data.currentPage - 1) * 10 + index + 1
+          return { id: n, value: `${data.find} ${n}` }
+        }),
+        total: 20,
+        page: data.currentPage,
+      },
+      status: 'success', code: 0
+    })
+  },
+  tabs: [{ label: '完成订单', name: 'finish', ...tableProps }, { label: '支付完成', name: 'pay', ...tableProps }],
+  tabsCurrent: ref('finish'),
+  tabsQueryKey: 'find',
+  responsePath: {
+    data: 'payload.data',
+    currentPage: 'payload.page',
+    total: 'payload.total',
+  },
+  buttons: [
+    {
+      key: 'add',
+      name: '新增',
+      icon: 'CircleClose',
+      events: { click: () => console.log('Hello world!') },
+    },
+    ['button', { class: 'el-button' }, 'remove'],
+    () => <>
+      <button class="el-button">hi</button>
+    </>
+  ],
+  formProps: {
+    form: {
+      model: {
+        id: 1,
+        value: ''
+      }
+    },
+    fields: [
+      {
+        itemProps: { prop: 'id', label: 'ID' },
+        inputComponent: 'el-input',
+        inputProps: { type: 'text', placeholder: 'Please input ID' },
+        inputEvents: {}
+      },
+      {
+        itemProps: { prop: 'value', label: '值' },
+        inputComponent: 'el-input',
+        inputEvents: {}
+      },
+    ]
+  }
+}
+
 function MyInputString(props: { modelValue: string }, ctx: SetupContext) {
   return h('input', { value: props.modelValue, onInput: (e: Event & { target: { value: unknown } }) => ctx.emit('update:modelValue', e.target?.value) })
 }
@@ -172,6 +230,10 @@ const name = ref('Han Meimei')
   <h2>MyInputString</h2>
   <MyInputString v-model="name" />
   <div>{{ name }}</div>
+
+
+  <h2>TableTabs</h2>
+  <VElTableTabs v-bind='tableTabsConfig' />
 
   <h2>TablePlus</h2>
   <TablePlus :title="tablePlusConfig.title" :form-props="tablePlusConfig.formProps"

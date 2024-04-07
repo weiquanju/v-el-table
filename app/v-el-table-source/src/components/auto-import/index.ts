@@ -12,7 +12,8 @@ function resolver(componentName: string) {
   const resolveMap = new Map([
     ['Form', { from: 'v-el-table', name: 'VElForm' }],
     ['Table', { from: 'v-el-table', name: 'VElTable' }],
-    ['TablePlus', { from: 'v-el-table', name: 'VElTablePlus' }]
+    ['TablePlus', { from: 'v-el-table', name: 'VElTablePlus' }],
+    ['TableTabs', { from: 'v-el-table', name: 'VElTableTabs' }]
   ])
   //下划线风格转为驼峰
   const name = componentName.replace(/-(\w)/g, (m, m1) => m1.toUpperCase()).slice(3)

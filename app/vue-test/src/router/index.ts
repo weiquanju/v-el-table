@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'table-plus',
       component: () => import('../views/TablePlusView.vue')
     },
+    {
+      path: '/table-tabs',
+      name: 'table-tabs',
+      component: () => import('../views/TableTabsView.vue')
+    },
   ]
 })
 

@@ -24,7 +24,7 @@ export declare interface DataPath {
 }
 
 export declare type QueryFnType<P = unknown> = (
-  formAndPage: P & { currentPage: number; pageSize: number }
+  formAndPage: P & { currentPage: number; pageSize: number } & { [k: string]: any }
 ) => Promise<unknown>
 
 export declare type ResponsePathType = {
@@ -34,7 +34,7 @@ export declare type ResponsePathType = {
 }
 
 export declare interface VElTablePlusProps<TableDataItem, FormData extends object = object> {
-  title?: ToRef<string>
+  title?: ToRef<string> | string
   layout?: unknown //| DefineComponent | FunctionalComponent
   layoutProps?: unknown | ToRefRecord<ObjectType>
   pagination?: ToRefRecord<PaginationProps>

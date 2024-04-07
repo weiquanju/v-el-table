@@ -5,6 +5,8 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <nav>
+      <RouterLink to="/table-tabs">v-el-table-tabs</RouterLink>
+      <br>
       <RouterLink to="/table-plus">v-el-table-plus</RouterLink>
       <br>
       <RouterLink to="/form">v-el-form</RouterLink>

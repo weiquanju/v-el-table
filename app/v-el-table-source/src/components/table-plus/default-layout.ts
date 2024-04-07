@@ -1,13 +1,14 @@
-import { h, nextTick, ref, type SetupContext, type EmitsOptions } from 'vue'
+import { h, nextTick, ref, type SetupContext } from 'vue'
 import style from './default-layout.module.css'
 import './default-layout.css'
-
-import type { Slot } from 'vue'
+import type { Slot } from '../interfaces'
 
 export interface LayoutSlots {
   title: Slot
   btn: Slot
+  tableBefore?: Slot
   table: Slot
+  tableAfter?: Slot
   pagination: Slot
   filter: Slot
 }
@@ -42,7 +43,9 @@ export const LayoutDefault = (props: never, { slots }: SetupContext<Partial<Layo
     h('div', { class: ['tp_filter_x001', 'v-el-table-filter'], ref: box }, [
       slots.filter && slots.filter()
     ]),
+    slots.tableBefore && slots.tableBefore(),
     h('div', { class: [style.tpTable, 'v-el-table-main'] }, [slots.table && slots.table()]),
+    slots.tableAfter && slots.tableAfter(),
     h('div', { class: [style.tpPagination, 'v-el-table-pagination'] }, [
       slots.pagination && slots.pagination()
     ])
